@@ -1,14 +1,6 @@
 // Generated from /Users/johanmurillo/Development/Tesis/AntlrJava/Treepat/src/main/java/antlr/Treepat.g4 by ANTLR 4.8
 package antlr.generate;
 
-	import java.util.Map;
-	import java.util.List;
-	import java.util.ArrayList;
-
-	import ast.*;
-	import tree.*;
-
-
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
