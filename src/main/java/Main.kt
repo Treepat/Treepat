@@ -39,7 +39,6 @@ object Main {
             if( t.getType() > 0 )
                 System.out.println(TreepatParser.tokenNames[t.getType()]);
         }
-
          */
         val frame = JFrame("Antlr AST")
         val panel = JPanel()

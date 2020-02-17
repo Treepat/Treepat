@@ -103,4 +103,4 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode?> {
         override fun visitErrorNode(errorNode: ErrorNode): ASTNode? {
         return null
         }
-        }
+}
