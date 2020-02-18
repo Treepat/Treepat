@@ -3,7 +3,7 @@ package functions
 import tree.TargetTreeNode
 
 class NodeFunction {
-    fun node(name: String): (TargetTreeNode) -> List<TargetTreeNode> {
+    fun node(name: String): VisitorFunction {
         return { targetTreeNode ->
             println(name)
             var answer = listOf<TargetTreeNode>()

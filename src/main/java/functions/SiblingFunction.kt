@@ -4,8 +4,8 @@ import tree.TargetTreeNode
 
 class SiblingFunction {
     fun sibling(
-        siblings: List<(TargetTreeNode) -> List<TargetTreeNode>>
-    ): (TargetTreeNode) -> List<TargetTreeNode> {
+        siblings: List<VisitorFunction>
+    ): VisitorFunction {
         return { targetTreeNode ->
             val answer = listOf<TargetTreeNode>().toMutableList()
             var current = targetTreeNode
