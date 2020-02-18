@@ -73,19 +73,19 @@ class TreepatVisitorImplementationFunctions : TreepatVisitor<VisitorFunction> {
         return nodeFunction(ctx!!.name.text)
     }
 
-    override fun visit(p0: ParseTree?): VisitorFunction {
-        return p0!!.accept<VisitorFunction>(this)
+    override fun visit(parserTree: ParseTree?): VisitorFunction {
+        return parserTree!!.accept<VisitorFunction>(this)
     }
 
-    override fun visitChildren(p0: RuleNode?): VisitorFunction {
+    override fun visitChildren(ruleNode: RuleNode?): VisitorFunction {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun visitErrorNode(p0: ErrorNode?): VisitorFunction {
+    override fun visitErrorNode(errorNode: ErrorNode?): VisitorFunction {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun visitTerminal(p0: TerminalNode?): VisitorFunction {
+    override fun visitTerminal(terminalNode: TerminalNode?): VisitorFunction {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
