@@ -2,10 +2,10 @@ package antlr
 
 import antlr.generate.TreepatParser
 import antlr.generate.TreepatVisitor
-import functions.ChildFunction
-import functions.NodeFunction
-import functions.SiblingFunction
 import functions.VisitorFunction
+import functions.childFunction
+import functions.nodeFunction
+import functions.siblingFunction
 import org.antlr.v4.runtime.tree.ErrorNode
 import org.antlr.v4.runtime.tree.ParseTree
 import org.antlr.v4.runtime.tree.RuleNode
@@ -24,7 +24,7 @@ class TreepatVisitorImplementationFunctions : TreepatVisitor<VisitorFunction> {
             return expression
         }
         val child = ctx.child().accept<VisitorFunction>(this)
-        return ChildFunction().child(father = expression, child = child)
+        return childFunction(father = expression, child = child)
     }
 
     override fun visitExpression(ctx: TreepatParser.ExpressionContext?): VisitorFunction {
@@ -42,7 +42,7 @@ class TreepatVisitorImplementationFunctions : TreepatVisitor<VisitorFunction> {
         siblings = ctx!!.union().stream()
             .map { instruction: TreepatParser.UnionContext -> instruction.accept<VisitorFunction>(this) }
             .collect(Collectors.toList())
-        return SiblingFunction().sibling(siblings)
+        return siblingFunction(siblings)
     }
 
     override fun visitUnion(ctx: TreepatParser.UnionContext?): VisitorFunction {
@@ -70,7 +70,7 @@ class TreepatVisitorImplementationFunctions : TreepatVisitor<VisitorFunction> {
     }
 
     override fun visitNode(ctx: TreepatParser.NodeContext?): VisitorFunction {
-        return NodeFunction().node(ctx!!.name.text)
+        return nodeFunction(ctx!!.name.text)
     }
 
     override fun visit(p0: ParseTree?): VisitorFunction {
