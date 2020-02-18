@@ -10,13 +10,7 @@ on:
       - dev  
 
 jobs:
-  lint:
-    name: Static Code Analysis With Ktlint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Lint Kotlin
-        run: mvn com.github.gantsign.maven:ktlint-maven-plugin:1.4.1:check 
-  
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -27,5 +21,10 @@ jobs:
         java-version: 1.12
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-  
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lint Kotlin
+        run: mvn com.github.gantsign.maven:ktlint-maven-plugin:1.4.1:check 
+
   
