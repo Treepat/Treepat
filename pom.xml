@@ -105,7 +105,6 @@
                 </executions>
                 <configuration>
                     <release>12</release> <!-- <release>13</release> -->
-                    <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
             <plugin>
