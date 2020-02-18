@@ -28,9 +28,9 @@ class TreepatVisitorImplementationFunctions : TreepatVisitor<VisitorFunction> {
     }
 
     override fun visitExpression(ctx: TreepatParser.ExpressionContext?): VisitorFunction {
-        return if (ctx!!.simple_expression() != null) {
-            ctx.simple_expression().accept<VisitorFunction>(this)
-        } else ctx.depth_closure().accept<VisitorFunction>(this)
+        return if (ctx!!.simpleExpression() != null) {
+            ctx.simpleExpression().accept<VisitorFunction>(this)
+        } else ctx.depthClosure().accept<VisitorFunction>(this)
     }
 
     override fun visitChild(ctx: TreepatParser.ChildContext?): VisitorFunction {
@@ -47,21 +47,21 @@ class TreepatVisitorImplementationFunctions : TreepatVisitor<VisitorFunction> {
 
     override fun visitUnion(ctx: TreepatParser.UnionContext?): VisitorFunction {
         val nodes: List<VisitorFunction>
-        nodes = ctx!!.subtree_wrapper().stream()
-            .map { node: TreepatParser.Subtree_wrapperContext -> node.accept<VisitorFunction>(this) }
+        nodes = ctx!!.subtreeWrapper().stream()
+            .map { node: TreepatParser.SubtreeWrapperContext -> node.accept<VisitorFunction>(this) }
             .collect(Collectors.toList())
         return nodes[0]
     }
 
-    override fun visitSubtree_wrapper(ctx: TreepatParser.Subtree_wrapperContext?): VisitorFunction {
+    override fun visitSubtreeWrapper(ctx: TreepatParser.SubtreeWrapperContext?): VisitorFunction {
         return ctx!!.subtree().accept<VisitorFunction>(this)
     }
 
-    override fun visitDepth_closure(ctx: TreepatParser.Depth_closureContext?): VisitorFunction {
+    override fun visitDepthClosure(ctx: TreepatParser.DepthClosureContext?): VisitorFunction {
         return ctx!!.child().accept<VisitorFunction>(this)
     }
 
-    override fun visitDepth_term(ctx: TreepatParser.Depth_termContext?): VisitorFunction {
+    override fun visitDepthTerm(ctx: TreepatParser.DepthTermContext?): VisitorFunction {
         return ctx!!.term().accept<VisitorFunction>(this)
     }
 
@@ -89,22 +89,22 @@ class TreepatVisitorImplementationFunctions : TreepatVisitor<VisitorFunction> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun visitSimple_expression(ctx: TreepatParser.Simple_expressionContext?): VisitorFunction {
+    override fun visitSimpleExpression(ctx: TreepatParser.SimpleExpressionContext?): VisitorFunction {
 
         return when {
             ctx!!.term() != null -> {
                 ctx.term().accept<VisitorFunction>(this)
             }
-            ctx.breadth_closure() != null -> {
-                ctx.breadth_closure().accept<VisitorFunction>(this)
+            ctx.breadthClosure() != null -> {
+                ctx.breadthClosure().accept<VisitorFunction>(this)
             }
             else -> {
-                ctx.depth_term().accept<VisitorFunction>(this)
+                ctx.depthTerm().accept<VisitorFunction>(this)
             }
         }
     }
 
-    override fun visitBreadth_closure(ctx: TreepatParser.Breadth_closureContext?): VisitorFunction {
+    override fun visitBreadthClosure(ctx: TreepatParser.BreadthClosureContext?): VisitorFunction {
         return ctx!!.term().accept<VisitorFunction>(this)
     }
 }

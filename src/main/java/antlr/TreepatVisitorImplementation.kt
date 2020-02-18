@@ -1,6 +1,5 @@
 package antlr
 
-import antlr.generate.TreepatParser
 import antlr.generate.TreepatParser.*
 import antlr.generate.TreepatVisitor
 import ast.ASTNode
@@ -28,9 +27,9 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode?> {
     }
 
     override fun visitExpression(ctx: ExpressionContext): ASTNode {
-        return if (ctx.simple_expression() != null) {
-            ctx.simple_expression().accept<ASTNode>(this)
-        } else ctx.depth_closure().accept<ASTNode>(this)
+        return if (ctx.simpleExpression() != null) {
+            ctx.simpleExpression().accept<ASTNode>(this)
+        } else ctx.depthClosure().accept<ASTNode>(this)
     }
 
     override fun visitChild(ctx: ChildContext): ASTNode {
@@ -47,37 +46,37 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode?> {
 
     override fun visitUnion(ctx: UnionContext): ASTNode {
         val nodes: List<ASTNode>
-        nodes = ctx.subtree_wrapper().stream()
-                .map { node: Subtree_wrapperContext -> node.accept<ASTNode>(this) }
+        nodes = ctx.subtreeWrapper().stream()
+                .map { node: SubtreeWrapperContext -> node.accept<ASTNode>(this) }
                 .collect(Collectors.toList())
         return nodes[0]
     }
 
-    override fun visitSubtree_wrapper(ctx: Subtree_wrapperContext): ASTNode {
+    override fun visitSubtreeWrapper(ctx: SubtreeWrapperContext): ASTNode {
         return ctx.subtree().accept<ASTNode>(this)
     }
 
-    override fun visitDepth_closure(ctx: Depth_closureContext): ASTNode {
+    override fun visitDepthClosure(ctx: DepthClosureContext): ASTNode {
         return ctx.child().accept<ASTNode>(this)
     }
 
-    override fun visitSimple_expression(ctx: Simple_expressionContext): ASTNode {
-        var value_to_return: ASTNode? = null
+    override fun visitSimpleExpression(ctx: SimpleExpressionContext): ASTNode {
+        var valueTo_return: ASTNode? = null
         if (ctx.term() != null) {
-            value_to_return = ctx.term().accept<ASTNode>(this)
-        } else if (ctx.breadth_closure() != null) {
-            value_to_return = ctx.breadth_closure().accept<ASTNode>(this)
-        } else if (ctx.depth_term() != null) {
-            value_to_return = ctx.depth_term().accept<ASTNode>(this)
+            valueTo_return = ctx.term().accept<ASTNode>(this)
+        } else if (ctx.breadthClosure() != null) {
+            valueTo_return = ctx.breadthClosure().accept<ASTNode>(this)
+        } else if (ctx.depthTerm() != null) {
+            valueTo_return = ctx.depthTerm().accept<ASTNode>(this)
         }
-        return value_to_return!!
+        return valueTo_return!!
     }
 
-    override fun visitDepth_term(ctx: Depth_termContext): ASTNode {
+    override fun visitDepthTerm(ctx: DepthTermContext): ASTNode {
         return ctx.term().accept<ASTNode>(this)
     }
 
-    override fun visitBreadth_closure(ctx: Breadth_closureContext): ASTNode {
+    override fun visitBreadthClosure(ctx: BreadthClosureContext): ASTNode {
         return ctx.term().accept<ASTNode>(this)
     }
 

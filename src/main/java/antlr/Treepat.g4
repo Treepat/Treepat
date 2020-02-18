@@ -112,9 +112,9 @@ subtree:
 ;
 
 expression:
-	simple_expression
+	simpleExpression
 	|
-	depth_closure
+	depthClosure
 ;
 
 child:
@@ -130,15 +130,15 @@ sibling:
 ;
 
 union:
-	subtree_wrapper
-	(OR_SIGN subtree_wrapper)*
+	subtreeWrapper
+	(OR_SIGN subtreeWrapper)*
 ;
 
-subtree_wrapper:
+subtreeWrapper:
 	subtree
 ;
 
-depth_closure:
+depthClosure:
 	PAR_OPEN
 	    child
     PAR_CLOSE NUMBER_SIGN
@@ -148,19 +148,19 @@ depth_closure:
 
 ;
 
-simple_expression:
+simpleExpression:
 	term
 	|
-	breadth_closure
+	breadthClosure
 	|
-	depth_term
+	depthTerm
 ;
 
-depth_term:
+depthTerm:
 	AT_SIGN term
 ;
 
-breadth_closure:
+breadthClosure:
 	term ASTERISK
 ;
 
