@@ -30,7 +30,7 @@ class TreepatVisitorImplementationFunctions : TreepatVisitor<VisitorFunction> {
     override fun visitExpression(ctx: TreepatParser.ExpressionContext?): VisitorFunction {
         return if (ctx!!.simpleExpression() != null) {
             ctx.simpleExpression().accept<VisitorFunction>(this)
-        } else ctx.depthClosure().accept<VisitorFunction>(this)
+        } else { ctx.depthClosure().accept<VisitorFunction>(this) }
     }
 
     override fun visitChild(ctx: TreepatParser.ChildContext?): VisitorFunction {
