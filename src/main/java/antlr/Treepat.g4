@@ -1,18 +1,9 @@
 // Define a grammar called Hello
 grammar Treepat;
-@parser::header {
-	import java.util.Map;
-	import java.util.List;
-	import java.util.ArrayList;
-
-	import ast.*;
-	import tree.*;
-}
+@parser::header {}
 
 
-@parser::members {
-    TargetTreeNode targetTreeNode = new ImpTargetTreeNode();
-}
+@parser::members {}
 
 /*
 
@@ -112,80 +103,44 @@ tokens { INDENT, DEDENT }
 
 model:
 	subtree
-	{
-            $subtree.nodeAST.execute(targetTreeNode);
-	}
 ;
 
-subtree returns [ASTNode nodeAST]:
+subtree:
 	expression NEWLINE* child
-	{
-    	$nodeAST = new Child($expression.nodeAST, $child.nodeAST);
-    }
     |
     expression NEWLINE*
-    {
-        $nodeAST = $expression.nodeAST;
-    }
 ;
 
-expression returns [ASTNode nodeAST]:
+expression:
 	simple_expression
-	{
-	    $nodeAST = $simple_expression.nodeAST;
-	}
 	|
 	depth_closure
-	{
-	    $nodeAST = $depth_closure.nodeAST;
-	}
 ;
 
-child returns [ASTNode nodeAST]:
+child:
 	NEWLINE INDENT
 		sibling
-		{
-		    $nodeAST = $sibling.nodeAST;
-		}
 	DEDENT
 ;
 
-sibling returns [ASTNode nodeAST]:
-    {
-        List<ASTNode> siblings = new ArrayList<>();
-    }
+sibling:
 	(
 	    union
-	    {
-	        siblings.add($union.nodeAST);
-	    }
 	)+
-	{
-	    $nodeAST = new Sibling(siblings);
-	}
 ;
 
-union returns [ASTNode nodeAST]:
+union:
 	subtree_wrapper
-	{
-	    $nodeAST = $subtree_wrapper.nodeAST;
-	}
 	(OR_SIGN subtree_wrapper)*
 ;
 
-subtree_wrapper returns [ASTNode nodeAST]:
+subtree_wrapper:
 	subtree
-	{
-	    $nodeAST = $subtree.nodeAST;
-	}
 ;
 
-depth_closure returns [ASTNode nodeAST]:
+depth_closure:
 	PAR_OPEN
 	    child
-	    {
-	        $nodeAST = $child.nodeAST;
-	    }
     PAR_CLOSE NUMBER_SIGN
     |
     child
@@ -193,49 +148,28 @@ depth_closure returns [ASTNode nodeAST]:
 
 ;
 
-simple_expression returns [ASTNode nodeAST]:
+simple_expression:
 	term
-	{
-	    $nodeAST = $term.nodeAST;
-	}
 	|
 	breadth_closure
-	{
-	    $nodeAST = $breadth_closure.nodeAST;
-	}
 	|
 	depth_term
-	{
-	    $nodeAST = $depth_term.nodeAST;
-	}
 ;
 
-depth_term returns [ASTNode nodeAST]:
+depth_term:
 	AT_SIGN term
-	{
-	    $nodeAST = $term.nodeAST;
-	}
 ;
 
-breadth_closure returns [ASTNode nodeAST]:
+breadth_closure:
 	term ASTERISK
-	{
-	    $nodeAST = $term.nodeAST;
-	}
 ;
 
-term returns [ASTNode nodeAST]:
+term:
 	node
-	{
-	    $nodeAST = $node.nodeAST;
-	}
 ;
 
-node returns [ASTNode nodeAST]:
+node:
 	name=ID
-	{
-	    $nodeAST = new Node($name.text);
-	}
 ;
 
 
