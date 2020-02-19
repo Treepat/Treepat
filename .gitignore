@@ -144,10 +144,17 @@ fabric.properties
 ### Intellij Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
+<<<<<<< HEAD
 *.iml
 modules.xml
 .idea/misc.xml
 *.ipr
+=======
+# *.iml
+# modules.xml
+# .idea/misc.xml
+# *.ipr
+>>>>>>> fixed git ignore
 
 # Sonarlint plugin
 .idea/**/sonarlint/
