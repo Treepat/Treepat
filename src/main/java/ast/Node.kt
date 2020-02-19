@@ -1,7 +1,6 @@
 package ast
 
 import tree.TargetTreeNode
-import java.util.*
 
 class Node(var name: String) : ASTNode {
     // change list for something less complex
@@ -14,5 +13,4 @@ class Node(var name: String) : ASTNode {
         }
         return answer
     }
-
 }
