@@ -14,6 +14,7 @@ jobs:
     name: Static Code Analysis With Ktlint
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Lint Kotlin
         run: mvn com.github.gantsign.maven:ktlint-maven-plugin:1.4.1:check 
   
