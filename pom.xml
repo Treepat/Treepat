@@ -112,8 +112,20 @@
                 </executions>
                 <configuration>
                     <release>12</release> <!-- <release>13</release> -->
-                    <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.gantsign.maven</groupId>
+                <artifactId>ktlint-maven-plugin</artifactId>
+                <version>1.4.1</version>
+                <executions>
+                    <execution>
+                        <id>check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
