@@ -88,61 +88,61 @@ public class TreepatBaseListener implements TreepatListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSubtree_wrapper(TreepatParser.Subtree_wrapperContext ctx) { }
+	@Override public void enterSubtreeWrapper(TreepatParser.SubtreeWrapperContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSubtree_wrapper(TreepatParser.Subtree_wrapperContext ctx) { }
+	@Override public void exitSubtreeWrapper(TreepatParser.SubtreeWrapperContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDepth_closure(TreepatParser.Depth_closureContext ctx) { }
+	@Override public void enterDepthClosure(TreepatParser.DepthClosureContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDepth_closure(TreepatParser.Depth_closureContext ctx) { }
+	@Override public void exitDepthClosure(TreepatParser.DepthClosureContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSimple_expression(TreepatParser.Simple_expressionContext ctx) { }
+	@Override public void enterSimpleExpression(TreepatParser.SimpleExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSimple_expression(TreepatParser.Simple_expressionContext ctx) { }
+	@Override public void exitSimpleExpression(TreepatParser.SimpleExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDepth_term(TreepatParser.Depth_termContext ctx) { }
+	@Override public void enterDepthTerm(TreepatParser.DepthTermContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDepth_term(TreepatParser.Depth_termContext ctx) { }
+	@Override public void exitDepthTerm(TreepatParser.DepthTermContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBreadth_closure(TreepatParser.Breadth_closureContext ctx) { }
+	@Override public void enterBreadthClosure(TreepatParser.BreadthClosureContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBreadth_closure(TreepatParser.Breadth_closureContext ctx) { }
+	@Override public void exitBreadthClosure(TreepatParser.BreadthClosureContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
