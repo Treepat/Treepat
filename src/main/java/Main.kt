@@ -30,11 +30,6 @@ object Main {
         rootFun.invoke(targetTreeNode)
         // System.out.println(tree.toStringTree());
 // System.out.println(tokenStream.getTokens().size());
-        val visitorFun = TreepatVisitorImplementationFunctions()
-        val rootFun = visitorFun.visit(tree)
-        rootFun.invoke(targetTreeNode)
-        //System.out.println(tree.toStringTree());
-//System.out.println(tokenStream.getTokens().size());
 /*
         for(Token t : tokenStream.getTokens())
         {
@@ -49,7 +44,7 @@ object Main {
         val panel = JPanel()
         val viewer = TreeViewer(
             Arrays.asList(
-            *parser.ruleNames), tree)
+                *parser.ruleNames), tree)
         viewer.scale = 1.0 // Scale a little
         panel.add(viewer)
         frame.add(panel)
