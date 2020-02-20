@@ -33,11 +33,11 @@ expression
 child
 sibling
 union
-subtree_wrapper
-depth_closure
-simple_expression
-depth_term
-breadth_closure
+subtreeWrapper
+depthClosure
+simpleExpression
+depthTerm
+breadthClosure
 term
 node
 

@@ -21,14 +21,14 @@ public class TreepatParser extends Parser {
 		ASTERISK=7, ID=8, WS=9, INDENT=10, DEDENT=11;
 	public static final int
 		RULE_model = 0, RULE_subtree = 1, RULE_expression = 2, RULE_child = 3, 
-		RULE_sibling = 4, RULE_union = 5, RULE_subtree_wrapper = 6, RULE_depth_closure = 7, 
-		RULE_simple_expression = 8, RULE_depth_term = 9, RULE_breadth_closure = 10, 
+		RULE_sibling = 4, RULE_union = 5, RULE_subtreeWrapper = 6, RULE_depthClosure = 7, 
+		RULE_simpleExpression = 8, RULE_depthTerm = 9, RULE_breadthClosure = 10, 
 		RULE_term = 11, RULE_node = 12;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"model", "subtree", "expression", "child", "sibling", "union", "subtree_wrapper", 
-			"depth_closure", "simple_expression", "depth_term", "breadth_closure", 
-			"term", "node"
+			"model", "subtree", "expression", "child", "sibling", "union", "subtreeWrapper", 
+			"depthClosure", "simpleExpression", "depthTerm", "breadthClosure", "term", 
+			"node"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -240,11 +240,11 @@ public class TreepatParser extends Parser {
 	}
 
 	public static class ExpressionContext extends ParserRuleContext {
-		public Simple_expressionContext simple_expression() {
-			return getRuleContext(Simple_expressionContext.class,0);
+		public SimpleExpressionContext simpleExpression() {
+			return getRuleContext(SimpleExpressionContext.class,0);
 		}
-		public Depth_closureContext depth_closure() {
-			return getRuleContext(Depth_closureContext.class,0);
+		public DepthClosureContext depthClosure() {
+			return getRuleContext(DepthClosureContext.class,0);
 		}
 		public ExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -277,7 +277,7 @@ public class TreepatParser extends Parser {
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(46);
-				simple_expression();
+				simpleExpression();
 				}
 				break;
 			case NEWLINE:
@@ -285,7 +285,7 @@ public class TreepatParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(47);
-				depth_closure();
+				depthClosure();
 				}
 				break;
 			default:
@@ -417,11 +417,11 @@ public class TreepatParser extends Parser {
 	}
 
 	public static class UnionContext extends ParserRuleContext {
-		public List<Subtree_wrapperContext> subtree_wrapper() {
-			return getRuleContexts(Subtree_wrapperContext.class);
+		public List<SubtreeWrapperContext> subtreeWrapper() {
+			return getRuleContexts(SubtreeWrapperContext.class);
 		}
-		public Subtree_wrapperContext subtree_wrapper(int i) {
-			return getRuleContext(Subtree_wrapperContext.class,i);
+		public SubtreeWrapperContext subtreeWrapper(int i) {
+			return getRuleContext(SubtreeWrapperContext.class,i);
 		}
 		public List<TerminalNode> OR_SIGN() { return getTokens(TreepatParser.OR_SIGN); }
 		public TerminalNode OR_SIGN(int i) {
@@ -454,7 +454,7 @@ public class TreepatParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(60);
-			subtree_wrapper();
+			subtreeWrapper();
 			setState(65);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -464,7 +464,7 @@ public class TreepatParser extends Parser {
 				setState(61);
 				match(OR_SIGN);
 				setState(62);
-				subtree_wrapper();
+				subtreeWrapper();
 				}
 				}
 				setState(67);
@@ -484,32 +484,32 @@ public class TreepatParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Subtree_wrapperContext extends ParserRuleContext {
+	public static class SubtreeWrapperContext extends ParserRuleContext {
 		public SubtreeContext subtree() {
 			return getRuleContext(SubtreeContext.class,0);
 		}
-		public Subtree_wrapperContext(ParserRuleContext parent, int invokingState) {
+		public SubtreeWrapperContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_subtree_wrapper; }
+		@Override public int getRuleIndex() { return RULE_subtreeWrapper; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).enterSubtree_wrapper(this);
+			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).enterSubtreeWrapper(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).exitSubtree_wrapper(this);
+			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).exitSubtreeWrapper(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof TreepatVisitor ) return ((TreepatVisitor<? extends T>)visitor).visitSubtree_wrapper(this);
+			if ( visitor instanceof TreepatVisitor ) return ((TreepatVisitor<? extends T>)visitor).visitSubtreeWrapper(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final Subtree_wrapperContext subtree_wrapper() throws RecognitionException {
-		Subtree_wrapperContext _localctx = new Subtree_wrapperContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_subtree_wrapper);
+	public final SubtreeWrapperContext subtreeWrapper() throws RecognitionException {
+		SubtreeWrapperContext _localctx = new SubtreeWrapperContext(_ctx, getState());
+		enterRule(_localctx, 12, RULE_subtreeWrapper);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -528,35 +528,35 @@ public class TreepatParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Depth_closureContext extends ParserRuleContext {
+	public static class DepthClosureContext extends ParserRuleContext {
 		public TerminalNode PAR_OPEN() { return getToken(TreepatParser.PAR_OPEN, 0); }
 		public ChildContext child() {
 			return getRuleContext(ChildContext.class,0);
 		}
 		public TerminalNode PAR_CLOSE() { return getToken(TreepatParser.PAR_CLOSE, 0); }
 		public TerminalNode NUMBER_SIGN() { return getToken(TreepatParser.NUMBER_SIGN, 0); }
-		public Depth_closureContext(ParserRuleContext parent, int invokingState) {
+		public DepthClosureContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_depth_closure; }
+		@Override public int getRuleIndex() { return RULE_depthClosure; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).enterDepth_closure(this);
+			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).enterDepthClosure(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).exitDepth_closure(this);
+			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).exitDepthClosure(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof TreepatVisitor ) return ((TreepatVisitor<? extends T>)visitor).visitDepth_closure(this);
+			if ( visitor instanceof TreepatVisitor ) return ((TreepatVisitor<? extends T>)visitor).visitDepthClosure(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final Depth_closureContext depth_closure() throws RecognitionException {
-		Depth_closureContext _localctx = new Depth_closureContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_depth_closure);
+	public final DepthClosureContext depthClosure() throws RecognitionException {
+		DepthClosureContext _localctx = new DepthClosureContext(_ctx, getState());
+		enterRule(_localctx, 14, RULE_depthClosure);
 		try {
 			setState(78);
 			_errHandler.sync(this);
@@ -598,38 +598,38 @@ public class TreepatParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Simple_expressionContext extends ParserRuleContext {
+	public static class SimpleExpressionContext extends ParserRuleContext {
 		public TermContext term() {
 			return getRuleContext(TermContext.class,0);
 		}
-		public Breadth_closureContext breadth_closure() {
-			return getRuleContext(Breadth_closureContext.class,0);
+		public BreadthClosureContext breadthClosure() {
+			return getRuleContext(BreadthClosureContext.class,0);
 		}
-		public Depth_termContext depth_term() {
-			return getRuleContext(Depth_termContext.class,0);
+		public DepthTermContext depthTerm() {
+			return getRuleContext(DepthTermContext.class,0);
 		}
-		public Simple_expressionContext(ParserRuleContext parent, int invokingState) {
+		public SimpleExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_simple_expression; }
+		@Override public int getRuleIndex() { return RULE_simpleExpression; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).enterSimple_expression(this);
+			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).enterSimpleExpression(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).exitSimple_expression(this);
+			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).exitSimpleExpression(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof TreepatVisitor ) return ((TreepatVisitor<? extends T>)visitor).visitSimple_expression(this);
+			if ( visitor instanceof TreepatVisitor ) return ((TreepatVisitor<? extends T>)visitor).visitSimpleExpression(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final Simple_expressionContext simple_expression() throws RecognitionException {
-		Simple_expressionContext _localctx = new Simple_expressionContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_simple_expression);
+	public final SimpleExpressionContext simpleExpression() throws RecognitionException {
+		SimpleExpressionContext _localctx = new SimpleExpressionContext(_ctx, getState());
+		enterRule(_localctx, 16, RULE_simpleExpression);
 		try {
 			setState(83);
 			_errHandler.sync(this);
@@ -645,14 +645,14 @@ public class TreepatParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(81);
-				breadth_closure();
+				breadthClosure();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(82);
-				depth_term();
+				depthTerm();
 				}
 				break;
 			}
@@ -668,33 +668,33 @@ public class TreepatParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Depth_termContext extends ParserRuleContext {
+	public static class DepthTermContext extends ParserRuleContext {
 		public TerminalNode AT_SIGN() { return getToken(TreepatParser.AT_SIGN, 0); }
 		public TermContext term() {
 			return getRuleContext(TermContext.class,0);
 		}
-		public Depth_termContext(ParserRuleContext parent, int invokingState) {
+		public DepthTermContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_depth_term; }
+		@Override public int getRuleIndex() { return RULE_depthTerm; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).enterDepth_term(this);
+			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).enterDepthTerm(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).exitDepth_term(this);
+			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).exitDepthTerm(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof TreepatVisitor ) return ((TreepatVisitor<? extends T>)visitor).visitDepth_term(this);
+			if ( visitor instanceof TreepatVisitor ) return ((TreepatVisitor<? extends T>)visitor).visitDepthTerm(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final Depth_termContext depth_term() throws RecognitionException {
-		Depth_termContext _localctx = new Depth_termContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_depth_term);
+	public final DepthTermContext depthTerm() throws RecognitionException {
+		DepthTermContext _localctx = new DepthTermContext(_ctx, getState());
+		enterRule(_localctx, 18, RULE_depthTerm);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
@@ -715,33 +715,33 @@ public class TreepatParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Breadth_closureContext extends ParserRuleContext {
+	public static class BreadthClosureContext extends ParserRuleContext {
 		public TermContext term() {
 			return getRuleContext(TermContext.class,0);
 		}
 		public TerminalNode ASTERISK() { return getToken(TreepatParser.ASTERISK, 0); }
-		public Breadth_closureContext(ParserRuleContext parent, int invokingState) {
+		public BreadthClosureContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_breadth_closure; }
+		@Override public int getRuleIndex() { return RULE_breadthClosure; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).enterBreadth_closure(this);
+			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).enterBreadthClosure(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).exitBreadth_closure(this);
+			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).exitBreadthClosure(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof TreepatVisitor ) return ((TreepatVisitor<? extends T>)visitor).visitBreadth_closure(this);
+			if ( visitor instanceof TreepatVisitor ) return ((TreepatVisitor<? extends T>)visitor).visitBreadthClosure(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final Breadth_closureContext breadth_closure() throws RecognitionException {
-		Breadth_closureContext _localctx = new Breadth_closureContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_breadth_closure);
+	public final BreadthClosureContext breadthClosure() throws RecognitionException {
+		BreadthClosureContext _localctx = new BreadthClosureContext(_ctx, getState());
+		enterRule(_localctx, 20, RULE_breadthClosure);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{

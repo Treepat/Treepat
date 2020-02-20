@@ -47,35 +47,35 @@ public interface TreepatVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitUnion(TreepatParser.UnionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link TreepatParser#subtree_wrapper}.
+	 * Visit a parse tree produced by {@link TreepatParser#subtreeWrapper}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSubtree_wrapper(TreepatParser.Subtree_wrapperContext ctx);
+	T visitSubtreeWrapper(TreepatParser.SubtreeWrapperContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link TreepatParser#depth_closure}.
+	 * Visit a parse tree produced by {@link TreepatParser#depthClosure}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDepth_closure(TreepatParser.Depth_closureContext ctx);
+	T visitDepthClosure(TreepatParser.DepthClosureContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link TreepatParser#simple_expression}.
+	 * Visit a parse tree produced by {@link TreepatParser#simpleExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSimple_expression(TreepatParser.Simple_expressionContext ctx);
+	T visitSimpleExpression(TreepatParser.SimpleExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link TreepatParser#depth_term}.
+	 * Visit a parse tree produced by {@link TreepatParser#depthTerm}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDepth_term(TreepatParser.Depth_termContext ctx);
+	T visitDepthTerm(TreepatParser.DepthTermContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link TreepatParser#breadth_closure}.
+	 * Visit a parse tree produced by {@link TreepatParser#breadthClosure}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBreadth_closure(TreepatParser.Breadth_closureContext ctx);
+	T visitBreadthClosure(TreepatParser.BreadthClosureContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link TreepatParser#term}.
 	 * @param ctx the parse tree
