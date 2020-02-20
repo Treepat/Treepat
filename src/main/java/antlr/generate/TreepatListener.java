@@ -68,55 +68,55 @@ public interface TreepatListener extends ParseTreeListener {
 	 */
 	void exitUnion(TreepatParser.UnionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link TreepatParser#subtree_wrapper}.
+	 * Enter a parse tree produced by {@link TreepatParser#subtreeWrapper}.
 	 * @param ctx the parse tree
 	 */
-	void enterSubtree_wrapper(TreepatParser.Subtree_wrapperContext ctx);
+	void enterSubtreeWrapper(TreepatParser.SubtreeWrapperContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link TreepatParser#subtree_wrapper}.
+	 * Exit a parse tree produced by {@link TreepatParser#subtreeWrapper}.
 	 * @param ctx the parse tree
 	 */
-	void exitSubtree_wrapper(TreepatParser.Subtree_wrapperContext ctx);
+	void exitSubtreeWrapper(TreepatParser.SubtreeWrapperContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link TreepatParser#depth_closure}.
+	 * Enter a parse tree produced by {@link TreepatParser#depthClosure}.
 	 * @param ctx the parse tree
 	 */
-	void enterDepth_closure(TreepatParser.Depth_closureContext ctx);
+	void enterDepthClosure(TreepatParser.DepthClosureContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link TreepatParser#depth_closure}.
+	 * Exit a parse tree produced by {@link TreepatParser#depthClosure}.
 	 * @param ctx the parse tree
 	 */
-	void exitDepth_closure(TreepatParser.Depth_closureContext ctx);
+	void exitDepthClosure(TreepatParser.DepthClosureContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link TreepatParser#simple_expression}.
+	 * Enter a parse tree produced by {@link TreepatParser#simpleExpression}.
 	 * @param ctx the parse tree
 	 */
-	void enterSimple_expression(TreepatParser.Simple_expressionContext ctx);
+	void enterSimpleExpression(TreepatParser.SimpleExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link TreepatParser#simple_expression}.
+	 * Exit a parse tree produced by {@link TreepatParser#simpleExpression}.
 	 * @param ctx the parse tree
 	 */
-	void exitSimple_expression(TreepatParser.Simple_expressionContext ctx);
+	void exitSimpleExpression(TreepatParser.SimpleExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link TreepatParser#depth_term}.
+	 * Enter a parse tree produced by {@link TreepatParser#depthTerm}.
 	 * @param ctx the parse tree
 	 */
-	void enterDepth_term(TreepatParser.Depth_termContext ctx);
+	void enterDepthTerm(TreepatParser.DepthTermContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link TreepatParser#depth_term}.
+	 * Exit a parse tree produced by {@link TreepatParser#depthTerm}.
 	 * @param ctx the parse tree
 	 */
-	void exitDepth_term(TreepatParser.Depth_termContext ctx);
+	void exitDepthTerm(TreepatParser.DepthTermContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link TreepatParser#breadth_closure}.
+	 * Enter a parse tree produced by {@link TreepatParser#breadthClosure}.
 	 * @param ctx the parse tree
 	 */
-	void enterBreadth_closure(TreepatParser.Breadth_closureContext ctx);
+	void enterBreadthClosure(TreepatParser.BreadthClosureContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link TreepatParser#breadth_closure}.
+	 * Exit a parse tree produced by {@link TreepatParser#breadthClosure}.
 	 * @param ctx the parse tree
 	 */
-	void exitBreadth_closure(TreepatParser.Breadth_closureContext ctx);
+	void exitBreadthClosure(TreepatParser.BreadthClosureContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link TreepatParser#term}.
 	 * @param ctx the parse tree
