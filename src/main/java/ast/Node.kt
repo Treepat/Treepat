@@ -2,6 +2,7 @@ package ast
 
 import java.util.ArrayList
 import tree.TargetTreeNode
+import java.util.*
 
 class Node(var name: String) : ASTNode {
     // change list for something less complex

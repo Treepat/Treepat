@@ -30,6 +30,11 @@ object Main {
         rootFun.invoke(targetTreeNode)
         // System.out.println(tree.toStringTree());
 // System.out.println(tokenStream.getTokens().size());
+        val visitorFun = TreepatVisitorImplementationFunctions()
+        val rootFun = visitorFun.visit(tree)
+        rootFun.invoke(targetTreeNode)
+        //System.out.println(tree.toStringTree());
+//System.out.println(tokenStream.getTokens().size());
 /*
         for(Token t : tokenStream.getTokens())
         {

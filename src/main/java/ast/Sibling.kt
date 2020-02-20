@@ -1,11 +1,10 @@
 package ast
 
-import java.util.ArrayList
 import tree.TargetTreeNode
 
 class Sibling(var siblings: List<ASTNode>) : ASTNode {
-    // / TODO -throw exception not more nodes , move right
-    // /  TODO - change list to other
+    /// TODO -throw exception not more nodes , move right
+    ///  TODO - change list to other
     override fun execute(targetTreeNode: TargetTreeNode): Any? {
         val answer = mutableListOf<ASTNode>()
         var current = targetTreeNode

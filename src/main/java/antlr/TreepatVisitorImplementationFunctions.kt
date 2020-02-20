@@ -6,11 +6,12 @@ import functions.VisitorFunction
 import functions.childFunction
 import functions.nodeFunction
 import functions.siblingFunction
-import java.util.stream.Collectors
 import org.antlr.v4.runtime.tree.ErrorNode
 import org.antlr.v4.runtime.tree.ParseTree
 import org.antlr.v4.runtime.tree.RuleNode
 import org.antlr.v4.runtime.tree.TerminalNode
+import java.util.stream.Collectors
+
 
 class TreepatVisitorImplementationFunctions : TreepatVisitor<VisitorFunction> {
     override fun visitModel(ctx: TreepatParser.ModelContext?): VisitorFunction {
@@ -77,15 +78,15 @@ class TreepatVisitorImplementationFunctions : TreepatVisitor<VisitorFunction> {
     }
 
     override fun visitChildren(ruleNode: RuleNode?): VisitorFunction {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun visitErrorNode(errorNode: ErrorNode?): VisitorFunction {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun visitTerminal(terminalNode: TerminalNode?): VisitorFunction {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun visitSimpleExpression(ctx: TreepatParser.SimpleExpressionContext?): VisitorFunction {
