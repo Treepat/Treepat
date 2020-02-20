@@ -1,4 +1,5 @@
 import antlr.TreepatVisitorImplementation
+import antlr.TreepatVisitorImplementationFunctions
 import antlr.generate.TreepatLexer
 import antlr.generate.TreepatParser
 import org.antlr.v4.gui.TreeViewer
@@ -20,10 +21,13 @@ object Main {
         val tokenStream = CommonTokenStream(lexer)
         val parser = TreepatParser(tokenStream)
         val tree: ParseTree = parser.model()
-        val visitor = TreepatVisitorImplementation()
+          val visitor = TreepatVisitorImplementation()
         val root = visitor.visit(tree)
         val targetTreeNode: TargetTreeNode = ImpTargetTreeNode()
         root.execute(targetTreeNode)
+        val visitorFun = TreepatVisitorImplementationFunctions()
+        val rootFun = visitorFun.visit(tree)
+        rootFun.invoke(targetTreeNode)
         //System.out.println(tree.toStringTree());
 //System.out.println(tokenStream.getTokens().size());
 /*

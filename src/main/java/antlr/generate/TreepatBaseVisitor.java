@@ -59,35 +59,35 @@ public class TreepatBaseVisitor<T> extends AbstractParseTreeVisitor<T> implement
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSubtree_wrapper(TreepatParser.Subtree_wrapperContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSubtreeWrapper(TreepatParser.SubtreeWrapperContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDepth_closure(TreepatParser.Depth_closureContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDepthClosure(TreepatParser.DepthClosureContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSimple_expression(TreepatParser.Simple_expressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSimpleExpression(TreepatParser.SimpleExpressionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDepth_term(TreepatParser.Depth_termContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDepthTerm(TreepatParser.DepthTermContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBreadth_closure(TreepatParser.Breadth_closureContext ctx) { return visitChildren(ctx); }
+	@Override public T visitBreadthClosure(TreepatParser.BreadthClosureContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
