@@ -2,15 +2,15 @@ import antlr.TreepatVisitorImplementation
 import antlr.TreepatVisitorImplementationFunctions
 import antlr.generate.TreepatLexer
 import antlr.generate.TreepatParser
+import java.util.Arrays
+import javax.swing.JFrame
+import javax.swing.JPanel
 import org.antlr.v4.gui.TreeViewer
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTree
 import tree.ImpTargetTreeNode
 import tree.TargetTreeNode
-import java.util.*
-import javax.swing.JFrame
-import javax.swing.JPanel
 
 object Main {
     @Throws(Exception::class)
@@ -28,8 +28,8 @@ object Main {
         val visitorFun = TreepatVisitorImplementationFunctions()
         val rootFun = visitorFun.visit(tree)
         rootFun.invoke(targetTreeNode)
-        //System.out.println(tree.toStringTree());
-//System.out.println(tokenStream.getTokens().size());
+        // System.out.println(tree.toStringTree());
+// System.out.println(tokenStream.getTokens().size());
 /*
         for(Token t : tokenStream.getTokens())
         {
@@ -42,7 +42,8 @@ object Main {
          */
         val frame = JFrame("Antlr AST")
         val panel = JPanel()
-        val viewer = TreeViewer(Arrays.asList(
+        val viewer = TreeViewer(
+            Arrays.asList(
             *parser.ruleNames), tree)
         viewer.scale = 1.0 // Scale a little
         panel.add(viewer)
