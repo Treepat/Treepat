@@ -21,7 +21,7 @@ object Main {
         val tokenStream = CommonTokenStream(lexer)
         val parser = TreepatParser(tokenStream)
         val tree: ParseTree = parser.model()
-          val visitor = TreepatVisitorImplementation()
+        val visitor = TreepatVisitorImplementation()
         val root = visitor.visit(tree)
         val targetTreeNode: TargetTreeNode = ImpTargetTreeNode()
         root.execute(targetTreeNode)
