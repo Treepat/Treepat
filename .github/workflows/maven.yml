@@ -1,4 +1,4 @@
-name: Treepat CI
+name: Java CI
 
 on:
   push:
@@ -7,20 +7,17 @@ on:
   pull_request:
     branches:
       - master
-      - dev
+      - dev  
 
 jobs:
-  test:
+  lint:
+    name: Static Code Analysis With Ktlint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up JDK 1.12
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.12
-      - name: Test with Maven
-        run: mvn -ntp -B test
-
+      - name: Lint Kotlin
+        run: mvn com.github.gantsign.maven:ktlint-maven-plugin:1.4.1:check 
+  
   build:
     runs-on: ubuntu-latest
     steps:
@@ -30,6 +27,6 @@ jobs:
       with:
         java-version: 1.12
     - name: Build with Maven
-      run: mvn -ntp -B -Dmaven.test.skip=true package --file pom.xml
-
-
+      run: mvn -B package --file pom.xml
+  
+  

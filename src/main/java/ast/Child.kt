@@ -1,10 +1,10 @@
 package ast
 
+import java.util.ArrayList
 import tree.TargetTreeNode
-import java.util.*
 
 class Child(var father: ASTNode, var child: ASTNode) : ASTNode {
-    /// improve all of this shit
+    // / improve all of this shit
     override fun execute(targetTreeNode: TargetTreeNode): Any? {
         val fatherList = (father.execute(targetTreeNode) as List<*>).toMutableList()
         if (fatherList.isEmpty()) {
@@ -14,9 +14,8 @@ class Child(var father: ASTNode, var child: ASTNode) : ASTNode {
         if (childList.isEmpty()) {
             return ArrayList<Any>()
         }
-        fatherList.addAll(childList);
+        fatherList.addAll(childList)
         targetTreeNode.moveUp()
         return fatherList
     }
-
 }
