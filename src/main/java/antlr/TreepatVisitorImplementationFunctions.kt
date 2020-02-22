@@ -12,6 +12,7 @@ import org.antlr.v4.runtime.tree.ParseTree
 import org.antlr.v4.runtime.tree.RuleNode
 import org.antlr.v4.runtime.tree.TerminalNode
 
+@Deprecated(message = "Not is necessary, use the Treepat visitor implementation")
 class TreepatVisitorImplementationFunctions : TreepatVisitor<VisitorFunction> {
     override fun visitModel(ctx: TreepatParser.ModelContext?): VisitorFunction {
         return ctx!!.subtree().accept<VisitorFunction>(this)
