@@ -8,8 +8,7 @@ import tree.TargetTreeNode
 
 typealias VisitorFunction = (TargetTreeNode) -> List<TargetTreeNode>
 
-fun createVisitorFunction(node: ASTNode): VisitorFunction
-{
+fun createVisitorFunction(node: ASTNode): VisitorFunction {
     return when (node) {
         is Child -> {
             childFunction(
