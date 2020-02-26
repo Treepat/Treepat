@@ -2,6 +2,7 @@ import antlr.TreepatVisitorImplementation
 import antlr.TreepatVisitorImplementationFunctions
 import antlr.generate.TreepatLexer
 import antlr.generate.TreepatParser
+import functions.createVisitorFunction
 import java.util.Arrays
 import javax.swing.JFrame
 import javax.swing.JPanel
@@ -28,9 +29,12 @@ object Main {
         val visitorFun = TreepatVisitorImplementationFunctions()
         val rootFun = visitorFun.visit(tree)
         rootFun.invoke(targetTreeNode)
+        println("New module execute: ")
+        val rootFunctionModule = createVisitorFunction(root)
+        rootFunctionModule.invoke(targetTreeNode)
         // System.out.println(tree.toStringTree());
-// System.out.println(tokenStream.getTokens().size());
-/*
+        // System.out.println(tokenStream.getTokens().size());
+        /*
         for(Token t : tokenStream.getTokens())
         {
             System.out.println(t);
