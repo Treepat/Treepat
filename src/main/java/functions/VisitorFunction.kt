@@ -21,13 +21,7 @@ fun createVisitorFunction(node: ASTNode): VisitorFunction {
                 node.name
             )
         }
-        is Sibling -> {
-            val siblingArray = listOf<VisitorFunction>().toMutableList()
-            node.siblings.forEach {
-                siblingArray.add(createVisitorFunction(it))
-            }
-            siblingFunction(siblingArray)
-        }
+      is Sibling -> siblingFunction(node.siblings.map {createVisitorFunction(it)})
         else -> {
             throw IllegalArgumentException("This ASTNode subtype is not supported.")
         }
