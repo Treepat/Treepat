@@ -29,7 +29,6 @@ object Main {
         val visitorFun = TreepatVisitorImplementationFunctions()
         val rootFun = visitorFun.visit(tree)
         rootFun.invoke(targetTreeNode)
-        println("New module execute: ")
         val rootFunctionModule = createVisitorFunction(root)
         rootFunctionModule.invoke(targetTreeNode)
         // System.out.println(tree.toStringTree());
