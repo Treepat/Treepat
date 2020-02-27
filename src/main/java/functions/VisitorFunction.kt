@@ -29,7 +29,7 @@ fun createVisitorFunction(node: ASTNode): VisitorFunction {
             siblingFunction(siblingArray)
         }
         else -> {
-            TODO("Return value not defined")
+            throw IllegalArgumentException("This ASTNode subtype is not supported.")
         }
     }
 }
