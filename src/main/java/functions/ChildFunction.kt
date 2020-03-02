@@ -1,16 +1,15 @@
 package functions
 
-import tree.TargetTreeNode
-
 fun childFunction(
     father: VisitorFunction,
     child: VisitorFunction
 ): VisitorFunction {
     return { targetTreeNode ->
-        val answer = listOf<TargetTreeNode>().toMutableList()
-        answer.addAll(father.invoke(targetTreeNode))
-        answer.addAll(child.invoke(targetTreeNode.moveDown()))
-        targetTreeNode.moveUp()
-        answer
+        val fathers = father.invoke(targetTreeNode)
+        val children = child.invoke(targetTreeNode.moveDown())
+        when {
+            fathers.isEmpty() || children.isEmpty() -> listOf()
+            else -> listOf(fathers, children).flatten()
+        }
     }
 }

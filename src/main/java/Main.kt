@@ -20,9 +20,11 @@ object Main {
         val lexer = TreepatLexer(CharStreams.fromFileName("test.tp"))
         val tokenStream = CommonTokenStream(lexer)
         val parser = TreepatParser(tokenStream)
-        val tree: ParseTree = parser.model()
+        val tree: ParseTree = parser.subtree()
         val visitor = TreepatVisitorImplementation()
         val root = visitor.visit(tree)
+
+
         val targetTreeNode: TargetTreeNode = ImpTargetTreeNode()
         val rootFunctionModule = createVisitorFunction(root)
         rootFunctionModule.invoke(targetTreeNode)
