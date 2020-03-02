@@ -17,8 +17,8 @@ public class TreepatLexer extends Lexer {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		NEWLINE=1, OR_SIGN=2, PAR_OPEN=3, PAR_CLOSE=4, NUMBER_SIGN=5, AT_SIGN=6, 
-		ASTERISK=7, ID=8, WS=9;
+		OR_SIGN=1, PAR_OPEN=2, PAR_CLOSE=3, NUMBER_SIGN=4, AT_SIGN=5, ASTERISK=6, 
+		ID=7, NEWLINE=8, WS=9;
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"
 	};
@@ -29,22 +29,22 @@ public class TreepatLexer extends Lexer {
 
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"NEWLINE", "OR_SIGN", "PAR_OPEN", "PAR_CLOSE", "NUMBER_SIGN", "AT_SIGN", 
-			"ASTERISK", "ID", "WS", "SPACES"
+			"OR_SIGN", "PAR_OPEN", "PAR_CLOSE", "NUMBER_SIGN", "AT_SIGN", "ASTERISK", 
+			"ID", "NEWLINE", "WS", "SPACES"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, null, "'|'", "'('", "')'", "'#'", "'@'", "'*'"
+			null, "'|'", "'('", "')'", "'#'", "'@'", "'*'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "NEWLINE", "OR_SIGN", "PAR_OPEN", "PAR_CLOSE", "NUMBER_SIGN", "AT_SIGN", 
-			"ASTERISK", "ID", "WS"
+			null, "OR_SIGN", "PAR_OPEN", "PAR_CLOSE", "NUMBER_SIGN", "AT_SIGN", "ASTERISK", 
+			"ID", "NEWLINE", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -197,7 +197,7 @@ public class TreepatLexer extends Lexer {
 	@Override
 	public void action(RuleContext _localctx, int ruleIndex, int actionIndex) {
 		switch (ruleIndex) {
-		case 0:
+		case 7:
 			NEWLINE_action((RuleContext)_localctx, actionIndex);
 			break;
 		}
@@ -206,42 +206,42 @@ public class TreepatLexer extends Lexer {
 		switch (actionIndex) {
 		case 0:
 
-			           String newLine = getText().replaceAll("[^\r\n]+", "");
-			           String spaces = getText().replaceAll("[\r\n]+", "");
-			           int next = _input.LA(1);
-			           if (opened > 0 || next == '\r' || next == '\n' || next == '#') {
-			             // If we're inside a list or on a blank line, ignore all indents,
-			             // dedents and line breaks.
-			             skip();
+			       String newLine = getText().replaceAll("[^\r\n]+", "");
+			       String spaces = getText().replaceAll("[\r\n]+", "");
+			       int next = _input.LA(1);
+			       if (opened > 0 || next == '\r' || next == '\n' || next == '#') {
+			         // If we're inside a list or on a blank line, ignore all indents,
+			         // dedents and line breaks.
+			         skip();
+			       }
+			       else {
+			         emit(commonToken(NEWLINE, newLine));
+			         int indent = getIndentationCount(spaces);
+			         int previous = indents.isEmpty() ? 0 : indents.peek();
+			         if (indent == previous) {
+			           // skip indents of the same size as the present indent-size
+			           skip();
+			         }
+			         else if (indent > previous) {
+			           indents.push(indent);
+			           emit(commonToken(TreepatParser.INDENT, spaces));
+			         }
+			         else {
+			           // Possibly emit more than 1 DEDENT token.
+			           while(!indents.isEmpty() && indents.peek() > indent) {
+			             this.emit(createDedent());
+			             indents.pop();
 			           }
-			           else {
-			             emit(commonToken(NEWLINE, newLine));
-			             int indent = getIndentationCount(spaces);
-			             int previous = indents.isEmpty() ? 0 : indents.peek();
-			             if (indent == previous) {
-			               // skip indents of the same size as the present indent-size
-			               skip();
-			             }
-			             else if (indent > previous) {
-			               indents.push(indent);
-			               emit(commonToken(TreepatParser.INDENT, spaces));
-			             }
-			             else {
-			               // Possibly emit more than 1 DEDENT token.
-			               while(!indents.isEmpty() && indents.peek() > indent) {
-			                 this.emit(createDedent());
-			                 indents.pop();
-			               }
-			             }
-			           }
-			         
+			         }
+			       }
+			     
 			break;
 		}
 	}
 	@Override
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 0:
+		case 7:
 			return NEWLINE_sempred((RuleContext)_localctx, predIndex);
 		}
 		return true;
@@ -257,24 +257,24 @@ public class TreepatLexer extends Lexer {
 	public static final String _serializedATN =
 		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\2\13F\b\1\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
-		"\13\3\2\3\2\3\2\5\2\33\n\2\3\2\3\2\5\2\37\n\2\3\2\5\2\"\n\2\5\2$\n\2\3"+
-		"\2\3\2\3\3\3\3\3\4\3\4\3\5\3\5\3\6\3\6\3\7\3\7\3\b\3\b\3\t\3\t\7\t\66"+
-		"\n\t\f\t\16\t9\13\t\3\n\6\n<\n\n\r\n\16\n=\3\n\3\n\3\13\6\13C\n\13\r\13"+
+		"\13\3\2\3\2\3\3\3\3\3\4\3\4\3\5\3\5\3\6\3\6\3\7\3\7\3\b\3\b\7\b&\n\b\f"+
+		"\b\16\b)\13\b\3\t\3\t\3\t\5\t.\n\t\3\t\3\t\5\t\62\n\t\3\t\5\t\65\n\t\5"+
+		"\t\67\n\t\3\t\3\t\3\n\6\n<\n\n\r\n\16\n=\3\n\3\n\3\13\6\13C\n\13\r\13"+
 		"\16\13D\2\2\f\3\3\5\4\7\5\t\6\13\7\r\b\17\t\21\n\23\13\25\2\3\2\5\4\2"+
 		"C\\c|\6\2\62;C\\aac|\4\2\13\13\"\"\2K\2\3\3\2\2\2\2\5\3\2\2\2\2\7\3\2"+
 		"\2\2\2\t\3\2\2\2\2\13\3\2\2\2\2\r\3\2\2\2\2\17\3\2\2\2\2\21\3\2\2\2\2"+
-		"\23\3\2\2\2\3#\3\2\2\2\5\'\3\2\2\2\7)\3\2\2\2\t+\3\2\2\2\13-\3\2\2\2\r"+
-		"/\3\2\2\2\17\61\3\2\2\2\21\63\3\2\2\2\23;\3\2\2\2\25B\3\2\2\2\27\30\6"+
-		"\2\2\2\30$\5\25\13\2\31\33\7\17\2\2\32\31\3\2\2\2\32\33\3\2\2\2\33\34"+
-		"\3\2\2\2\34\37\7\f\2\2\35\37\4\16\17\2\36\32\3\2\2\2\36\35\3\2\2\2\37"+
-		"!\3\2\2\2 \"\5\25\13\2! \3\2\2\2!\"\3\2\2\2\"$\3\2\2\2#\27\3\2\2\2#\36"+
-		"\3\2\2\2$%\3\2\2\2%&\b\2\2\2&\4\3\2\2\2\'(\7~\2\2(\6\3\2\2\2)*\7*\2\2"+
-		"*\b\3\2\2\2+,\7+\2\2,\n\3\2\2\2-.\7%\2\2.\f\3\2\2\2/\60\7B\2\2\60\16\3"+
-		"\2\2\2\61\62\7,\2\2\62\20\3\2\2\2\63\67\t\2\2\2\64\66\t\3\2\2\65\64\3"+
-		"\2\2\2\669\3\2\2\2\67\65\3\2\2\2\678\3\2\2\28\22\3\2\2\29\67\3\2\2\2:"+
-		"<\5\25\13\2;:\3\2\2\2<=\3\2\2\2=;\3\2\2\2=>\3\2\2\2>?\3\2\2\2?@\b\n\3"+
-		"\2@\24\3\2\2\2AC\t\4\2\2BA\3\2\2\2CD\3\2\2\2DB\3\2\2\2DE\3\2\2\2E\26\3"+
-		"\2\2\2\n\2\32\36!#\67=D\4\3\2\2\b\2\2";
+		"\23\3\2\2\2\3\27\3\2\2\2\5\31\3\2\2\2\7\33\3\2\2\2\t\35\3\2\2\2\13\37"+
+		"\3\2\2\2\r!\3\2\2\2\17#\3\2\2\2\21\66\3\2\2\2\23;\3\2\2\2\25B\3\2\2\2"+
+		"\27\30\7~\2\2\30\4\3\2\2\2\31\32\7*\2\2\32\6\3\2\2\2\33\34\7+\2\2\34\b"+
+		"\3\2\2\2\35\36\7%\2\2\36\n\3\2\2\2\37 \7B\2\2 \f\3\2\2\2!\"\7,\2\2\"\16"+
+		"\3\2\2\2#\'\t\2\2\2$&\t\3\2\2%$\3\2\2\2&)\3\2\2\2\'%\3\2\2\2\'(\3\2\2"+
+		"\2(\20\3\2\2\2)\'\3\2\2\2*+\6\t\2\2+\67\5\25\13\2,.\7\17\2\2-,\3\2\2\2"+
+		"-.\3\2\2\2./\3\2\2\2/\62\7\f\2\2\60\62\4\16\17\2\61-\3\2\2\2\61\60\3\2"+
+		"\2\2\62\64\3\2\2\2\63\65\5\25\13\2\64\63\3\2\2\2\64\65\3\2\2\2\65\67\3"+
+		"\2\2\2\66*\3\2\2\2\66\61\3\2\2\2\678\3\2\2\289\b\t\2\29\22\3\2\2\2:<\5"+
+		"\25\13\2;:\3\2\2\2<=\3\2\2\2=;\3\2\2\2=>\3\2\2\2>?\3\2\2\2?@\b\n\3\2@"+
+		"\24\3\2\2\2AC\t\4\2\2BA\3\2\2\2CD\3\2\2\2DB\3\2\2\2DE\3\2\2\2E\26\3\2"+
+		"\2\2\n\2\'-\61\64\66=D\4\3\t\2\b\2\2";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
