@@ -5,7 +5,7 @@ fun siblingFunction(
 ): VisitorFunction {
     return { targetTreeNode ->
         val answer = siblings.map { it.invoke(targetTreeNode) }
-        val isAnyListEmpty = answer.none { it.isEmpty() }
+        val isAnyListEmpty = answer.any { it.isEmpty() }
         if (isAnyListEmpty) {
             listOf()
         } else {

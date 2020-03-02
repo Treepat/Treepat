@@ -2,14 +2,14 @@ import antlr.TreepatVisitorImplementation
 import antlr.generate.TreepatLexer
 import antlr.generate.TreepatParser
 import functions.createVisitorFunction
+import javax.swing.JFrame
+import javax.swing.JPanel
 import org.antlr.v4.gui.TreeViewer
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTree
 import tree.ImpTargetTreeNode
 import tree.TargetTreeNode
-import javax.swing.JFrame
-import javax.swing.JPanel
 
 object Main {
 
