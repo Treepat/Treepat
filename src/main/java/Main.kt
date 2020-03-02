@@ -1,5 +1,4 @@
 import antlr.TreepatVisitorImplementation
-import antlr.TreepatVisitorImplementationFunctions
 import antlr.generate.TreepatLexer
 import antlr.generate.TreepatParser
 import functions.createVisitorFunction
@@ -26,9 +25,6 @@ object Main {
         val root = visitor.visit(tree)
         val targetTreeNode: TargetTreeNode = ImpTargetTreeNode()
         root.execute(targetTreeNode)
-        val visitorFun = TreepatVisitorImplementationFunctions()
-        val rootFun = visitorFun.visit(tree)
-        rootFun.invoke(targetTreeNode)
         val rootFunctionModule = createVisitorFunction(root)
         rootFunctionModule.invoke(targetTreeNode)
         // System.out.println(tree.toStringTree());
