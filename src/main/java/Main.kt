@@ -24,7 +24,6 @@ object Main {
         val visitor = TreepatVisitorImplementation()
         val root = visitor.visit(tree)
         val targetTreeNode: TargetTreeNode = ImpTargetTreeNode()
-        root.execute(targetTreeNode)
         val rootFunctionModule = createVisitorFunction(root)
         rootFunctionModule.invoke(targetTreeNode)
         // System.out.println(tree.toStringTree());
