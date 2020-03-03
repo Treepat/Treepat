@@ -1,14 +1,10 @@
 package functions
 
-import tree.TargetTreeNode
-
-fun nodeFunction(name: String): VisitorFunction {
+fun nodeFunction(grammarNodeName: String): VisitorFunction {
     return { targetTreeNode ->
-        println(name)
-        var answer = listOf<TargetTreeNode>()
-        if (targetTreeNode.name == name || true) {
-            answer = listOf(targetTreeNode)
+        when (targetTreeNode.name) {
+            grammarNodeName -> listOf(targetTreeNode)
+            else -> listOf()
         }
-        answer
     }
 }

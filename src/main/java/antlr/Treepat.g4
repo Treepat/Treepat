@@ -1,15 +1,8 @@
-// Define a grammar called Hello
+// Define a grammar called Treepat.
 grammar Treepat;
-@parser::header {}
 
-
-@parser::members {}
-
-/*
-
-TOKENS */
+// Here starts the implementation for INDENT and DEDENT tokens.
 tokens { INDENT, DEDENT }
-
 @lexer::members {
   // A queue where extra tokens are pushed on (see the NEWLINE lexer rule).
   private java.util.LinkedList<Token> tokens = new java.util.LinkedList<>();
@@ -99,133 +92,128 @@ tokens { INDENT, DEDENT }
     return super.getCharPositionInLine() == 0 && super.getLine() == 1;
   }
 }
-/* END FIRST PART TOKEN */
 
-model:
-	subtree
-;
+subtree
+    :   expression NEWLINE* child
+    |   expression NEWLINE*
+    ;
 
-subtree:
-	expression NEWLINE* child
-    |
-    expression NEWLINE*
-;
+expression
+    :   simpleExpression
+	|   depthClosure
+    ;
 
-expression:
-	simpleExpression
-	|
-	depthClosure
-;
+child
+    :   NEWLINE INDENT sibling DEDENT
+    ;
 
-child:
-	NEWLINE INDENT
-		sibling
-	DEDENT
-;
+sibling
+    :   union+
+    ;
 
-sibling:
-	(
-	    union
-	)+
-;
+union
+    :   subtreeWrapper (OR_SIGN subtreeWrapper)*
+    ;
 
-union:
-	subtreeWrapper
-	(OR_SIGN subtreeWrapper)*
-;
+subtreeWrapper
+    :   subtree
+    ;
 
-subtreeWrapper:
-	subtree
-;
+depthClosure
+    :   PAR_OPEN child PAR_CLOSE NUMBER_SIGN
+    |   child NUMBER_SIGN
+    ;
 
-depthClosure:
-	PAR_OPEN
-	    child
-    PAR_CLOSE NUMBER_SIGN
-    |
-    child
-    NUMBER_SIGN
+simpleExpression
+    :   term
+	|   breadthClosure
+	|   depthTerm
+    ;
 
-;
+depthTerm
+    :   AT_SIGN term
+    ;
 
-simpleExpression:
-	term
-	|
-	breadthClosure
-	|
-	depthTerm
-;
+breadthClosure
+    :   term ASTERISK
+    ;
 
-depthTerm:
-	AT_SIGN term
-;
+term
+    :   node
+    ;
 
-breadthClosure:
-	term ASTERISK
-;
+node
+    :   name=ID
+    ;
 
-term:
-	node
-;
+OR_SIGN
+    : '|'
+    ;
 
-node:
-	name=ID
-;
+PAR_OPEN
+    :   '('
+    ;
 
+PAR_CLOSE
+    :   ')'
+    ;
 
+NUMBER_SIGN
+    :   '#'
+    ;
+
+AT_SIGN
+    :   '@'
+    ;
+
+ASTERISK
+    :   '*'
+    ;
+
+ID
+    :   [A-Za-z][A-Za-z0-9_]*
+    ;
 
 NEWLINE
- : ( {atStartOfInput()}?   SPACES
-      | ( '\r'? '\n' | '\r' | '\f' ) SPACES?
-      )
-      {
-           String newLine = getText().replaceAll("[^\r\n]+", "");
-           String spaces = getText().replaceAll("[\r\n]+", "");
-           int next = _input.LA(1);
-           if (opened > 0 || next == '\r' || next == '\n' || next == '#') {
-             // If we're inside a list or on a blank line, ignore all indents,
-             // dedents and line breaks.
-             skip();
-           }
-           else {
-             emit(commonToken(NEWLINE, newLine));
-             int indent = getIndentationCount(spaces);
-             int previous = indents.isEmpty() ? 0 : indents.peek();
-             if (indent == previous) {
-               // skip indents of the same size as the present indent-size
-               skip();
-             }
-             else if (indent > previous) {
-               indents.push(indent);
-               emit(commonToken(TreepatParser.INDENT, spaces));
-             }
-             else {
-               // Possibly emit more than 1 DEDENT token.
-               while(!indents.isEmpty() && indents.peek() > indent) {
-                 this.emit(createDedent());
-                 indents.pop();
-               }
-             }
+    : ( {atStartOfInput()}?   SPACES
+    | ( '\r'? '\n' | '\r' | '\f' ) SPACES? )
+    {
+       String newLine = getText().replaceAll("[^\r\n]+", "");
+       String spaces = getText().replaceAll("[\r\n]+", "");
+       int next = _input.LA(1);
+       if (opened > 0 || next == '\r' || next == '\n' || next == '#') {
+         // If we're inside a list or on a blank line, ignore all indents,
+         // dedents and line breaks.
+         skip();
+       }
+       else {
+         emit(commonToken(NEWLINE, newLine));
+         int indent = getIndentationCount(spaces);
+         int previous = indents.isEmpty() ? 0 : indents.peek();
+         if (indent == previous) {
+           // skip indents of the same size as the present indent-size
+           skip();
+         }
+         else if (indent > previous) {
+           indents.push(indent);
+           emit(commonToken(TreepatParser.INDENT, spaces));
+         }
+         else {
+           // Possibly emit more than 1 DEDENT token.
+           while(!indents.isEmpty() && indents.peek() > indent) {
+             this.emit(createDedent());
+             indents.pop();
            }
          }
-;
+       }
+     }
+    ;
 
-OR_SIGN: '|';
-PAR_OPEN: '(';
-PAR_CLOSE: ')';
-NUMBER_SIGN: '#';
-AT_SIGN: '@';
-ASTERISK: '*';
+WS
+    : SPACES+ -> skip
+    ;
 
-
-ID: [A-Za-z][A-Za-z0-9_]*;
-
-WS: SPACES+ -> skip ;
-
-//END_LINE: [\n\r];
-//TAB: [\t];
-
-fragment SPACES
- : [ \t]+
- ;
-
+fragment
+SPACES
+    :   [ \t]+
+    ;

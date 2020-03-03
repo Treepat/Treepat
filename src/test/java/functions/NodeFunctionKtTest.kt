@@ -5,8 +5,9 @@ import kotlin.test.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
+import org.mockito.Mockito.times
+import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import tree.TargetTreeNode
 
@@ -28,10 +29,10 @@ internal class NodeFunctionKtTest {
         // act
         val result = function(mockCurrentTargetTreeNode)
         // assert
-        Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveRight()
-        Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveUp()
-        Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveLeft()
-        Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveDown()
+        verify(mockCurrentTargetTreeNode, times(0)).moveRight()
+        verify(mockCurrentTargetTreeNode, times(0)).moveUp()
+        verify(mockCurrentTargetTreeNode, times(0)).moveLeft()
+        verify(mockCurrentTargetTreeNode, times(0)).moveDown()
 
         assertEquals(1, result.size)
     }

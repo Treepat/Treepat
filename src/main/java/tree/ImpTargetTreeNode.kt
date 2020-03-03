@@ -24,7 +24,7 @@ class ImpTargetTreeNode : TargetTreeNode {
     override val name: String
         get() = "name"
 
-    override fun compareTo(other: TargetTreeNode?): Int {
+    override fun compareTo(other: TargetTreeNode): Int {
         return 0
     }
 }
