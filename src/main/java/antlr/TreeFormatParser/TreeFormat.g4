@@ -103,11 +103,7 @@ child
     ;
 
 sibling
-    :   wrapper+
-    ;
-
-wrapper
-    :   subtree
+    :   subtree+
     ;
 
 node
