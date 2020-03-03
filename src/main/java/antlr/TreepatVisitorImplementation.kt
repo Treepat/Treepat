@@ -12,10 +12,7 @@ import org.antlr.v4.runtime.tree.ParseTree
 import org.antlr.v4.runtime.tree.RuleNode
 import org.antlr.v4.runtime.tree.TerminalNode
 
-class TreepatVisitorImplementation : TreepatVisitor<ASTNode?> {
-    override fun visitModel(ctx: TreepatParser.ModelContext): ASTNode {
-        return ctx.subtree().accept<ASTNode>(this)
-    }
+class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
 
     override fun visitSubtree(ctx: TreepatParser.SubtreeContext): ASTNode {
         val expression = ctx.expression().accept<ASTNode>(this)
@@ -27,9 +24,10 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode?> {
     }
 
     override fun visitExpression(ctx: TreepatParser.ExpressionContext): ASTNode {
-        return if (ctx.simpleExpression() != null) {
-            ctx.simpleExpression().accept<ASTNode>(this)
-        } else ctx.depthClosure().accept<ASTNode>(this)
+        return when {
+            ctx.simpleExpression() != null -> ctx.simpleExpression().accept<ASTNode>(this)
+            else -> ctx.depthClosure().accept<ASTNode>(this)
+        }
     }
 
     override fun visitChild(ctx: TreepatParser.ChildContext): ASTNode {
@@ -37,19 +35,20 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode?> {
     }
 
     override fun visitSibling(ctx: TreepatParser.SiblingContext): ASTNode {
-        val siblings: List<ASTNode>
-        siblings = ctx.union().stream()
+        val siblings = ctx.union()
+            .stream()
             .map { instruction: TreepatParser.UnionContext -> instruction.accept<ASTNode>(this) }
             .collect(Collectors.toList())
         return Sibling(siblings)
     }
 
     override fun visitUnion(ctx: TreepatParser.UnionContext): ASTNode {
-        val nodes: List<ASTNode>
-        nodes = ctx.subtreeWrapper().stream()
+        val nodes = ctx.subtreeWrapper()
+            .stream()
             .map { node: TreepatParser.SubtreeWrapperContext -> node.accept<ASTNode>(this) }
             .collect(Collectors.toList())
-        return nodes[0]
+        // TODO - Change when union node has implemented.
+        return nodes.first()
     }
 
     override fun visitSubtreeWrapper(ctx: TreepatParser.SubtreeWrapperContext): ASTNode {
@@ -61,15 +60,11 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode?> {
     }
 
     override fun visitSimpleExpression(ctx: TreepatParser.SimpleExpressionContext): ASTNode {
-        var valueTo_return: ASTNode? = null
-        if (ctx.term() != null) {
-            valueTo_return = ctx.term().accept<ASTNode>(this)
-        } else if (ctx.breadthClosure() != null) {
-            valueTo_return = ctx.breadthClosure().accept<ASTNode>(this)
-        } else if (ctx.depthTerm() != null) {
-            valueTo_return = ctx.depthTerm().accept<ASTNode>(this)
+        return when {
+            ctx.term() != null -> ctx.term().accept<ASTNode>(this)
+            ctx.breadthClosure() != null -> ctx.breadthClosure().accept<ASTNode>(this)
+            else -> ctx.depthTerm().accept<ASTNode>(this)
         }
-        return valueTo_return!!
     }
 
     override fun visitDepthTerm(ctx: TreepatParser.DepthTermContext): ASTNode {
@@ -93,14 +88,14 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode?> {
     }
 
     override fun visitChildren(ruleNode: RuleNode): ASTNode? {
-        return null
+        throw NotImplementedError("This method is not supported.")
     }
 
     override fun visitTerminal(terminalNode: TerminalNode): ASTNode? {
-        return null
+        throw NotImplementedError("This method is not supported.")
     }
 
     override fun visitErrorNode(errorNode: ErrorNode): ASTNode? {
-        return null
+        throw NotImplementedError("This method is not supported.")
     }
 }

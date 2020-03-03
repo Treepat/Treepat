@@ -17,16 +17,15 @@ public class TreepatParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		NEWLINE=1, OR_SIGN=2, PAR_OPEN=3, PAR_CLOSE=4, NUMBER_SIGN=5, AT_SIGN=6, 
-		ASTERISK=7, ID=8, WS=9, INDENT=10, DEDENT=11;
+		OR_SIGN=1, PAR_OPEN=2, PAR_CLOSE=3, NUMBER_SIGN=4, AT_SIGN=5, ASTERISK=6, 
+		ID=7, NEWLINE=8, WS=9, INDENT=10, DEDENT=11;
 	public static final int
-		RULE_model = 0, RULE_subtree = 1, RULE_expression = 2, RULE_child = 3, 
-		RULE_sibling = 4, RULE_union = 5, RULE_subtreeWrapper = 6, RULE_depthClosure = 7, 
-		RULE_simpleExpression = 8, RULE_depthTerm = 9, RULE_breadthClosure = 10, 
-		RULE_term = 11, RULE_node = 12;
+		RULE_subtree = 0, RULE_expression = 1, RULE_child = 2, RULE_sibling = 3, 
+		RULE_union = 4, RULE_subtreeWrapper = 5, RULE_depthClosure = 6, RULE_simpleExpression = 7, 
+		RULE_depthTerm = 8, RULE_breadthClosure = 9, RULE_term = 10, RULE_node = 11;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"model", "subtree", "expression", "child", "sibling", "union", "subtreeWrapper", 
+			"subtree", "expression", "child", "sibling", "union", "subtreeWrapper", 
 			"depthClosure", "simpleExpression", "depthTerm", "breadthClosure", "term", 
 			"node"
 		};
@@ -35,14 +34,14 @@ public class TreepatParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, null, "'|'", "'('", "')'", "'#'", "'@'", "'*'"
+			null, "'|'", "'('", "')'", "'#'", "'@'", "'*'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "NEWLINE", "OR_SIGN", "PAR_OPEN", "PAR_CLOSE", "NUMBER_SIGN", "AT_SIGN", 
-			"ASTERISK", "ID", "WS", "INDENT", "DEDENT"
+			null, "OR_SIGN", "PAR_OPEN", "PAR_CLOSE", "NUMBER_SIGN", "AT_SIGN", "ASTERISK", 
+			"ID", "NEWLINE", "WS", "INDENT", "DEDENT"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -96,50 +95,6 @@ public class TreepatParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
-	public static class ModelContext extends ParserRuleContext {
-		public SubtreeContext subtree() {
-			return getRuleContext(SubtreeContext.class,0);
-		}
-		public ModelContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_model; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).enterModel(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof TreepatListener ) ((TreepatListener)listener).exitModel(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof TreepatVisitor ) return ((TreepatVisitor<? extends T>)visitor).visitModel(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final ModelContext model() throws RecognitionException {
-		ModelContext _localctx = new ModelContext(_ctx, getState());
-		enterRule(_localctx, 0, RULE_model);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(26);
-			subtree();
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
 	public static class SubtreeContext extends ParserRuleContext {
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
@@ -172,55 +127,55 @@ public class TreepatParser extends Parser {
 
 	public final SubtreeContext subtree() throws RecognitionException {
 		SubtreeContext _localctx = new SubtreeContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_subtree);
+		enterRule(_localctx, 0, RULE_subtree);
 		try {
 			int _alt;
-			setState(44);
+			setState(40);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(28);
+				setState(24);
 				expression();
-				setState(32);
+				setState(28);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(29);
+						setState(25);
 						match(NEWLINE);
 						}
 						} 
 					}
-					setState(34);
+					setState(30);
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,0,_ctx);
 				}
-				setState(35);
+				setState(31);
 				child();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(37);
+				setState(33);
 				expression();
-				setState(41);
+				setState(37);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(38);
+						setState(34);
 						match(NEWLINE);
 						}
 						} 
 					}
-					setState(43);
+					setState(39);
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
 				}
@@ -267,24 +222,24 @@ public class TreepatParser extends Parser {
 
 	public final ExpressionContext expression() throws RecognitionException {
 		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_expression);
+		enterRule(_localctx, 2, RULE_expression);
 		try {
-			setState(48);
+			setState(44);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case AT_SIGN:
 			case ID:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(46);
+				setState(42);
 				simpleExpression();
 				}
 				break;
-			case NEWLINE:
 			case PAR_OPEN:
+			case NEWLINE:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(47);
+				setState(43);
 				depthClosure();
 				}
 				break;
@@ -331,17 +286,17 @@ public class TreepatParser extends Parser {
 
 	public final ChildContext child() throws RecognitionException {
 		ChildContext _localctx = new ChildContext(_ctx, getState());
-		enterRule(_localctx, 6, RULE_child);
+		enterRule(_localctx, 4, RULE_child);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(50);
+			setState(46);
 			match(NEWLINE);
-			setState(51);
+			setState(47);
 			match(INDENT);
-			setState(52);
+			setState(48);
 			sibling();
-			setState(53);
+			setState(49);
 			match(DEDENT);
 			}
 		}
@@ -384,25 +339,25 @@ public class TreepatParser extends Parser {
 
 	public final SiblingContext sibling() throws RecognitionException {
 		SiblingContext _localctx = new SiblingContext(_ctx, getState());
-		enterRule(_localctx, 8, RULE_sibling);
+		enterRule(_localctx, 6, RULE_sibling);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(56); 
+			setState(52); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(55);
+				setState(51);
 				union();
 				}
 				}
-				setState(58); 
+				setState(54); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NEWLINE) | (1L << PAR_OPEN) | (1L << AT_SIGN) | (1L << ID))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << PAR_OPEN) | (1L << AT_SIGN) | (1L << ID) | (1L << NEWLINE))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -448,26 +403,26 @@ public class TreepatParser extends Parser {
 
 	public final UnionContext union() throws RecognitionException {
 		UnionContext _localctx = new UnionContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_union);
+		enterRule(_localctx, 8, RULE_union);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(60);
+			setState(56);
 			subtreeWrapper();
-			setState(65);
+			setState(61);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==OR_SIGN) {
 				{
 				{
-				setState(61);
+				setState(57);
 				match(OR_SIGN);
-				setState(62);
+				setState(58);
 				subtreeWrapper();
 				}
 				}
-				setState(67);
+				setState(63);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -509,11 +464,11 @@ public class TreepatParser extends Parser {
 
 	public final SubtreeWrapperContext subtreeWrapper() throws RecognitionException {
 		SubtreeWrapperContext _localctx = new SubtreeWrapperContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_subtreeWrapper);
+		enterRule(_localctx, 10, RULE_subtreeWrapper);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(68);
+			setState(64);
 			subtree();
 			}
 		}
@@ -556,30 +511,30 @@ public class TreepatParser extends Parser {
 
 	public final DepthClosureContext depthClosure() throws RecognitionException {
 		DepthClosureContext _localctx = new DepthClosureContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_depthClosure);
+		enterRule(_localctx, 12, RULE_depthClosure);
 		try {
-			setState(78);
+			setState(74);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case PAR_OPEN:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(70);
+				setState(66);
 				match(PAR_OPEN);
-				setState(71);
+				setState(67);
 				child();
-				setState(72);
+				setState(68);
 				match(PAR_CLOSE);
-				setState(73);
+				setState(69);
 				match(NUMBER_SIGN);
 				}
 				break;
 			case NEWLINE:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(75);
+				setState(71);
 				child();
-				setState(76);
+				setState(72);
 				match(NUMBER_SIGN);
 				}
 				break;
@@ -629,29 +584,29 @@ public class TreepatParser extends Parser {
 
 	public final SimpleExpressionContext simpleExpression() throws RecognitionException {
 		SimpleExpressionContext _localctx = new SimpleExpressionContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_simpleExpression);
+		enterRule(_localctx, 14, RULE_simpleExpression);
 		try {
-			setState(83);
+			setState(79);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(80);
+				setState(76);
 				term();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(81);
+				setState(77);
 				breadthClosure();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(82);
+				setState(78);
 				depthTerm();
 				}
 				break;
@@ -694,13 +649,13 @@ public class TreepatParser extends Parser {
 
 	public final DepthTermContext depthTerm() throws RecognitionException {
 		DepthTermContext _localctx = new DepthTermContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_depthTerm);
+		enterRule(_localctx, 16, RULE_depthTerm);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(85);
+			setState(81);
 			match(AT_SIGN);
-			setState(86);
+			setState(82);
 			term();
 			}
 		}
@@ -741,13 +696,13 @@ public class TreepatParser extends Parser {
 
 	public final BreadthClosureContext breadthClosure() throws RecognitionException {
 		BreadthClosureContext _localctx = new BreadthClosureContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_breadthClosure);
+		enterRule(_localctx, 18, RULE_breadthClosure);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(88);
+			setState(84);
 			term();
-			setState(89);
+			setState(85);
 			match(ASTERISK);
 			}
 		}
@@ -787,11 +742,11 @@ public class TreepatParser extends Parser {
 
 	public final TermContext term() throws RecognitionException {
 		TermContext _localctx = new TermContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_term);
+		enterRule(_localctx, 20, RULE_term);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(91);
+			setState(87);
 			node();
 			}
 		}
@@ -830,11 +785,11 @@ public class TreepatParser extends Parser {
 
 	public final NodeContext node() throws RecognitionException {
 		NodeContext _localctx = new NodeContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_node);
+		enterRule(_localctx, 22, RULE_node);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(93);
+			setState(89);
 			((NodeContext)_localctx).name = match(ID);
 			}
 		}
@@ -850,29 +805,28 @@ public class TreepatParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\rb\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\r^\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
-		"\f\t\f\4\r\t\r\4\16\t\16\3\2\3\2\3\3\3\3\7\3!\n\3\f\3\16\3$\13\3\3\3\3"+
-		"\3\3\3\3\3\7\3*\n\3\f\3\16\3-\13\3\5\3/\n\3\3\4\3\4\5\4\63\n\4\3\5\3\5"+
-		"\3\5\3\5\3\5\3\6\6\6;\n\6\r\6\16\6<\3\7\3\7\3\7\7\7B\n\7\f\7\16\7E\13"+
-		"\7\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\5\tQ\n\t\3\n\3\n\3\n\5\nV\n"+
-		"\n\3\13\3\13\3\13\3\f\3\f\3\f\3\r\3\r\3\16\3\16\3\16\2\2\17\2\4\6\b\n"+
-		"\f\16\20\22\24\26\30\32\2\2\2]\2\34\3\2\2\2\4.\3\2\2\2\6\62\3\2\2\2\b"+
-		"\64\3\2\2\2\n:\3\2\2\2\f>\3\2\2\2\16F\3\2\2\2\20P\3\2\2\2\22U\3\2\2\2"+
-		"\24W\3\2\2\2\26Z\3\2\2\2\30]\3\2\2\2\32_\3\2\2\2\34\35\5\4\3\2\35\3\3"+
-		"\2\2\2\36\"\5\6\4\2\37!\7\3\2\2 \37\3\2\2\2!$\3\2\2\2\" \3\2\2\2\"#\3"+
-		"\2\2\2#%\3\2\2\2$\"\3\2\2\2%&\5\b\5\2&/\3\2\2\2\'+\5\6\4\2(*\7\3\2\2)"+
-		"(\3\2\2\2*-\3\2\2\2+)\3\2\2\2+,\3\2\2\2,/\3\2\2\2-+\3\2\2\2.\36\3\2\2"+
-		"\2.\'\3\2\2\2/\5\3\2\2\2\60\63\5\22\n\2\61\63\5\20\t\2\62\60\3\2\2\2\62"+
-		"\61\3\2\2\2\63\7\3\2\2\2\64\65\7\3\2\2\65\66\7\f\2\2\66\67\5\n\6\2\67"+
-		"8\7\r\2\28\t\3\2\2\29;\5\f\7\2:9\3\2\2\2;<\3\2\2\2<:\3\2\2\2<=\3\2\2\2"+
-		"=\13\3\2\2\2>C\5\16\b\2?@\7\4\2\2@B\5\16\b\2A?\3\2\2\2BE\3\2\2\2CA\3\2"+
-		"\2\2CD\3\2\2\2D\r\3\2\2\2EC\3\2\2\2FG\5\4\3\2G\17\3\2\2\2HI\7\5\2\2IJ"+
-		"\5\b\5\2JK\7\6\2\2KL\7\7\2\2LQ\3\2\2\2MN\5\b\5\2NO\7\7\2\2OQ\3\2\2\2P"+
-		"H\3\2\2\2PM\3\2\2\2Q\21\3\2\2\2RV\5\30\r\2SV\5\26\f\2TV\5\24\13\2UR\3"+
-		"\2\2\2US\3\2\2\2UT\3\2\2\2V\23\3\2\2\2WX\7\b\2\2XY\5\30\r\2Y\25\3\2\2"+
-		"\2Z[\5\30\r\2[\\\7\t\2\2\\\27\3\2\2\2]^\5\32\16\2^\31\3\2\2\2_`\7\n\2"+
-		"\2`\33\3\2\2\2\n\"+.\62<CPU";
+		"\f\t\f\4\r\t\r\3\2\3\2\7\2\35\n\2\f\2\16\2 \13\2\3\2\3\2\3\2\3\2\7\2&"+
+		"\n\2\f\2\16\2)\13\2\5\2+\n\2\3\3\3\3\5\3/\n\3\3\4\3\4\3\4\3\4\3\4\3\5"+
+		"\6\5\67\n\5\r\5\16\58\3\6\3\6\3\6\7\6>\n\6\f\6\16\6A\13\6\3\7\3\7\3\b"+
+		"\3\b\3\b\3\b\3\b\3\b\3\b\3\b\5\bM\n\b\3\t\3\t\3\t\5\tR\n\t\3\n\3\n\3\n"+
+		"\3\13\3\13\3\13\3\f\3\f\3\r\3\r\3\r\2\2\16\2\4\6\b\n\f\16\20\22\24\26"+
+		"\30\2\2\2Z\2*\3\2\2\2\4.\3\2\2\2\6\60\3\2\2\2\b\66\3\2\2\2\n:\3\2\2\2"+
+		"\fB\3\2\2\2\16L\3\2\2\2\20Q\3\2\2\2\22S\3\2\2\2\24V\3\2\2\2\26Y\3\2\2"+
+		"\2\30[\3\2\2\2\32\36\5\4\3\2\33\35\7\n\2\2\34\33\3\2\2\2\35 \3\2\2\2\36"+
+		"\34\3\2\2\2\36\37\3\2\2\2\37!\3\2\2\2 \36\3\2\2\2!\"\5\6\4\2\"+\3\2\2"+
+		"\2#\'\5\4\3\2$&\7\n\2\2%$\3\2\2\2&)\3\2\2\2\'%\3\2\2\2\'(\3\2\2\2(+\3"+
+		"\2\2\2)\'\3\2\2\2*\32\3\2\2\2*#\3\2\2\2+\3\3\2\2\2,/\5\20\t\2-/\5\16\b"+
+		"\2.,\3\2\2\2.-\3\2\2\2/\5\3\2\2\2\60\61\7\n\2\2\61\62\7\f\2\2\62\63\5"+
+		"\b\5\2\63\64\7\r\2\2\64\7\3\2\2\2\65\67\5\n\6\2\66\65\3\2\2\2\678\3\2"+
+		"\2\28\66\3\2\2\289\3\2\2\29\t\3\2\2\2:?\5\f\7\2;<\7\3\2\2<>\5\f\7\2=;"+
+		"\3\2\2\2>A\3\2\2\2?=\3\2\2\2?@\3\2\2\2@\13\3\2\2\2A?\3\2\2\2BC\5\2\2\2"+
+		"C\r\3\2\2\2DE\7\4\2\2EF\5\6\4\2FG\7\5\2\2GH\7\6\2\2HM\3\2\2\2IJ\5\6\4"+
+		"\2JK\7\6\2\2KM\3\2\2\2LD\3\2\2\2LI\3\2\2\2M\17\3\2\2\2NR\5\26\f\2OR\5"+
+		"\24\13\2PR\5\22\n\2QN\3\2\2\2QO\3\2\2\2QP\3\2\2\2R\21\3\2\2\2ST\7\7\2"+
+		"\2TU\5\26\f\2U\23\3\2\2\2VW\5\26\f\2WX\7\b\2\2X\25\3\2\2\2YZ\5\30\r\2"+
+		"Z\27\3\2\2\2[\\\7\t\2\2\\\31\3\2\2\2\n\36\'*.8?LQ";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

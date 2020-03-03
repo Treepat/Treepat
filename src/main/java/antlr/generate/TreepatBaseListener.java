@@ -16,18 +16,6 @@ public class TreepatBaseListener implements TreepatListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterModel(TreepatParser.ModelContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitModel(TreepatParser.ModelContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterSubtree(TreepatParser.SubtreeContext ctx) { }
 	/**
 	 * {@inheritDoc}

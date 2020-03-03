@@ -8,16 +8,6 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface TreepatListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link TreepatParser#model}.
-	 * @param ctx the parse tree
-	 */
-	void enterModel(TreepatParser.ModelContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TreepatParser#model}.
-	 * @param ctx the parse tree
-	 */
-	void exitModel(TreepatParser.ModelContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link TreepatParser#subtree}.
 	 * @param ctx the parse tree
 	 */

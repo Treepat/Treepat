@@ -1,6 +1,6 @@
 package tree
 
-interface TargetTreeNode : Comparable<TargetTreeNode?> {
+interface TargetTreeNode : Comparable<TargetTreeNode> {
     fun moveRight(): TargetTreeNode
     fun moveLeft(): TargetTreeNode
     fun moveUp(): TargetTreeNode

@@ -1,20 +1,15 @@
 package functions
 
-import tree.TargetTreeNode
-
 fun siblingFunction(
     siblings: List<VisitorFunction>
 ): VisitorFunction {
     return { targetTreeNode ->
-        val answer = listOf<TargetTreeNode>().toMutableList()
-        var current = targetTreeNode
-        for ((i, node) in siblings.withIndex()) {
-            if (i != 0) {
-                current = current.moveRight()
-            }
-            val temporal = node.invoke(current)
-            answer.addAll(temporal)
+        val answer = siblings.map { it.invoke(targetTreeNode) }
+        val isAnyListEmpty = answer.any { it.isEmpty() }
+        if (isAnyListEmpty) {
+            listOf()
+        } else {
+            answer.flatten()
         }
-        answer
     }
 }

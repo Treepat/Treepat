@@ -1,9 +1,7 @@
 import antlr.TreepatVisitorImplementation
-import antlr.TreepatVisitorImplementationFunctions
 import antlr.generate.TreepatLexer
 import antlr.generate.TreepatParser
 import functions.createVisitorFunction
-import java.util.Arrays
 import javax.swing.JFrame
 import javax.swing.JPanel
 import org.antlr.v4.gui.TreeViewer
@@ -14,41 +12,32 @@ import tree.ImpTargetTreeNode
 import tree.TargetTreeNode
 
 object Main {
+
+    private const val jFrameTitle = "Antlr AST"
+
     @Throws(Exception::class)
     @JvmStatic
     fun main(args: Array<String>) {
-        println(CharStreams.fromFileName("test.tp"))
-        val lexer = TreepatLexer(CharStreams.fromFileName("test.tp"))
+        val lexer = TreepatLexer(CharStreams.fromFileName(args.first()))
         val tokenStream = CommonTokenStream(lexer)
         val parser = TreepatParser(tokenStream)
-        val tree: ParseTree = parser.model()
+        val tree: ParseTree = parser.subtree()
+
         val visitor = TreepatVisitorImplementation()
         val root = visitor.visit(tree)
         val targetTreeNode: TargetTreeNode = ImpTargetTreeNode()
-        root.execute(targetTreeNode)
-        val visitorFun = TreepatVisitorImplementationFunctions()
-        val rootFun = visitorFun.visit(tree)
-        rootFun.invoke(targetTreeNode)
         val rootFunctionModule = createVisitorFunction(root)
+
         rootFunctionModule.invoke(targetTreeNode)
-        // System.out.println(tree.toStringTree());
-        // System.out.println(tokenStream.getTokens().size());
-        /*
-        for(Token t : tokenStream.getTokens())
-        {
-            System.out.println(t);
-            //System.out.println(t.getLine());
-            //System.out.println(t.getText().getBytes().length);
-            if( t.getType() > 0 )
-                System.out.println(TreepatParser.tokenNames[t.getType()]);
-        }
-         */
-        val frame = JFrame("Antlr AST")
+
+        showASTNodeFrame(parser, tree)
+    }
+
+    private fun showASTNodeFrame(parser: TreepatParser, tree: ParseTree) {
+        val frame = JFrame(jFrameTitle)
         val panel = JPanel()
-        val viewer = TreeViewer(
-            Arrays.asList(
-                *parser.ruleNames), tree)
-        viewer.scale = 1.0 // Scale a little
+        val viewer = TreeViewer(listOf(*parser.ruleNames), tree)
+        viewer.scale = 1.0
         panel.add(viewer)
         frame.add(panel)
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
