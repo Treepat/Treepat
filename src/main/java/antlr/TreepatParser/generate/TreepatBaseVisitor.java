@@ -1,5 +1,5 @@
 // Generated from /Users/johanmurillo/Development/Tesis/AntlrJava/Treepat/src/main/java/antlr/Treepat.g4 by ANTLR 4.8
-package antlr.generate;
+package antlr.TreepatParser.generate;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
