@@ -13,9 +13,9 @@ import org.junit.jupiter.api.Test
 
 internal class ASTNodesKtTest {
 
-    private var countNode: Int = 0
-    private var countChild: Int = 0
-    private var countSibling: Int = 0
+    private lateinit var countNode: Int
+    private lateinit var countChild: Int
+    private lateinit var countSibling: Int
 
     @BeforeEach
     fun setUp() {
