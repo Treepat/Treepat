@@ -1,5 +1,5 @@
-// Generated from D:/doria/Documents/GitHub/Treepat/src/main/java/antlr/TreeFormatParser\TreeFormat.g4 by ANTLR 4.8
-package antlr.treeFormatParser.generate;
+// Generated from D:/doria/Documents/GitHub/Treepat/src/main/java/antlr/treeFormatParser\TreeFormat.g4 by ANTLR 4.8
+package antlr.treeFormatParser.generated;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -28,12 +28,6 @@ public interface TreeFormatVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSibling(TreeFormatParser.SiblingContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link TreeFormatParser#wrapper}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitWrapper(TreeFormatParser.WrapperContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link TreeFormatParser#node}.
 	 * @param ctx the parse tree

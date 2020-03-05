@@ -1,6 +1,8 @@
+import antlr.treeFormatParser.generated.TreeFormatLexer
+import antlr.treeFormatParser.generated.TreeFormatParser
 import antlr.treepatParser.TreepatVisitorImplementation
-import antlr.treepatParser.generate.TreepatLexer
-import antlr.treepatParser.generate.TreepatParser
+import antlr.treepatParser.generated.TreepatLexer
+import antlr.treepatParser.generated.TreepatParser
 import functions.createVisitorFunction
 import javax.swing.JFrame
 import javax.swing.JPanel
@@ -18,7 +20,18 @@ object Main {
     @Throws(Exception::class)
     @JvmStatic
     fun main(args: Array<String>) {
+        // TREE FORMAT PARSER TEST
+
+        println(CharStreams.fromFileName("test.tef"))
+        val tLexer = TreeFormatLexer(CharStreams.fromFileName("test.tef"))
+        val tTokenStream = CommonTokenStream(tLexer)
+        val tParser = TreeFormatParser(tTokenStream)
+        val tTree: ParseTree = tParser.subtree()
+
+        // TEST END ---------------------------
+
         val lexer = TreepatLexer(CharStreams.fromFileName(args.first()))
+        // val lexer = TreepatLexer(CharStreams.fromFileName("test.tp"))
         val tokenStream = CommonTokenStream(lexer)
         val parser = TreepatParser(tokenStream)
         val tree: ParseTree = parser.subtree()

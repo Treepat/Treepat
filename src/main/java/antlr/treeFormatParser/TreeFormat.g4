@@ -1,4 +1,4 @@
-// Define a grammar called Treepat.
+// Define a grammar called TreeFormat.
 grammar TreeFormat;
 
 // Here starts the implementation for INDENT and DEDENT tokens.
@@ -30,7 +30,7 @@ tokens { INDENT, DEDENT }
       }
 
       // First emit an extra line break that serves as the end of the statement.
-      this.emit(commonToken(TreepatParser.NEWLINE, "\n"));
+      this.emit(commonToken(TreeFormatParser.NEWLINE, "\n"));
 
       // Now emit as much DEDENT tokens as needed.
       while (!indents.isEmpty()) {
@@ -39,7 +39,7 @@ tokens { INDENT, DEDENT }
       }
 
       // Put the EOF back on the token stream.
-      this.emit(commonToken(TreepatParser.EOF, "<EOF>"));
+      this.emit(commonToken(TreeFormatParser.EOF, "<EOF>"));
     }
 
     Token next = super.nextToken();
@@ -53,7 +53,7 @@ tokens { INDENT, DEDENT }
   }
 
   private Token createDedent() {
-    CommonToken dedent = commonToken(TreepatParser.DEDENT, "");
+    CommonToken dedent = commonToken(TreeFormatParser.DEDENT, "");
     dedent.setLine(this.lastToken.getLine());
     return dedent;
   }
@@ -149,7 +149,7 @@ NEWLINE
          }
          else if (indent > previous) {
            indents.push(indent);
-           emit(commonToken(TreepatParser.INDENT, spaces));
+           emit(commonToken(TreeFormatParser.INDENT, spaces));
          }
          else {
            // Possibly emit more than 1 DEDENT token.

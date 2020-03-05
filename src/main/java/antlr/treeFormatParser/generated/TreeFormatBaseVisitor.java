@@ -1,5 +1,5 @@
-// Generated from D:/doria/Documents/GitHub/Treepat/src/main/java/antlr/TreeFormatParser\TreeFormat.g4 by ANTLR 4.8
-package antlr.treeFormatParser.generate;
+// Generated from D:/doria/Documents/GitHub/Treepat/src/main/java/antlr/treeFormatParser\TreeFormat.g4 by ANTLR 4.8
+package antlr.treeFormatParser.generated;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -32,13 +32,6 @@ public class TreeFormatBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitSibling(TreeFormatParser.SiblingContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitWrapper(TreeFormatParser.WrapperContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -1,5 +1,5 @@
-// Generated from D:/doria/Documents/GitHub/Treepat/src/main/java/antlr/TreeFormatParser\TreeFormat.g4 by ANTLR 4.8
-package antlr.treeFormatParser.generate;
+// Generated from D:/doria/Documents/GitHub/Treepat/src/main/java/antlr/treeFormatParser\TreeFormat.g4 by ANTLR 4.8
+package antlr.treeFormatParser.generated;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -47,18 +47,6 @@ public class TreeFormatBaseListener implements TreeFormatListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSibling(TreeFormatParser.SiblingContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterWrapper(TreeFormatParser.WrapperContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitWrapper(TreeFormatParser.WrapperContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

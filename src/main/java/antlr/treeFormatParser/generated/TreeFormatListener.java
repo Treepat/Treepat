@@ -1,5 +1,5 @@
-// Generated from D:/doria/Documents/GitHub/Treepat/src/main/java/antlr/TreeFormatParser\TreeFormat.g4 by ANTLR 4.8
-package antlr.treeFormatParser.generate;
+// Generated from D:/doria/Documents/GitHub/Treepat/src/main/java/antlr/treeFormatParser\TreeFormat.g4 by ANTLR 4.8
+package antlr.treeFormatParser.generated;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -37,16 +37,6 @@ public interface TreeFormatListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSibling(TreeFormatParser.SiblingContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link TreeFormatParser#wrapper}.
-	 * @param ctx the parse tree
-	 */
-	void enterWrapper(TreeFormatParser.WrapperContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TreeFormatParser#wrapper}.
-	 * @param ctx the parse tree
-	 */
-	void exitWrapper(TreeFormatParser.WrapperContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link TreeFormatParser#node}.
 	 * @param ctx the parse tree

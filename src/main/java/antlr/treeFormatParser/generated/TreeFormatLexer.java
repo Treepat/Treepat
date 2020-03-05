@@ -1,14 +1,11 @@
-// Generated from D:/doria/Documents/GitHub/Treepat/src/main/java/antlr/TreeFormatParser\TreeFormat.g4 by ANTLR 4.8
-package antlr.treeFormatParser.generate;
-import antlr.treepatParser.generate.TreepatParser;
+// Generated from D:/doria/Documents/GitHub/Treepat/src/main/java/antlr/treeFormatParser\TreeFormat.g4 by ANTLR 4.8
+package antlr.treeFormatParser.generated;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
-import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class TreeFormatLexer extends Lexer {
@@ -106,7 +103,7 @@ public class TreeFormatLexer extends Lexer {
 	      }
 
 	      // First emit an extra line break that serves as the end of the statement.
-	      this.emit(commonToken(TreepatParser.NEWLINE, "\n"));
+	      this.emit(commonToken(TreeFormatParser.NEWLINE, "\n"));
 
 	      // Now emit as much DEDENT tokens as needed.
 	      while (!indents.isEmpty()) {
@@ -115,7 +112,7 @@ public class TreeFormatLexer extends Lexer {
 	      }
 
 	      // Put the EOF back on the token stream.
-	      this.emit(commonToken(TreepatParser.EOF, "<EOF>"));
+	      this.emit(commonToken(TreeFormatParser.EOF, "<EOF>"));
 	    }
 
 	    Token next = super.nextToken();
@@ -129,7 +126,7 @@ public class TreeFormatLexer extends Lexer {
 	  }
 
 	  private Token createDedent() {
-	    CommonToken dedent = commonToken(TreepatParser.DEDENT, "");
+	    CommonToken dedent = commonToken(TreeFormatParser.DEDENT, "");
 	    dedent.setLine(this.lastToken.getLine());
 	    return dedent;
 	  }
@@ -222,7 +219,7 @@ public class TreeFormatLexer extends Lexer {
 			         }
 			         else if (indent > previous) {
 			           indents.push(indent);
-			           emit(commonToken(TreepatParser.INDENT, spaces));
+			           emit(commonToken(TreeFormatParser.INDENT, spaces));
 			         }
 			         else {
 			           // Possibly emit more than 1 DEDENT token.
