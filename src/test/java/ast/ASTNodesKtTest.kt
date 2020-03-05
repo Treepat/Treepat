@@ -49,16 +49,14 @@ internal class ASTNodesKtTest {
 
     @Test
     fun `should have one node and then up`() {
-        // arrange input string
+        // arrange
         val inputAntlrString = """
             A
         """.trimIndent()
-        // create parser tree
         val tree = createParserTree(inputAntlrString)
-        // create visitor
         val visitor = TreepatVisitorImplementation()
         val root = visitor.visit(tree)
-        // get count of nodes
+        // act
         countNodes(root)
         // assert
         assertEquals(countNode, 1)
