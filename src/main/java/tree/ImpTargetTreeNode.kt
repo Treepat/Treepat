@@ -1,28 +1,77 @@
 package tree
 
-class ImpTargetTreeNode : TargetTreeNode {
-    override fun moveRight(): TargetTreeNode {
+class ImpTargetTreeNode(
+    override val name: String,
+    override val tag: String,
+    override val id: Int,
+    override var children: List<TargetTreeNode>?,
+    override var parent: TargetTreeNode?
+) : TargetTreeNode {
+
+    override fun moveToRightSibling(): TargetTreeNode? {
         println("moveRight")
-        return this
+        if(parent != null)
+            return parent!!.getRightSibling(this)
+        else
+            return null
     }
 
-    override fun moveLeft(): TargetTreeNode {
+    override fun getRightSibling(son: TargetTreeNode): TargetTreeNode? {
+        if(children != null){
+            val index = children!!.binarySearch(son)
+            if(index >=0 && index+1 < children!!.size )
+                return children!![index+1]
+        }
+        return null
+    }
+
+    override fun moveToLeftSibling(): TargetTreeNode? {
         println("moveLeft")
-        return this
+        if(parent != null)
+            return parent!!.getLeftSibling(this)
+        else
+            return null
     }
 
-    override fun moveUp(): TargetTreeNode {
+    override fun getLeftSibling(son: TargetTreeNode): TargetTreeNode? {
+        if(children != null){
+            val index = children!!.binarySearch(son)
+            if(index > 0)
+                return children!![index-1]
+        }
+        return null
+    }
+
+    override fun moveToParent(): TargetTreeNode? {
         println("moveUp")
-        return this
+        return parent
     }
 
-    override fun moveDown(): TargetTreeNode {
+    override fun moveToFirstChild(): TargetTreeNode? {
         println("moveDown")
-        return this
+        if(children != null){
+            return children!!.first()
+        }
+        return null
     }
 
-    override val name: String
-        get() = "name"
+    override fun updateParent(newParent: TargetTreeNode?) {
+        parent = newParent
+        if(children != null){
+            for (child in children!!){
+                child.updateParent(this)
+            }
+        }
+    }
+
+    override fun preorder() {
+        println(name + ":" + tag + "(" + id + ")")
+        if(children != null){
+            for (child in children!!){
+                child.preorder()
+            }
+        }
+    }
 
     override fun compareTo(other: TargetTreeNode): Int {
         return 0

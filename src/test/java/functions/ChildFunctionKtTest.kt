@@ -33,15 +33,15 @@ internal class ChildFunctionKtTest {
         // arrange
         val children = listOf(mockCurrentTargetTreeNode, mockCurrentTargetTreeNode)
         val function = childFunction(mockFatherVisitorFunction, mockChildVisitorFunction)
-        `when`(mockCurrentTargetTreeNode.moveUp()).thenReturn(mockCurrentTargetTreeNode)
-        `when`(mockCurrentTargetTreeNode.moveDown()).thenReturn(mockCurrentTargetTreeNode)
+        `when`(mockCurrentTargetTreeNode.moveToParent()).thenReturn(mockCurrentTargetTreeNode)
+        `when`(mockCurrentTargetTreeNode.moveToFirstChild()).thenReturn(mockCurrentTargetTreeNode)
         // act
         val result = function(mockCurrentTargetTreeNode)
         // assert
-        verify(mockCurrentTargetTreeNode, times(0)).moveUp()
-        verify(mockCurrentTargetTreeNode, times(0)).moveRight()
-        verify(mockCurrentTargetTreeNode, times(0)).moveLeft()
-        verify(mockCurrentTargetTreeNode, times(1)).moveDown()
+        verify(mockCurrentTargetTreeNode, times(0)).moveToParent()
+        verify(mockCurrentTargetTreeNode, times(0)).moveToRightSibling()
+        verify(mockCurrentTargetTreeNode, times(0)).moveToLeftSibling()
+        verify(mockCurrentTargetTreeNode, times(1)).moveToFirstChild()
 
         assertEquals(children.size, result.size)
     }
