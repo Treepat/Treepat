@@ -1,7 +1,7 @@
-package antlr.TreepatParser
+package antlr.treepatParser
 
-import antlr.TreepatParser.generate.TreepatParser
-import antlr.TreepatParser.generate.TreepatVisitor
+import antlr.treepatParser.generate.TreepatParser
+import antlr.treepatParser.generate.TreepatVisitor
 import ast.ASTNode
 import ast.Child
 import ast.Node

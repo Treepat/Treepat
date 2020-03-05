@@ -1,6 +1,6 @@
-import antlr.TreepatParser.TreepatVisitorImplementation
-import antlr.TreepatParser.generate.TreepatLexer
-import antlr.TreepatParser.generate.TreepatParser
+import antlr.treepatParser.TreepatVisitorImplementation
+import antlr.treepatParser.generate.TreepatLexer
+import antlr.treepatParser.generate.TreepatParser
 import functions.createVisitorFunction
 import javax.swing.JFrame
 import javax.swing.JPanel

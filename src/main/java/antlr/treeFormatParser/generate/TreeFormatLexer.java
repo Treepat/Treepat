@@ -1,6 +1,6 @@
 // Generated from D:/doria/Documents/GitHub/Treepat/src/main/java/antlr/TreeFormatParser\TreeFormat.g4 by ANTLR 4.8
-package antlr.TreeFormatParser.generate;
-import antlr.TreepatParser.generate.TreepatParser;
+package antlr.treeFormatParser.generate;
+import antlr.treepatParser.generate.TreepatParser;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
