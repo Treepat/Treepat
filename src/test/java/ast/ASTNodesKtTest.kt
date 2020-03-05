@@ -13,9 +13,9 @@ import org.junit.jupiter.api.Test
 
 internal class ASTNodesKtTest {
 
-    private lateinit var countNode: Int
-    private lateinit var countChild: Int
-    private lateinit var countSibling: Int
+    private var countNode: Int = 0
+    private var countChild: Int = 0
+    private var countSibling: Int = 0
 
     @BeforeEach
     fun setUp() {
@@ -66,17 +66,15 @@ internal class ASTNodesKtTest {
 
     @Test
     fun `should have one child and then up`() {
-        // arrange input string
+        // arrange
         val inputAntlrString = """
             A
                 B
         """.trimIndent()
-        // create parser tree
         val tree = createParserTree(inputAntlrString)
-        // create visitor
         val visitor = TreepatVisitorImplementation()
         val root = visitor.visit(tree)
-        // get count of nodes
+        // act
         countNodes(root)
         // assert
         assertEquals(countNode, 2)
@@ -85,18 +83,16 @@ internal class ASTNodesKtTest {
 
     @Test
     fun `should have at least one sibling and then up`() {
-        // arrange input string
+        // arrange
         val inputAntlrString = """
             A
                 B
                 C
         """.trimIndent()
-        // create parser tree
         val tree = createParserTree(inputAntlrString)
-        // create visitor
         val visitor = TreepatVisitorImplementation()
         val root = visitor.visit(tree)
-        // get count of nodes
+        // act
         countNodes(root)
         // assert
         assertEquals(countNode, 3)
@@ -106,7 +102,7 @@ internal class ASTNodesKtTest {
 
     @Test
     fun `should have many node, three children, two sibling and then up`() {
-        // arrange input string
+        // arrange
         val inputAntlrString = """
             A
                 B
@@ -116,12 +112,10 @@ internal class ASTNodesKtTest {
                     F
                     G
         """.trimIndent()
-        // create parser tree
         val tree = createParserTree(inputAntlrString)
-        // create visitor
         val visitor = TreepatVisitorImplementation()
         val root = visitor.visit(tree)
-        // get count of nodes
+        // act
         countNodes(root)
         // assert
         assertEquals(countNode, 7)
@@ -132,17 +126,15 @@ internal class ASTNodesKtTest {
 
     @Test
     fun `should have one child not tab only one space`() {
-        // arrange input string
+        // arrange
         val inputAntlrString = """
             A
              B
         """.trimIndent()
-        // create parser tree
         val tree = createParserTree(inputAntlrString)
-        // create visitor
         val visitor = TreepatVisitorImplementation()
         val root = visitor.visit(tree)
-        // get count of nodes
+        // act
         countNodes(root)
         // assert
         assertEquals(countNode, 2)
@@ -151,17 +143,15 @@ internal class ASTNodesKtTest {
 
     @Test
     fun `should have at least one sibling not end line`() {
-        // arrange input string
+        // arrange
         val inputAntlrString = """
             A
                 B C
         """.trimIndent()
-        // create parser tree
         val tree = createParserTree(inputAntlrString)
-        // create visitor
         val visitor = TreepatVisitorImplementation()
         val root = visitor.visit(tree)
-        // get count of nodes
+        // act
         countNodes(root)
         // assert
         assertEquals(countNode, 3)
