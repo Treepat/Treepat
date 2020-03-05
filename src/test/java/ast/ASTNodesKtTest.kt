@@ -40,7 +40,7 @@ internal class ASTNodesKtTest {
                 countChild++
             }
             is Sibling -> {
-                node.siblings.map { countNodes(it) }
+                node.siblings.forEach { countNodes(it) }
                 countSibling++
             }
             else -> throw IllegalArgumentException("This ASTNode subtype is not supported.")
