@@ -93,6 +93,10 @@ tokens { INDENT, DEDENT }
   }
 }
 
+@parser::members{
+
+}
+
 subtree
     :   node NEWLINE* child
     |   node NEWLINE*

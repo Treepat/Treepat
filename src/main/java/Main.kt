@@ -12,7 +12,6 @@ import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.Parser
 import org.antlr.v4.runtime.tree.ParseTree
-import tree.ImpTargetTreeNode
 import tree.TargetTreeNode
 
 object Main {
@@ -24,13 +23,13 @@ object Main {
     fun main(args: Array<String>) {
         // TREE FORMAT PARSER TEST
 
-        val tLexer = TreeFormatLexer(CharStreams.fromFileName("test.tef"))
+        val tLexer = TreeFormatLexer(CharStreams.fromFileName(args[1]))
         val tTokenStream = CommonTokenStream(tLexer)
         val tParser = TreeFormatParser(tTokenStream)
         val tTree: ParseTree = tParser.subtree()
 
         val tVisitor = TreeFormatVisitorImplementation()
-        val targetTreeNode: TargetTreeNode = tVisitor.visit(tTree)
+        val targetTreeNode: TargetTreeNode = tVisitor.visit(tTree).first()
         targetTreeNode.updateParent(null)
 
         targetTreeNode.preorder()
@@ -39,20 +38,19 @@ object Main {
 
         // TEST END ---------------------------
 
-        // val lexer = TreepatLexer(CharStreams.fromFileName(args.first()))
-        val lexer = TreepatLexer(CharStreams.fromFileName("test.tp"))
-        val tokenStream = CommonTokenStream(lexer)
-        val parser = TreepatParser(tokenStream)
-        val tree: ParseTree = parser.subtree()
+        val treepatLexer = TreepatLexer(CharStreams.fromFileName(args.first()))
+        val treepatTokenStream = CommonTokenStream(treepatLexer)
+        val treepatParser = TreepatParser(treepatTokenStream)
+        val treepatTree: ParseTree = treepatParser.subtree()
 
-        val visitor = TreepatVisitorImplementation()
-        val root = visitor.visit(tree)
+        val treepatVisitor = TreepatVisitorImplementation()
+        val root = treepatVisitor.visit(treepatTree)
         // val targetTreeNode: TargetTreeNode = ImpTargetTreeNode()
         val rootFunctionModule = createVisitorFunction(root)
 
         rootFunctionModule.invoke(targetTreeNode)
 
-        showASTNodeFrame(parser, tree)
+        showASTNodeFrame(treepatParser, treepatTree)
     }
 
     private fun showASTNodeFrame(parser: Parser, tree: ParseTree) {

@@ -82,6 +82,9 @@ public class TreeFormatParser extends Parser {
 	@Override
 	public ATN getATN() { return _ATN; }
 
+
+
+
 	public TreeFormatParser(TokenStream input) {
 		super(input);
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
@@ -204,6 +207,11 @@ public class TreeFormatParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof TreeFormatListener ) ((TreeFormatListener)listener).exitChild(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof TreeFormatVisitor ) return ((TreeFormatVisitor<? extends T>)visitor).visitChild(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ChildContext child() throws RecognitionException {
@@ -251,6 +259,11 @@ public class TreeFormatParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof TreeFormatListener ) ((TreeFormatListener)listener).exitSibling(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof TreeFormatVisitor ) return ((TreeFormatVisitor<? extends T>)visitor).visitSibling(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -356,6 +369,11 @@ public class TreeFormatParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof TreeFormatListener ) ((TreeFormatListener)listener).exitInformation(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof TreeFormatVisitor ) return ((TreeFormatVisitor<? extends T>)visitor).visitInformation(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 

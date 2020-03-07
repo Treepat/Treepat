@@ -2,8 +2,6 @@
 package antlr.treeFormatParser.generated;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
-import java.util.List;
-
 /**
  * This interface defines a complete generic visitor for a parse tree produced
  * by {@link TreeFormatParser}.
@@ -23,13 +21,13 @@ public interface TreeFormatVisitor<T> extends ParseTreeVisitor<T> {
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	List<T> visitChild(TreeFormatParser.ChildContext ctx);
+	T visitChild(TreeFormatParser.ChildContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link TreeFormatParser#sibling}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	List<T> visitSibling(TreeFormatParser.SiblingContext ctx);
+	T visitSibling(TreeFormatParser.SiblingContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link TreeFormatParser#node}.
 	 * @param ctx the parse tree
@@ -41,5 +39,5 @@ public interface TreeFormatVisitor<T> extends ParseTreeVisitor<T> {
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	void visitInformation(TreeFormatParser.InformationContext ctx);
+	T visitInformation(TreeFormatParser.InformationContext ctx);
 }
