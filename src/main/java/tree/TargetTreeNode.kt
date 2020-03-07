@@ -1,19 +1,17 @@
 package tree
 
-interface TargetTreeNode : Comparable<TargetTreeNode> {
-    val name: String
-    val tag: String
-    val id: Int
-    var children: List<TargetTreeNode>?
-    var parent: TargetTreeNode?
+interface TargetTreeNode {
 
     fun moveToRightSibling(): TargetTreeNode?
     fun moveToLeftSibling(): TargetTreeNode?
     fun moveToParent(): TargetTreeNode?
     fun moveToFirstChild(): TargetTreeNode?
-    fun updateParent(newParent: TargetTreeNode?)
-    fun preorder()
-    
-    fun getRightSibling(son: TargetTreeNode): TargetTreeNode?
-    fun getLeftSibling(son: TargetTreeNode): TargetTreeNode?
+
+    fun getName(): String
+    fun getTag(): String
+    fun getId(): Int
+    fun setChildren(children: List<TargetTreeNode>)
+    fun getChildren(): List<TargetTreeNode>?
+
+    override fun toString(): String
 }

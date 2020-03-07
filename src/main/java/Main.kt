@@ -12,6 +12,7 @@ import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.Parser
 import org.antlr.v4.runtime.tree.ParseTree
+import tree.ImpTargetTreeNode
 import tree.TargetTreeNode
 
 object Main {
@@ -21,22 +22,20 @@ object Main {
     @Throws(Exception::class)
     @JvmStatic
     fun main(args: Array<String>) {
-        // TREE FORMAT PARSER TEST
+        // Tree file parsing
 
-        val tLexer = TreeFormatLexer(CharStreams.fromFileName(args[1]))
-        val tTokenStream = CommonTokenStream(tLexer)
-        val tParser = TreeFormatParser(tTokenStream)
-        val tTree: ParseTree = tParser.subtree()
+        val treeFileLexer = TreeFormatLexer(CharStreams.fromFileName(args[1]))
+        val treeFileTokenStream = CommonTokenStream(treeFileLexer)
+        val treeFileParser = TreeFormatParser(treeFileTokenStream)
+        val treeFileTree: ParseTree = treeFileParser.subtree()
 
-        val tVisitor = TreeFormatVisitorImplementation()
-        val targetTreeNode: TargetTreeNode = tVisitor.visit(tTree).first()
-        targetTreeNode.updateParent(null)
+        val treeFileVisitor = TreeFormatVisitorImplementation()
+        val targetTreeNode: TargetTreeNode = treeFileVisitor.visit(treeFileTree)
+        (targetTreeNode as ImpTargetTreeNode).updateParent(null)
 
-        targetTreeNode.preorder()
+        showASTNodeFrame(treeFileParser, treeFileTree)
 
-        showASTNodeFrame(tParser, tTree)
-
-        // TEST END ---------------------------
+        // Treepat file parsing
 
         val treepatLexer = TreepatLexer(CharStreams.fromFileName(args.first()))
         val treepatTokenStream = CommonTokenStream(treepatLexer)
@@ -45,7 +44,6 @@ object Main {
 
         val treepatVisitor = TreepatVisitorImplementation()
         val root = treepatVisitor.visit(treepatTree)
-        // val targetTreeNode: TargetTreeNode = ImpTargetTreeNode()
         val rootFunctionModule = createVisitorFunction(root)
 
         rootFunctionModule.invoke(targetTreeNode)

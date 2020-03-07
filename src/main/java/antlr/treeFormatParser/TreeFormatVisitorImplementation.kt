@@ -11,57 +11,56 @@ import org.antlr.v4.runtime.tree.TerminalNode
 import tree.ImpTargetTreeNode
 import tree.TargetTreeNode
 
-class TreeFormatVisitorImplementation : TreeFormatVisitor<List<TargetTreeNode>> {
+class TreeFormatVisitorImplementation : TreeFormatVisitor<TargetTreeNode> {
 
     var idCount: Int = 0
 
-    override fun visitSubtree(ctx: TreeFormatParser.SubtreeContext): List<TargetTreeNode> {
-        var node = ArrayList<TargetTreeNode>()
-        node.add(visitNode(ctx.node()).first())
+    override fun visitSubtree(ctx: TreeFormatParser.SubtreeContext): TargetTreeNode {
+        var node: ImpTargetTreeNode = visitNode(ctx.node()) as ImpTargetTreeNode
         if(ctx.child() == null){
             return node
         }
 
-        node.first().children = visitChild(ctx.child())
+        node.setChildren(visitChild(ctx.child()).getChildren()!!)
         return node
     }
 
-    override fun visitChild(ctx: TreeFormatParser.ChildContext): List<TargetTreeNode> {
+    override fun visitChild(ctx: TreeFormatParser.ChildContext): TargetTreeNode {
         return visitSibling(ctx.sibling())
     }
 
-    override fun visitSibling(ctx: TreeFormatParser.SiblingContext): List<TargetTreeNode> {
+    override fun visitSibling(ctx: TreeFormatParser.SiblingContext): TargetTreeNode {
         val siblings = ctx.subtree().toList()
         var siblingNodes = ArrayList<TargetTreeNode>()
         for(subtree in siblings){
-            siblingNodes.add(visitSubtree(subtree).first())
+            siblingNodes.add(visitSubtree(subtree))
         }
-        return siblingNodes
-    }
-
-    override fun visitNode(ctx: TreeFormatParser.NodeContext): List<TargetTreeNode> {
-        var aux = ArrayList<TargetTreeNode>()
-        aux.add(ImpTargetTreeNode(ctx.name.text, ctx.tag.text, idCount++, null, null))
+        var aux = ImpTargetTreeNode("", "", -1, null, null)
+        aux.setChildren(siblingNodes)
         return aux
     }
 
-    override fun visitInformation(ctx: InformationContext): List<TargetTreeNode>{
-        return ArrayList<TargetTreeNode>()
+    override fun visitNode(ctx: TreeFormatParser.NodeContext): TargetTreeNode {
+        return ImpTargetTreeNode(ctx.name.text, ctx.tag.text, idCount++, null, null)
     }
 
-    override fun visit(p0: ParseTree): List<TargetTreeNode> {
-        return p0.accept<List<TargetTreeNode>>(this)
+    override fun visitInformation(ctx: InformationContext): TargetTreeNode{
+        return ImpTargetTreeNode("", "", -1, null, null)
     }
 
-    override fun visitChildren(p0: RuleNode): List<TargetTreeNode> {
+    override fun visit(p0: ParseTree): TargetTreeNode {
+        return p0.accept<TargetTreeNode>(this)
+    }
+
+    override fun visitChildren(p0: RuleNode): TargetTreeNode {
         throw NotImplementedError("This method is not supported.")
     }
 
-    override fun visitErrorNode(p0: ErrorNode?): List<TargetTreeNode> {
+    override fun visitErrorNode(p0: ErrorNode?): TargetTreeNode {
         throw NotImplementedError("This method is not supported.")
     }
 
-    override fun visitTerminal(p0: TerminalNode?): List<TargetTreeNode> {
+    override fun visitTerminal(p0: TerminalNode?): TargetTreeNode {
         throw NotImplementedError("This method is not supported.")
     }
 }

@@ -25,7 +25,7 @@ internal class NodeFunctionKtTest {
     fun `should not move and return a list containing current node`() {
         // arrange
         val function = nodeFunction(tNodeName)
-        `when`(mockCurrentTargetTreeNode.name).thenReturn(tNodeName)
+        `when`(mockCurrentTargetTreeNode.getName()).thenReturn(tNodeName)
         // act
         val result = function(mockCurrentTargetTreeNode)
         // assert

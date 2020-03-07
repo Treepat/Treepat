@@ -1,8 +1,8 @@
 package ast
 
-import antlr.TreepatVisitorImplementation
-import antlr.generate.TreepatLexer
-import antlr.generate.TreepatParser
+import antlr.treepatParser.TreepatVisitorImplementation
+import antlr.treepatParser.generated.TreepatLexer
+import antlr.treepatParser.generated.TreepatParser
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import org.antlr.v4.runtime.CharStreams
