@@ -51,7 +51,7 @@ class SiblingFunctionKtTest {
         // act
         val result = function(mockCurrentTargetTreeNode)
         // assert
-        verify(mockCurrentTargetTreeNode, times(0)).moveToRightSibling()
+        verify(mockCurrentTargetTreeNode, times(1)).moveToRightSibling()
         verify(mockCurrentTargetTreeNode, times(0)).moveToParent()
         verify(mockCurrentTargetTreeNode, times(0)).moveToLeftSibling()
         verify(mockCurrentTargetTreeNode, times(0)).moveToFirstChild()
