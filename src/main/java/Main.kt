@@ -4,6 +4,7 @@ import antlr.treeFormatParser.generated.TreeFormatParser
 import antlr.treepatParser.TreepatVisitorImplementation
 import antlr.treepatParser.generated.TreepatLexer
 import antlr.treepatParser.generated.TreepatParser
+import ast.ASTNode
 import functions.createVisitorFunction
 import javax.swing.JFrame
 import javax.swing.JPanel
@@ -22,33 +23,16 @@ object Main {
     @Throws(Exception::class)
     @JvmStatic
     fun main(args: Array<String>) {
-        // Tree file parsing
+        // Treepat Parsing
+        val ASTRoot: ASTNode = parseTreepat(args[0])
 
-        val treeFileLexer = TreeFormatLexer(CharStreams.fromFileName(args[1]))
-        val treeFileTokenStream = CommonTokenStream(treeFileLexer)
-        val treeFileParser = TreeFormatParser(treeFileTokenStream)
-        val treeFileTree: ParseTree = treeFileParser.subtree()
+        // Tree File Parsing
+        val targetTreeNode: TargetTreeNode = parseTreeFile(args[1])
 
-        val treeFileVisitor = TreeFormatVisitorImplementation()
-        val targetTreeNode: TargetTreeNode = treeFileVisitor.visit(treeFileTree)
-        (targetTreeNode as ImpTargetTreeNode).updateParent(null)
-
-        showASTNodeFrame(treeFileParser, treeFileTree)
-
-        // Treepat file parsing
-
-        val treepatLexer = TreepatLexer(CharStreams.fromFileName(args.first()))
-        val treepatTokenStream = CommonTokenStream(treepatLexer)
-        val treepatParser = TreepatParser(treepatTokenStream)
-        val treepatTree: ParseTree = treepatParser.subtree()
-
-        val treepatVisitor = TreepatVisitorImplementation()
-        val root = treepatVisitor.visit(treepatTree)
-        val rootFunctionModule = createVisitorFunction(root)
-
+        //
+        val rootFunctionModule = createVisitorFunction(ASTRoot)
         rootFunctionModule.invoke(targetTreeNode)
 
-        showASTNodeFrame(treepatParser, treepatTree)
     }
 
     private fun showASTNodeFrame(parser: Parser, tree: ParseTree) {
@@ -61,5 +45,29 @@ object Main {
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         frame.pack()
         frame.isVisible = true
+    }
+
+    private fun parseTreeFile(fileName: String): TargetTreeNode {
+        val lexer = TreeFormatLexer(CharStreams.fromFileName(fileName))
+        val tokenStream = CommonTokenStream(lexer)
+        val fileParser = TreeFormatParser(tokenStream)
+        val tree: ParseTree = fileParser.subtree()
+        val treeVisitor = TreeFormatVisitorImplementation()
+
+        showASTNodeFrame(fileParser, tree)
+
+        return treeVisitor.visit(tree)
+    }
+
+    private fun parseTreepat(fileName: String): ASTNode{
+        val lexer = TreepatLexer(CharStreams.fromFileName(fileName))
+        val tokenStream = CommonTokenStream(lexer)
+        val treepatParser = TreepatParser(tokenStream)
+        val tree: ParseTree = treepatParser.subtree()
+        val treepatVisitor = TreepatVisitorImplementation()
+
+        showASTNodeFrame(treepatParser, tree)
+
+        return treepatVisitor.visit(tree)
     }
 }

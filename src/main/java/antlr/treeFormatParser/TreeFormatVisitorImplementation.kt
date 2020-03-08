@@ -13,15 +13,17 @@ import tree.TargetTreeNode
 
 class TreeFormatVisitorImplementation : TreeFormatVisitor<TargetTreeNode> {
 
-    var idCount: Int = 0
+    private var idCount: Int = 0
 
     override fun visitSubtree(ctx: TreeFormatParser.SubtreeContext): TargetTreeNode {
-        var node: ImpTargetTreeNode = visitNode(ctx.node()) as ImpTargetTreeNode
+        val node: ImpTargetTreeNode = visitNode(ctx.node()) as ImpTargetTreeNode
         if(ctx.child() == null){
             return node
         }
-
         node.setChildren(visitChild(ctx.child()).getChildren()!!)
+        for(child in node.getChildren()!!){
+            (child as ImpTargetTreeNode).setParent(node)
+        }
         return node
     }
 
@@ -31,25 +33,25 @@ class TreeFormatVisitorImplementation : TreeFormatVisitor<TargetTreeNode> {
 
     override fun visitSibling(ctx: TreeFormatParser.SiblingContext): TargetTreeNode {
         val siblings = ctx.subtree().toList()
-        var siblingNodes = ArrayList<TargetTreeNode>()
+        val siblingNodes = ArrayList<TargetTreeNode>()
         for(subtree in siblings){
             siblingNodes.add(visitSubtree(subtree))
         }
-        var aux = ImpTargetTreeNode("", "", -1, null, null)
+        val aux = ImpTargetTreeNode()
         aux.setChildren(siblingNodes)
         return aux
     }
 
     override fun visitNode(ctx: TreeFormatParser.NodeContext): TargetTreeNode {
-        return ImpTargetTreeNode(ctx.name.text, ctx.tag.text, idCount++, null, null)
+        return ImpTargetTreeNode(ctx.name.text, ctx.tag.text, idCount++)
     }
 
     override fun visitInformation(ctx: InformationContext): TargetTreeNode{
-        return ImpTargetTreeNode("", "", -1, null, null)
+        return ImpTargetTreeNode()
     }
 
     override fun visit(p0: ParseTree): TargetTreeNode {
-        return p0.accept<TargetTreeNode>(this)
+        return p0.accept(this)
     }
 
     override fun visitChildren(p0: RuleNode): TargetTreeNode {

@@ -1,25 +1,29 @@
 package tree
 
-class ImpTargetTreeNode(
-    private val name: String,
-    private val tag: String,
-    private val id: Int,
-    private var children: List<TargetTreeNode>?,
-    private var parent: TargetTreeNode?
-) : TargetTreeNode {
+class ImpTargetTreeNode() : TargetTreeNode {
+
+    private var name: String = ""
+    private var tag: String = ""
+    private var id: Int = -1
+    private var children: List<TargetTreeNode>? = null
+    private var parent: TargetTreeNode? = null
+
+    constructor(name: String, tag: String, id: Int) : this() {
+        this.name = name
+        this.tag = tag
+        this.id = id
+    }
 
     override fun moveToRightSibling(): TargetTreeNode? {
         if(parent != null)
             return (parent!! as ImpTargetTreeNode).getRightSibling(this)
-        else
-            return null
+        return null
     }
 
     override fun moveToLeftSibling(): TargetTreeNode? {
         if(parent != null)
             return (parent!! as ImpTargetTreeNode).getLeftSibling(this)
-        else
-            return null
+        return null
     }
 
     fun getRightSibling(son: TargetTreeNode): TargetTreeNode? {
@@ -81,13 +85,8 @@ class ImpTargetTreeNode(
         return str
     }
 
-    fun updateParent(newParent: TargetTreeNode?) {
+    fun setParent(newParent: TargetTreeNode?) {
         parent = newParent
-        if(children != null){
-            for (child in children!!){
-                (child as ImpTargetTreeNode).updateParent(this)
-            }
-        }
     }
 
     fun preorder() {
