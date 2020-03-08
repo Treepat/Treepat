@@ -15,31 +15,31 @@ class ImpTargetTreeNode() : TargetTreeNode {
     }
 
     override fun moveToRightSibling(): TargetTreeNode? {
-        if(parent != null)
+        if (parent != null)
             return (parent!! as ImpTargetTreeNode).getRightSibling(this)
         return null
     }
 
     override fun moveToLeftSibling(): TargetTreeNode? {
-        if(parent != null)
+        if (parent != null)
             return (parent!! as ImpTargetTreeNode).getLeftSibling(this)
         return null
     }
 
     fun getRightSibling(son: TargetTreeNode): TargetTreeNode? {
-        if(children != null){
+        if (children != null) {
             val index = (children!! as List<ImpTargetTreeNode>).binarySearch(son as ImpTargetTreeNode, ImpTargetTreeNodeComparator())
-            if(index >=0 && index+1 < children!!.size )
-                return children!![index+1]
+            if (index >= 0 && index + 1 < children!!.size)
+                return children!![index + 1]
         }
         return null
     }
 
     fun getLeftSibling(son: TargetTreeNode): TargetTreeNode? {
-        if(children != null){
+        if (children != null) {
             val index = (children!! as List<ImpTargetTreeNode>).binarySearch(son as ImpTargetTreeNode, ImpTargetTreeNodeComparator())
-            if(index > 0)
-                return children!![index-1]
+            if (index > 0)
+                return children!![index - 1]
         }
         return null
     }
@@ -49,7 +49,7 @@ class ImpTargetTreeNode() : TargetTreeNode {
     }
 
     override fun moveToFirstChild(): TargetTreeNode? {
-        if(children != null){
+        if (children != null) {
             return children!!.first()
         }
         return null
@@ -77,8 +77,8 @@ class ImpTargetTreeNode() : TargetTreeNode {
 
     override fun toString(): String {
         var str = "$name:$tag($id)"
-        if(children != null){
-            for (child in children!!){
+        if (children != null) {
+            for (child in children!!) {
                 str += "(" + (child as ImpTargetTreeNode).toString() + ")"
             }
         }
@@ -91,8 +91,8 @@ class ImpTargetTreeNode() : TargetTreeNode {
 
     fun preorder() {
         println("$name:$tag($id)")
-        if(children != null){
-            for (child in children!!){
+        if (children != null) {
+            for (child in children!!) {
                 (child as ImpTargetTreeNode).preorder()
             }
         }

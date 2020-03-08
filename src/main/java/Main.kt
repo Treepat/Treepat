@@ -13,7 +13,6 @@ import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.Parser
 import org.antlr.v4.runtime.tree.ParseTree
-import tree.ImpTargetTreeNode
 import tree.TargetTreeNode
 
 object Main {
@@ -32,7 +31,6 @@ object Main {
         //
         val rootFunctionModule = createVisitorFunction(ASTRoot)
         rootFunctionModule.invoke(targetTreeNode)
-
     }
 
     private fun showASTNodeFrame(parser: Parser, tree: ParseTree) {
@@ -59,7 +57,7 @@ object Main {
         return treeVisitor.visit(tree)
     }
 
-    private fun parseTreepat(fileName: String): ASTNode{
+    private fun parseTreepat(fileName: String): ASTNode {
         val lexer = TreepatLexer(CharStreams.fromFileName(fileName))
         val tokenStream = CommonTokenStream(lexer)
         val treepatParser = TreepatParser(tokenStream)

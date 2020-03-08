@@ -1,6 +1,5 @@
 package antlr.treeFormatParser
 
-
 import antlr.treeFormatParser.generated.TreeFormatParser
 import antlr.treeFormatParser.generated.TreeFormatParser.InformationContext
 import antlr.treeFormatParser.generated.TreeFormatVisitor
@@ -17,11 +16,11 @@ class TreeFormatVisitorImplementation : TreeFormatVisitor<TargetTreeNode> {
 
     override fun visitSubtree(ctx: TreeFormatParser.SubtreeContext): TargetTreeNode {
         val node: ImpTargetTreeNode = visitNode(ctx.node()) as ImpTargetTreeNode
-        if(ctx.child() == null){
+        if (ctx.child() == null) {
             return node
         }
         node.setChildren(visitChild(ctx.child()).getChildren()!!)
-        for(child in node.getChildren()!!){
+        for (child in node.getChildren()!!) {
             (child as ImpTargetTreeNode).setParent(node)
         }
         return node
@@ -34,7 +33,7 @@ class TreeFormatVisitorImplementation : TreeFormatVisitor<TargetTreeNode> {
     override fun visitSibling(ctx: TreeFormatParser.SiblingContext): TargetTreeNode {
         val siblings = ctx.subtree().toList()
         val siblingNodes = ArrayList<TargetTreeNode>()
-        for(subtree in siblings){
+        for (subtree in siblings) {
             siblingNodes.add(visitSubtree(subtree))
         }
         val aux = ImpTargetTreeNode()
@@ -46,7 +45,7 @@ class TreeFormatVisitorImplementation : TreeFormatVisitor<TargetTreeNode> {
         return ImpTargetTreeNode(ctx.name.text, ctx.tag.text, idCount++)
     }
 
-    override fun visitInformation(ctx: InformationContext): TargetTreeNode{
+    override fun visitInformation(ctx: InformationContext): TargetTreeNode {
         return ImpTargetTreeNode()
     }
 

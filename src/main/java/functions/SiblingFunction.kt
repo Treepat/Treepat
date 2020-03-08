@@ -1,7 +1,5 @@
 package functions
 
-import tree.TargetTreeNode
-
 fun siblingFunction(
     siblings: List<VisitorFunction>
 ): VisitorFunction {
