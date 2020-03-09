@@ -6,7 +6,7 @@ import ast.Node
 import ast.Sibling
 import tree.TargetTreeNode
 
-typealias VisitorFunction = (TargetTreeNode) -> List<TargetTreeNode>
+typealias VisitorFunction = (TargetTreeNode?) -> List<TargetTreeNode>
 
 fun createVisitorFunction(node: ASTNode): VisitorFunction {
     return when (node) {
