@@ -15,9 +15,8 @@ class ImpTargetTreeNode() : TargetTreeNode {
     }
 
     override fun moveToRightSibling(): TargetTreeNode? {
-        if (parent != null)
-            return (parent!! as ImpTargetTreeNode).getRightSibling(this)
-        return null
+        val rightSibling = parent as? ImpTargetTreeNode
+        return rightSibling?.getRightSibling(this) 
     }
 
     override fun moveToLeftSibling(): TargetTreeNode? {
