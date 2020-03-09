@@ -11,7 +11,7 @@ interface TargetTreeNode {
     fun getTag(): String
     fun getId(): Int
     fun setChildren(children: List<TargetTreeNode>)
-    fun getChildren(): List<TargetTreeNode>?
+    fun getChildren(): List<TargetTreeNode>
 
     override fun toString(): String
 }

@@ -1,22 +1,17 @@
 package tree
 
-class ImpTargetTreeNode() : TargetTreeNode {
-
-    private var name: String = ""
-    private var tag: String = ""
+class ImpTargetTreeNode(
+    private val name: String = "",
+    private val tag: String = "",
     private var id: Int = -1
-    private var children: List<TargetTreeNode>? = null
-    private var parent: TargetTreeNode? = null
+) : TargetTreeNode {
 
-    constructor(name: String, tag: String, id: Int) : this() {
-        this.name = name
-        this.tag = tag
-        this.id = id
-    }
+    private var children: List<TargetTreeNode> = emptyList()
+    private var parent: TargetTreeNode? = null
 
     override fun moveToRightSibling(): TargetTreeNode? {
         val rightSibling = parent as? ImpTargetTreeNode
-        return rightSibling?.getRightSibling(this) 
+        return rightSibling?.getRightSibling(this)
     }
 
     override fun moveToLeftSibling(): TargetTreeNode? {
@@ -25,32 +20,13 @@ class ImpTargetTreeNode() : TargetTreeNode {
         return null
     }
 
-    fun getRightSibling(son: TargetTreeNode): TargetTreeNode? {
-        if (children != null) {
-            val index = (children!! as List<ImpTargetTreeNode>).binarySearch(son as ImpTargetTreeNode, ImpTargetTreeNodeComparator())
-            if (index >= 0 && index + 1 < children!!.size)
-                return children!![index + 1]
-        }
-        return null
-    }
-
-    fun getLeftSibling(son: TargetTreeNode): TargetTreeNode? {
-        if (children != null) {
-            val index = (children!! as List<ImpTargetTreeNode>).binarySearch(son as ImpTargetTreeNode, ImpTargetTreeNodeComparator())
-            if (index > 0)
-                return children!![index - 1]
-        }
-        return null
-    }
-
     override fun moveToParent(): TargetTreeNode? {
         return parent
     }
 
     override fun moveToFirstChild(): TargetTreeNode? {
-        if (children != null) {
-            return children!!.first()
-        }
+        if (children.isNotEmpty())
+            return children.first()
         return null
     }
 
@@ -70,16 +46,14 @@ class ImpTargetTreeNode() : TargetTreeNode {
         this.children = children
     }
 
-    override fun getChildren(): List<TargetTreeNode>? {
+    override fun getChildren(): List<TargetTreeNode> {
         return children
     }
 
     override fun toString(): String {
         var str = "$name:$tag($id)"
-        if (children != null) {
-            for (child in children!!) {
-                str += "(" + (child as ImpTargetTreeNode).toString() + ")"
-            }
+        for (child in children) {
+            str += "(" + (child as ImpTargetTreeNode).toString() + ")"
         }
         return str
     }
@@ -88,12 +62,28 @@ class ImpTargetTreeNode() : TargetTreeNode {
         parent = newParent
     }
 
+    private fun getRightSibling(son: TargetTreeNode): TargetTreeNode? {
+        if (children.isNotEmpty()) {
+            val index = (children as List<ImpTargetTreeNode>).binarySearch(son as ImpTargetTreeNode, ImpTargetTreeNodeComparator())
+            if (index >= 0 && index + 1 < children.size)
+                return children[index + 1]
+        }
+        return null
+    }
+
+    private fun getLeftSibling(son: TargetTreeNode): TargetTreeNode? {
+        if (children.isNotEmpty()) {
+            val index = (children as List<ImpTargetTreeNode>).binarySearch(son as ImpTargetTreeNode, ImpTargetTreeNodeComparator())
+            if (index > 0)
+                return children[index - 1]
+        }
+        return null
+    }
+
     fun preorder() {
         println("$name:$tag($id)")
-        if (children != null) {
-            for (child in children!!) {
-                (child as ImpTargetTreeNode).preorder()
-            }
+        for (child in children) {
+            (child as ImpTargetTreeNode).preorder()
         }
     }
 }
