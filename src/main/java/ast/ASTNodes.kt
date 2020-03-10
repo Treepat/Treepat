@@ -2,15 +2,15 @@ package ast
 
 interface ASTNode
 
-const val indentString = "    "
-const val endLineString = "\n"
+const val INDENT_STRING = "    "
+const val ENDLINE_STRING = "\n"
 
 data class Child(var father: ASTNode, var child: ASTNode) : ASTNode {
-    override fun toString(): String = "$father\n${child.toString().prependIndent(indentString)}"
+    override fun toString(): String = "$father\n${child.toString().prependIndent(INDENT_STRING)}"
 }
 data class Node(var name: String) : ASTNode {
     override fun toString(): String = name
 }
 data class Sibling(var siblings: List<ASTNode>) : ASTNode {
-    override fun toString(): String = siblings.joinToString(separator = endLineString)
+    override fun toString(): String = siblings.joinToString(separator = ENDLINE_STRING)
 }
