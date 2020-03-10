@@ -1,1 +1,1 @@
-1. should have one node and then up
+1. should have one node

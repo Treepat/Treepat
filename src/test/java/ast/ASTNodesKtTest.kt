@@ -52,23 +52,23 @@ internal class ASTNodesKtTest {
     }
 
     @Test
-    fun `should run all node test cases and then up`() {
+    fun `should run all node test cases`() {
         val nodeTestCasesFolder = "./src/test/java/ast/node/"
         runAllTestInFolder(nodeTestCasesFolder)
     }
 
     @Test
-    fun `should run all child test cases and then up`() {
+    fun `should run all child test cases`() {
         val nodeTestCasesFolder = "./src/test/java/ast/child/"
         runAllTestInFolder(nodeTestCasesFolder)
     }
     @Test
-    fun `should run all sibling test cases and then up`() {
+    fun `should run all sibling test cases`() {
         val nodeTestCasesFolder = "./src/test/java/ast/sibling/"
         runAllTestInFolder(nodeTestCasesFolder)
     }
     @Test
-    fun `should run all mix test cases and then up`() {
+    fun `should run all mix test cases`() {
         val nodeTestCasesFolder = "./src/test/java/ast/mix/"
         runAllTestInFolder(nodeTestCasesFolder)
     }

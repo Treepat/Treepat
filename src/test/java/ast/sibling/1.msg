@@ -1,1 +1,1 @@
-1. should have at least one sibling and then up
+1. should have at least one sibling

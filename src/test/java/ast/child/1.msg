@@ -1,1 +1,1 @@
-1. should have one child and then up
+1. should have one child
