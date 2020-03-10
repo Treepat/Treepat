@@ -1,23 +1,20 @@
 package tree
 
 class ImpTargetTreeNode(
-    private val name: String = "",
-    private val tag: String = "",
-    private var id: Int = -1
+    override val name: String = "",
+    override val tag: String = "",
+    override val id: Int = -1
 ) : TargetTreeNode {
 
-    private var children: List<TargetTreeNode> = emptyList()
+    override var children: List<TargetTreeNode> = mutableListOf()
     private var parent: TargetTreeNode? = null
 
     override fun moveToRightSibling(): TargetTreeNode? {
-        val rightSibling = parent as? ImpTargetTreeNode
-        return rightSibling?.getRightSibling(this)
+        return (parent as? ImpTargetTreeNode)?.getRightSibling(this)
     }
 
     override fun moveToLeftSibling(): TargetTreeNode? {
-        if (parent != null)
-            return (parent!! as ImpTargetTreeNode).getLeftSibling(this)
-        return null
+        return (parent as? ImpTargetTreeNode)?.getLeftSibling(this)
     }
 
     override fun moveToParent(): TargetTreeNode? {
@@ -30,31 +27,11 @@ class ImpTargetTreeNode(
         return null
     }
 
-    override fun getName(): String {
-        return name
-    }
-
-    override fun getTag(): String {
-        return tag
-    }
-
-    override fun getId(): Int {
-        return id
-    }
-
-    override fun setChildren(children: List<TargetTreeNode>) {
-        this.children = children
-    }
-
-    override fun getChildren(): List<TargetTreeNode> {
-        return children
-    }
-
     override fun toString(): String {
-        var str = "$name:$tag($id)"
-        for (child in children) {
-            str += "(" + (child as ImpTargetTreeNode).toString() + ")"
-        }
+        var str = "$name:$tag"
+        if (children.isNotEmpty())
+            str += END_LINE_STRING
+        str += children.joinToString(separator = END_LINE_STRING).prependIndent(INDENT_STRING)
         return str
     }
 
@@ -85,5 +62,10 @@ class ImpTargetTreeNode(
         for (child in children) {
             (child as ImpTargetTreeNode).preorder()
         }
+    }
+
+    companion object {
+        const val INDENT_STRING = "    "
+        const val END_LINE_STRING = "\n"
     }
 }

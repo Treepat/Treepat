@@ -19,8 +19,8 @@ class TreeFormatVisitorImplementation : TreeFormatVisitor<TargetTreeNode> {
         if (context.child() == null) {
             return node
         }
-        node.setChildren(visitChild(context.child()).getChildren())
-        for (child in node.getChildren()) {
+        node.children = visitChild(context.child()).children
+        for (child in node.children) {
             (child as ImpTargetTreeNode).setParent(node)
         }
         return node
@@ -37,7 +37,7 @@ class TreeFormatVisitorImplementation : TreeFormatVisitor<TargetTreeNode> {
             siblingNodes.add(visitSubtree(subtree))
         }
         val aux = ImpTargetTreeNode()
-        aux.setChildren(siblingNodes)
+        aux.children = siblingNodes
         return aux
     }
 
