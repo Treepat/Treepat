@@ -1,1 +1,1 @@
-1. should have many node, many children, many sibling
+1. should have many nodes, many children, many siblings
