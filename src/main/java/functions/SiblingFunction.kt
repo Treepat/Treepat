@@ -6,7 +6,8 @@ fun siblingFunction(
     return { targetTreeNode ->
         var currentNode = targetTreeNode
         val answer = siblings.mapIndexed { index, function ->
-            if (index != 0) { currentNode = currentNode.moveRight() }
+            if (index != 0) { currentNode = currentNode.moveToRightSibling()!!
+            }
             function.invoke(currentNode)
         }
         val isAnyListEmpty = answer.any { it.isEmpty() }

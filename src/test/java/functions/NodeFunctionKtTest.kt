@@ -29,10 +29,10 @@ internal class NodeFunctionKtTest {
         // act
         val result = function(mockCurrentTargetTreeNode)
         // assert
-        verify(mockCurrentTargetTreeNode, times(0)).moveRight()
-        verify(mockCurrentTargetTreeNode, times(0)).moveUp()
-        verify(mockCurrentTargetTreeNode, times(0)).moveLeft()
-        verify(mockCurrentTargetTreeNode, times(0)).moveDown()
+        verify(mockCurrentTargetTreeNode, times(0)).moveToRightSibling()
+        verify(mockCurrentTargetTreeNode, times(0)).moveToParent()
+        verify(mockCurrentTargetTreeNode, times(0)).moveToLeftSibling()
+        verify(mockCurrentTargetTreeNode, times(0)).moveToFirstChild()
 
         assertEquals(1, result.size)
     }
