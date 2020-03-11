@@ -1,4 +1,5 @@
-A:1
-    J:4
-    B:2
-    C:3
+nodo1:et1
+    nodo2:et2
+    nodo3:et2
+        nodo4:et3
+    nodo5:et1
