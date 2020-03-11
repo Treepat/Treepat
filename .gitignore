@@ -107,6 +107,7 @@ local.properties
 .idea/modules
 *.iml
 *.ipr
+.idea/ros.xml
 
 # CMake
 cmake-build-*/

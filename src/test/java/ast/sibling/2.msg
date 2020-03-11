@@ -1,0 +1,1 @@
+2. should have at least one sibling not end line
