@@ -34,10 +34,10 @@ class SiblingFunctionKtTest {
         // act
         val result = function(mockCurrentTargetTreeNode)
         // assert
-        verify(mockCurrentTargetTreeNode, times(0)).moveRight()
-        verify(mockCurrentTargetTreeNode, times(0)).moveUp()
-        verify(mockCurrentTargetTreeNode, times(0)).moveLeft()
-        verify(mockCurrentTargetTreeNode, times(0)).moveDown()
+        verify(mockCurrentTargetTreeNode, times(0)).moveToRightSibling()
+        verify(mockCurrentTargetTreeNode, times(0)).moveToParent()
+        verify(mockCurrentTargetTreeNode, times(0)).moveToLeftSibling()
+        verify(mockCurrentTargetTreeNode, times(0)).moveToFirstChild()
 
         assertEquals(siblings.size, result.size)
     }
@@ -47,14 +47,14 @@ class SiblingFunctionKtTest {
         // arrange
         val siblings = listOf(mockVisitorFunction, mockVisitorFunction)
         val function = siblingFunction(siblings)
-        `when`(mockCurrentTargetTreeNode.moveRight()).thenReturn(mockCurrentTargetTreeNode)
+        `when`(mockCurrentTargetTreeNode.moveToRightSibling()).thenReturn(mockCurrentTargetTreeNode)
         // act
         val result = function(mockCurrentTargetTreeNode)
         // assert
-        verify(mockCurrentTargetTreeNode, times(1)).moveRight()
-        verify(mockCurrentTargetTreeNode, times(0)).moveUp()
-        verify(mockCurrentTargetTreeNode, times(0)).moveLeft()
-        verify(mockCurrentTargetTreeNode, times(0)).moveDown()
+        verify(mockCurrentTargetTreeNode, times(1)).moveToRightSibling()
+        verify(mockCurrentTargetTreeNode, times(0)).moveToParent()
+        verify(mockCurrentTargetTreeNode, times(0)).moveToLeftSibling()
+        verify(mockCurrentTargetTreeNode, times(0)).moveToFirstChild()
 
         assertEquals(siblings.size, result.size)
     }

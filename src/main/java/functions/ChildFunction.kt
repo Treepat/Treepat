@@ -6,9 +6,9 @@ fun childFunction(
 ): VisitorFunction {
     return { targetTreeNode ->
         val fathers = father.invoke(targetTreeNode)
-        val children = child.invoke(targetTreeNode.moveDown())
+        val children = targetTreeNode.moveToFirstChild()?.let { child.invoke(it) }
         when {
-            fathers.isEmpty() || children.isEmpty() -> listOf()
+            fathers.isEmpty() || children!!.isEmpty() -> listOf()
             else -> listOf(fathers, children).flatten()
         }
     }
