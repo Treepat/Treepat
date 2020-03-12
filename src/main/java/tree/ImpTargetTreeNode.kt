@@ -39,6 +39,7 @@ class ImpTargetTreeNode(
         parent = newParent
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun getRightSibling(son: TargetTreeNode): TargetTreeNode? {
         if (children.isNotEmpty()) {
             val index = (children as List<ImpTargetTreeNode>).binarySearch(son as ImpTargetTreeNode, ImpTargetTreeNodeComparator())
@@ -48,6 +49,7 @@ class ImpTargetTreeNode(
         return null
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun getLeftSibling(son: TargetTreeNode): TargetTreeNode? {
         if (children.isNotEmpty()) {
             val index = (children as List<ImpTargetTreeNode>).binarySearch(son as ImpTargetTreeNode, ImpTargetTreeNodeComparator())
@@ -57,11 +59,12 @@ class ImpTargetTreeNode(
         return null
     }
 
-    fun preorder() {
-        println("$name:$tag($id)")
-        for (child in children) {
-            (child as ImpTargetTreeNode).preorder()
-        }
+    fun preorder(): String {
+        var str = "$name:$tag($id)"
+        if (children.isNotEmpty())
+            str += END_LINE_STRING
+        str += children.joinToString(separator = END_LINE_STRING).prependIndent(INDENT_STRING)
+        return str
     }
 
     companion object {
