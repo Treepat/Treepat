@@ -1,9 +1,5 @@
 import antlr.tree_format.TreeFormatVisitorImplementation
-import antlr.treeFormatParser.generated.TreeFormatLexer
-import antlr.treeFormatParser.generated.TreeFormatParser
 import antlr.treepat.TreepatVisitorImplementation
-import antlr.treepatParser.generated.TreepatLexer
-import antlr.treepatParser.generated.TreepatParser
 import ast.ASTNode
 import functions.createVisitorFunction
 import javax.swing.JFrame
@@ -14,6 +10,10 @@ import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.Parser
 import org.antlr.v4.runtime.tree.ParseTree
 import tree.TargetTreeNode
+import tree_format.TreeFormatLexer
+import tree_format.TreeFormatParser
+import treepat.TreepatLexer
+import treepat.TreepatParser
 
 object Main {
 
