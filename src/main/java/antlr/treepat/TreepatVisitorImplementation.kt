@@ -1,4 +1,4 @@
-package antlr.treepatParser
+package antlr.treepat
 
 import antlr.treepatParser.generated.TreepatParser
 import antlr.treepatParser.generated.TreepatVisitor

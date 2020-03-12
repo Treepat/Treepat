@@ -1,6 +1,6 @@
 package ast
 
-import antlr.treepatParser.TreepatVisitorImplementation
+import antlr.treepat.TreepatVisitorImplementation
 import antlr.treepatParser.generated.TreepatLexer
 import antlr.treepatParser.generated.TreepatParser
 import java.io.File

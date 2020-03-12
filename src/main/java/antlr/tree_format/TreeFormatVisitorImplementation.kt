@@ -1,4 +1,4 @@
-package antlr.treeFormatParser
+package antlr.tree_format
 
 import antlr.treeFormatParser.generated.TreeFormatParser
 import antlr.treeFormatParser.generated.TreeFormatParser.InformationContext

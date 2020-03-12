@@ -1,7 +1,7 @@
-import antlr.treeFormatParser.TreeFormatVisitorImplementation
+import antlr.tree_format.TreeFormatVisitorImplementation
 import antlr.treeFormatParser.generated.TreeFormatLexer
 import antlr.treeFormatParser.generated.TreeFormatParser
-import antlr.treepatParser.TreepatVisitorImplementation
+import antlr.treepat.TreepatVisitorImplementation
 import antlr.treepatParser.generated.TreepatLexer
 import antlr.treepatParser.generated.TreepatParser
 import ast.ASTNode
