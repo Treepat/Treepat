@@ -1,14 +1,13 @@
-package antlr.treeFormatParser
+package antlr.tree_format
 
-import antlr.treeFormatParser.generated.TreeFormatParser
-import antlr.treeFormatParser.generated.TreeFormatParser.InformationContext
-import antlr.treeFormatParser.generated.TreeFormatVisitor
 import org.antlr.v4.runtime.tree.ErrorNode
 import org.antlr.v4.runtime.tree.ParseTree
 import org.antlr.v4.runtime.tree.RuleNode
 import org.antlr.v4.runtime.tree.TerminalNode
 import tree.ImpTargetTreeNode
 import tree.TargetTreeNode
+import tree_format.TreeFormatParser
+import tree_format.TreeFormatVisitor
 
 class TreeFormatVisitorImplementation : TreeFormatVisitor<TargetTreeNode> {
 
@@ -45,7 +44,7 @@ class TreeFormatVisitorImplementation : TreeFormatVisitor<TargetTreeNode> {
         return ImpTargetTreeNode(context.name.text, context.tag.text, idCount++)
     }
 
-    override fun visitInformation(context: InformationContext): TargetTreeNode {
+    override fun visitInformation(context: TreeFormatParser.InformationContext): TargetTreeNode {
         return ImpTargetTreeNode()
     }
 

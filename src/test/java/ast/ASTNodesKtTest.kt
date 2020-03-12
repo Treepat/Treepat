@@ -1,14 +1,14 @@
 package ast
 
-import antlr.treepatParser.TreepatVisitorImplementation
-import antlr.treepatParser.generated.TreepatLexer
-import antlr.treepatParser.generated.TreepatParser
+import antlr.treepat.TreepatVisitorImplementation
 import java.io.File
 import kotlin.test.assertEquals
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTree
 import org.junit.jupiter.api.Test
+import treepat.TreepatLexer
+import treepat.TreepatParser
 
 internal class ASTNodesKtTest {
 
