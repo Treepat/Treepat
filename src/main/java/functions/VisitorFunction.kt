@@ -1,6 +1,7 @@
 package functions
 
 import ast.ASTNode
+import ast.BreadthClosure
 import ast.Child
 import ast.Node
 import ast.Sibling
@@ -13,6 +14,7 @@ fun createVisitorFunction(node: ASTNode): VisitorFunction {
         is Child -> childFunction(createVisitorFunction(node.father), createVisitorFunction(node.child))
         is Node -> nodeFunction(node.name)
         is Sibling -> siblingFunction(node.siblings.map { createVisitorFunction(it) })
+        is BreadthClosure -> breadthClosureFunction(createVisitorFunction(node.expression))
         else -> throw IllegalArgumentException("This ASTNode subtype is not supported.")
     }
 }
