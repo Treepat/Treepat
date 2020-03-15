@@ -1,6 +1,7 @@
 package functions
 
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mock
@@ -23,7 +24,7 @@ class BreadthClosureFunctionKtTest {
     @BeforeEach
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        mockVisitorFunction = { listOf(mockTargetTreeNode) }
+        mockVisitorFunction = { VisitorFunctionResponse(listOf(mockTargetTreeNode), true) }
     }
 
     @Test
@@ -39,7 +40,8 @@ class BreadthClosureFunctionKtTest {
         verify(mockCurrentTargetTreeNode, times(0)).moveToLeftSibling()
         verify(mockCurrentTargetTreeNode, times(0)).moveToFirstChild()
 
-        assertEquals(0, result.size)
+        assertEquals(0, result.matches.size)
+        assertTrue(result.hasMatch)
     }
 
     @Test
@@ -56,6 +58,7 @@ class BreadthClosureFunctionKtTest {
         verify(mockCurrentTargetTreeNode, times(0)).moveToLeftSibling()
         verify(mockCurrentTargetTreeNode, times(0)).moveToFirstChild()
 
-        assertEquals(1, result.size)
+        assertEquals(2, result.matches.size)
+        assertTrue(result.hasMatch)
     }
 }
