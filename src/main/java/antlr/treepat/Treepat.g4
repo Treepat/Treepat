@@ -98,13 +98,14 @@ subtree
     |   expression NEWLINE*
     ;
 
-expression
-    :   simpleExpression
-	|   depthClosure
+child
+    :   NEWLINE INDENT subtree DEDENT
     ;
 
-child
-    :   NEWLINE INDENT sibling DEDENT
+expression
+    :   sibling
+	|   depthClosure
+	|   simpleExpression
     ;
 
 sibling
@@ -112,26 +113,16 @@ sibling
     ;
 
 union
-    :   subtreeWrapper (OR_SIGN subtreeWrapper)*
-    ;
-
-subtreeWrapper
-    :   subtree
+    :   simpleExpression (OR_SIGN expression)*
     ;
 
 depthClosure
-    :   PAR_OPEN child PAR_CLOSE NUMBER_SIGN
-    |   child NUMBER_SIGN
+    :   child NUMBER_SIGN
     ;
 
 simpleExpression
     :   term
 	|   breadthClosure
-	|   depthTerm
-    ;
-
-depthTerm
-    :   AT_SIGN term
     ;
 
 breadthClosure
@@ -139,7 +130,13 @@ breadthClosure
     ;
 
 term
-    :   node
+    :   PAR_OPEN expression PAR_CLOSE
+    |   depthTerm
+    |   node
+    ;
+
+depthTerm
+    :   AT_SIGN node
     ;
 
 node
