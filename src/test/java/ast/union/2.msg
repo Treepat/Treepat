@@ -1,1 +1,1 @@
-1. should have many union closure
+2. should have many union operators
