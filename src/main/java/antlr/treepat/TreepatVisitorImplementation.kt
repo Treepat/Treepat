@@ -14,10 +14,6 @@ import treepat.TreepatVisitor
 
 class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
 
-    override fun visitExpression(ctx: TreepatParser.ExpressionContext): ASTNode {
-        return ctx.sibling().accept(this)
-    }
-
     override fun visitDepthClosure(ctx: TreepatParser.DepthClosureContext): ASTNode {
         return ctx.indentWrapper().accept(this)
     }
@@ -94,7 +90,7 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
     }
 
     override fun visitTreepat(ctx: TreepatParser.TreepatContext): ASTNode {
-        return ctx.expression().accept<ASTNode>(this)
+        return ctx.sibling().accept<ASTNode>(this)
     }
 
     override fun visitChild(ctx: TreepatParser.ChildContext): ASTNode {

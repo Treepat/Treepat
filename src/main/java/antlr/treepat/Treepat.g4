@@ -94,7 +94,7 @@ tokens { INDENT, DEDENT }
 }
 
 treepat
-    :   expression
+    :   sibling
     ;
 
 depthClosure
@@ -112,10 +112,6 @@ nestedIndent
 
 indent
     :   NEWLINE INDENT treepat DEDENT
-    ;
-
-expression
-    :   sibling
     ;
 
 sibling
