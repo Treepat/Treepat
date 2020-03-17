@@ -1,6 +1,7 @@
 package functions
 
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mock
@@ -24,8 +25,8 @@ internal class ChildFunctionKtTest {
     @BeforeEach
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        mockFatherVisitorFunction = { listOf(mockTargetTreeNode) }
-        mockChildVisitorFunction = { listOf(mockTargetTreeNode) }
+        mockFatherVisitorFunction = { VisitorFunctionResponse(listOf(mockTargetTreeNode), true) }
+        mockChildVisitorFunction = { VisitorFunctionResponse(listOf(mockTargetTreeNode), true) }
     }
 
     @Test
@@ -43,6 +44,7 @@ internal class ChildFunctionKtTest {
         verify(mockCurrentTargetTreeNode, times(0)).moveToLeftSibling()
         verify(mockCurrentTargetTreeNode, times(1)).moveToFirstChild()
 
-        assertEquals(children.size, result.size)
+        assertEquals(children.size, result.matches.size)
+        assertTrue(result.hasMatch)
     }
 }

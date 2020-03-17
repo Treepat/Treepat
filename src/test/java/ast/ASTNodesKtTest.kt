@@ -62,11 +62,19 @@ internal class ASTNodesKtTest {
         val nodeTestCasesFolder = "./src/test/java/ast/child/"
         runAllTestInFolder(nodeTestCasesFolder)
     }
+
     @Test
     fun `should run all sibling test cases`() {
         val nodeTestCasesFolder = "./src/test/java/ast/sibling/"
         runAllTestInFolder(nodeTestCasesFolder)
     }
+
+    @Test
+    fun `should run all breadth closure test cases`() {
+        val nodeTestCasesFolder = "./src/test/java/ast/breadth_closure/"
+        runAllTestInFolder(nodeTestCasesFolder)
+    }
+
     @Test
     fun `should run all mix test cases`() {
         val nodeTestCasesFolder = "./src/test/java/ast/mix/"
