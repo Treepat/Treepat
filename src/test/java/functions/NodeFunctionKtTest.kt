@@ -2,6 +2,7 @@ package functions
 
 import functions.MockValues.tNodeName
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mock
@@ -34,6 +35,7 @@ internal class NodeFunctionKtTest {
         verify(mockCurrentTargetTreeNode, times(0)).moveToLeftSibling()
         verify(mockCurrentTargetTreeNode, times(0)).moveToFirstChild()
 
-        assertEquals(1, result.size)
+        assertEquals(1, result.matches.size)
+        assertTrue(result.hasMatch)
     }
 }

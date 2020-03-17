@@ -11,7 +11,7 @@ import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import tree.TargetTreeNode
 
-class SiblingFunctionKtTest {
+class BreadthClosureFunctionKtTest {
 
     @Mock
     private lateinit var mockTargetTreeNode: TargetTreeNode
@@ -30,26 +30,26 @@ class SiblingFunctionKtTest {
     @Test
     fun `should not move right when siblings list has single element`() {
         // arrange
-        val siblings = listOf(mockVisitorFunction)
-        val function = siblingFunction(siblings)
+        val expression = mockVisitorFunction
+        val function = breadthClosureFunction(expression)
         // act
-        val result = function(mockCurrentTargetTreeNode)
+        val result = function(null)
         // assert
         verify(mockCurrentTargetTreeNode, times(0)).moveToRightSibling()
         verify(mockCurrentTargetTreeNode, times(0)).moveToParent()
         verify(mockCurrentTargetTreeNode, times(0)).moveToLeftSibling()
         verify(mockCurrentTargetTreeNode, times(0)).moveToFirstChild()
 
-        assertEquals(siblings.size, result.matches.size)
+        assertEquals(0, result.matches.size)
         assertTrue(result.hasMatch)
     }
 
     @Test
     fun `should not move right when siblings list has multiple elements`() {
         // arrange
-        val siblings = listOf(mockVisitorFunction, mockVisitorFunction)
-        val function = siblingFunction(siblings)
-        `when`(mockCurrentTargetTreeNode.moveToRightSibling()).thenReturn(mockCurrentTargetTreeNode)
+        val expression = mockVisitorFunction
+        val function = breadthClosureFunction(expression)
+        `when`(mockCurrentTargetTreeNode.moveToRightSibling()).thenReturn(mockTargetTreeNode)
         // act
         val result = function(mockCurrentTargetTreeNode)
         // assert
@@ -58,7 +58,7 @@ class SiblingFunctionKtTest {
         verify(mockCurrentTargetTreeNode, times(0)).moveToLeftSibling()
         verify(mockCurrentTargetTreeNode, times(0)).moveToFirstChild()
 
-        assertEquals(siblings.size, result.matches.size)
+        assertEquals(2, result.matches.size)
         assertTrue(result.hasMatch)
     }
 }

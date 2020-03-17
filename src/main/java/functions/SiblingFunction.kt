@@ -9,11 +9,11 @@ fun siblingFunction(
             if (index != 0) { currentNode = currentNode?.moveToRightSibling() }
             function.invoke(currentNode)
         }
-        val isAnyListEmpty = answer.any { it.isEmpty() }
-        if (isAnyListEmpty) {
-            listOf()
+        val allHasMatches = answer.all { it.hasMatch }
+        if (allHasMatches) {
+            VisitorFunctionResponse(answer.flatMap { it.matches }, true)
         } else {
-            answer.flatten()
+            VisitorFunctionResponse()
         }
     }
 }

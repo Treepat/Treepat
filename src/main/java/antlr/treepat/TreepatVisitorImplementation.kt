@@ -1,6 +1,7 @@
 package antlr.treepat
 
 import ast.ASTNode
+import ast.BreadthClosure
 import ast.Child
 import ast.Node
 import ast.Sibling
@@ -72,7 +73,8 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
     }
 
     override fun visitBreadthClosure(ctx: TreepatParser.BreadthClosureContext): ASTNode {
-        return ctx.term().accept<ASTNode>(this)
+        val expression = ctx.term().accept<ASTNode>(this)
+        return BreadthClosure(expression)
     }
 
     override fun visitTerm(ctx: TreepatParser.TermContext): ASTNode {
