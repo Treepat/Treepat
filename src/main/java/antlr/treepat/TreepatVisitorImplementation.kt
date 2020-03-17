@@ -14,39 +14,22 @@ import treepat.TreepatVisitor
 
 class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
 
-    override fun visitSubtree(ctx: TreepatParser.SubtreeContext): ASTNode {
-        val expression = ctx.expression().accept<ASTNode>(this)
-        if (ctx.indented() == null) {
-            return expression
-        }
-        val child = ctx.indented().accept(this)
-        return Child(expression, child)
-    }
-
     override fun visitExpression(ctx: TreepatParser.ExpressionContext): ASTNode {
-        return when {
-            ctx.atomExpression() != null -> ctx.atomExpression().accept<ASTNode>(this)
-            else -> ctx.depthClosure().accept<ASTNode>(this)
-        }
+        return ctx.sibling().accept(this)
     }
 
     override fun visitDepthClosure(ctx: TreepatParser.DepthClosureContext): ASTNode {
-        return ctx.indented().accept<ASTNode>(this)
+        return ctx.indentWrapper().accept(this)
     }
 
     override fun visitDepthTerm(ctx: TreepatParser.DepthTermContext): ASTNode {
-        return ctx.node().accept<ASTNode>(this)
+        return ctx.node().accept(this)
     }
 
     override fun visitBreadthClosure(ctx: TreepatParser.BreadthClosureContext): ASTNode {
-        return ctx.termNewLine().accept<ASTNode>(this)
-    }
-
-    override fun visitTerm(ctx: TreepatParser.TermContext): ASTNode {
         return when {
-            ctx.subtree() != null -> ctx.subtree().accept<ASTNode>(this)
-            ctx.depthTerm() != null -> ctx.depthTerm().accept<ASTNode>(this)
-            else -> ctx.node().accept<ASTNode>(this)
+            ctx.ASTERISK() == null -> ctx.child().accept(this)
+            else -> ctx.child().accept(this)
         }
     }
 
@@ -56,6 +39,71 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
 
     override fun visit(parseTree: ParseTree): ASTNode {
         return parseTree.accept<ASTNode>(this)
+    }
+
+    override fun visitIndentWrapper(ctx: TreepatParser.IndentWrapperContext): ASTNode {
+        return when {
+            ctx.indent() != null -> ctx.indent().accept<ASTNode>(this)
+            else -> ctx.nestedIndent().accept<ASTNode>(this)
+        }
+    }
+
+    override fun visitIndent(ctx: TreepatParser.IndentContext): ASTNode {
+        return ctx.treepat().accept(this)
+    }
+
+    override fun visitNestedIndent(ctx: TreepatParser.NestedIndentContext): ASTNode {
+        return ctx.indent().accept(this)
+    }
+
+    override fun visitUnion(ctx: TreepatParser.UnionContext): ASTNode {
+        val nodes = ctx.breadthClosure()
+            .stream()
+            .map { node: TreepatParser.BreadthClosureContext -> node.accept<ASTNode>(this) }
+            .collect(Collectors.toList())
+        // TODO - Change when union node has implemented.
+        return nodes.first()
+    }
+
+    override fun visitAtomTerm(ctx: TreepatParser.AtomTermContext): ASTNode {
+        return ctx.atomTermWrapper().accept(this)
+    }
+
+    override fun visitNested(ctx: TreepatParser.NestedContext): ASTNode {
+        return ctx.treepat().accept(this)
+    }
+
+    override fun visitSibling(ctx: TreepatParser.SiblingContext): ASTNode {
+        val siblings = ctx.union()
+            .stream()
+            .map { instruction: TreepatParser.UnionContext -> instruction.accept<ASTNode>(this) }
+            .collect(Collectors.toList())
+        return when (siblings.size) {
+            1 -> siblings.first()
+            else -> Sibling(siblings)
+        }
+    }
+
+    override fun visitAtomTermWrapper(ctx: TreepatParser.AtomTermWrapperContext): ASTNode {
+        return when {
+            ctx.depthClosure() != null -> ctx.depthClosure().accept(this)
+            ctx.nested() != null -> ctx.nested().accept(this)
+            ctx.depthTerm() != null -> ctx.depthTerm().accept(this)
+            else -> ctx.node().accept<ASTNode>(this)
+        }
+    }
+
+    override fun visitTreepat(ctx: TreepatParser.TreepatContext): ASTNode {
+        return ctx.expression().accept<ASTNode>(this)
+    }
+
+    override fun visitChild(ctx: TreepatParser.ChildContext): ASTNode {
+        val expression = ctx.atomTerm().accept(this)
+        if (ctx.indentWrapper() == null) {
+            return expression
+        }
+        val child = ctx.indentWrapper().accept(this)
+        return Child(expression, child)
     }
 
     override fun visitChildren(ruleNode: RuleNode): ASTNode? {
@@ -68,60 +116,5 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
 
     override fun visitErrorNode(errorNode: ErrorNode): ASTNode? {
         throw NotImplementedError("This method is not supported.")
-    }
-
-    override fun visitComplexSibling(ctx: TreepatParser.ComplexSiblingContext): ASTNode {
-        val siblings = ctx.complexUnion()
-            .stream()
-            .map { instruction: TreepatParser.ComplexUnionContext -> instruction.accept<ASTNode>(this) }
-            .collect(Collectors.toList())
-        return when (siblings.size) {
-            1 -> siblings.first()
-            else -> Sibling(siblings)
-        }
-    }
-
-    override fun visitComplexUnion(ctx: TreepatParser.ComplexUnionContext): ASTNode {
-        val nodes = ctx.subtree()
-            .stream()
-            .map { node: TreepatParser.SubtreeContext -> node.accept<ASTNode>(this) }
-            .collect(Collectors.toList())
-        // TODO - Change when union node has implemented.
-        return nodes.first()
-    }
-
-    override fun visitAtomExpression(ctx: TreepatParser.AtomExpressionContext): ASTNode {
-        return when {
-            ctx.breadthClosure() != null -> ctx.breadthClosure().accept<ASTNode>(this)
-            else -> ctx.atomSibling().accept<ASTNode>(this)
-        }
-    }
-
-    override fun visitAtomSibling(ctx: TreepatParser.AtomSiblingContext): ASTNode {
-        val siblings = ctx.atomUnion()
-            .stream()
-            .map { instruction: TreepatParser.AtomUnionContext -> instruction.accept<ASTNode>(this) }
-            .collect(Collectors.toList())
-        return when (siblings.size) {
-            1 -> siblings.first()
-            else -> Sibling(siblings)
-        }
-    }
-
-    override fun visitAtomUnion(ctx: TreepatParser.AtomUnionContext): ASTNode {
-        val nodes = ctx.termNewLine()
-            .stream()
-            .map { node: TreepatParser.TermNewLineContext -> node.accept<ASTNode>(this) }
-            .collect(Collectors.toList())
-        // TODO - Change when union node has implemented.
-        return nodes.first()
-    }
-
-    override fun visitIndented(ctx: TreepatParser.IndentedContext): ASTNode {
-        return ctx.complexSibling().accept(this)
-    }
-
-    override fun visitTermNewLine(ctx: TreepatParser.TermNewLineContext): ASTNode {
-        return ctx.term().accept(this)
     }
 }

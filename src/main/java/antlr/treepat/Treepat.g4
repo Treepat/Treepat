@@ -93,55 +93,54 @@ tokens { INDENT, DEDENT }
   }
 }
 
-subtree
-    :   expression NEWLINE* indented?
-    ;
-
-expression
-    :   depthClosure
-	|   atomExpression
-    ;
-
-indented
-    :   NEWLINE INDENT complexSibling DEDENT
-    ;
-
-complexSibling
-    :   complexUnion+
-    ;
-
-complexUnion
-    :   subtree (OR_SIGN subtree)*
+treepat
+    :   expression
     ;
 
 depthClosure
-    :   PAR_OPEN indented PAR_CLOSE NUMBER_SIGN
-    |   indented NUMBER_SIGN
+    :   indentWrapper NUMBER_SIGN
     ;
 
-atomExpression
-    :   atomSibling
-	|   breadthClosure
+indentWrapper
+    :   indent
+    |   nestedIndent
     ;
 
-atomSibling
-    :   atomUnion+
+nestedIndent
+    :   PAR_OPEN indent PAR_CLOSE
     ;
 
-atomUnion
-    :   termNewLine (OR_SIGN termNewLine)*
+indent
+    :   NEWLINE INDENT treepat DEDENT
+    ;
+
+expression
+    :   sibling
+    ;
+
+sibling
+    :   union+
+    ;
+
+union
+    :   breadthClosure (OR_SIGN breadthClosure)*
     ;
 
 breadthClosure
-    :   termNewLine ASTERISK
+    :   child ASTERISK?
     ;
 
-termNewLine
-    :   NEWLINE* term NEWLINE*
+child
+    :   atomTerm indentWrapper?
     ;
 
-term
-    :   PAR_OPEN subtree PAR_CLOSE
+atomTerm
+    :   NEWLINE* atomTermWrapper NEWLINE*
+    ;
+
+atomTermWrapper
+    :   depthClosure
+    |   nested
     |   depthTerm
     |   node
     ;
@@ -152,6 +151,10 @@ depthTerm
 
 node
     :   name=ID
+    ;
+
+nested
+    :   PAR_OPEN treepat PAR_CLOSE
     ;
 
 OR_SIGN
