@@ -76,6 +76,12 @@ internal class ASTNodesKtTest {
     }
 
     @Test
+    fun `should run all union test cases`() {
+        val nodeTestCasesFolder = "./src/test/java/ast/union/"
+        runAllTestInFolder(nodeTestCasesFolder)
+    }
+
+    @Test
     fun `should run all mix test cases`() {
         val nodeTestCasesFolder = "./src/test/java/ast/mix/"
         runAllTestInFolder(nodeTestCasesFolder)
