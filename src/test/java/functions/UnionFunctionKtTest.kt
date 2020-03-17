@@ -20,14 +20,14 @@ internal class UnionFunctionKtTest {
 
     private val mockExpresionsOneMatch = listOf<VisitorFunction>(
         { VisitorFunctionResponse(listOf(mockTargetTreeNode), true) },
-        { VisitorFunctionResponse(listOf(mockTargetTreeNode), false) },
-        { VisitorFunctionResponse(listOf(mockTargetTreeNode), false) }
+        { VisitorFunctionResponse(emptyList(), false) },
+        { VisitorFunctionResponse(emptyList(), false) }
     )
 
     private val mockExpresionsNoMatches = listOf<VisitorFunction>(
-        { VisitorFunctionResponse(listOf(mockTargetTreeNode), false) },
-        { VisitorFunctionResponse(listOf(mockTargetTreeNode), false) },
-        { VisitorFunctionResponse(listOf(mockTargetTreeNode), false) }
+        { VisitorFunctionResponse(emptyList(), false) },
+        { VisitorFunctionResponse(emptyList(), false) },
+        { VisitorFunctionResponse(emptyList(), false) }
     )
 
     @BeforeEach
@@ -63,7 +63,7 @@ internal class UnionFunctionKtTest {
         Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveToLeftSibling()
         Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveToFirstChild()
 
-        assertEquals(emptyList<TargetTreeNode>(), result.matches)
+        assertEquals(emptyList(), result.matches)
         assertFalse(result.hasMatch)
     }
 }
