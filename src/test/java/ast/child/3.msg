@@ -1,1 +1,1 @@
-3. should have seven children
+3. should have seven nested children
