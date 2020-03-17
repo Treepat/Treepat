@@ -1,1 +1,1 @@
-1. should have one union closure
+1. should have one union operator
