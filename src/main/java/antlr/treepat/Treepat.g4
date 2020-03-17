@@ -94,35 +94,41 @@ tokens { INDENT, DEDENT }
 }
 
 subtree
-    :   expression NEWLINE* child
-    |   expression NEWLINE*
+    :   expression NEWLINE* indented?
     ;
 
-child
-    :   NEWLINE INDENT subtree DEDENT
+indented
+    :   NEWLINE INDENT complexSibling DEDENT
+    ;
+
+complexSibling
+    :   complexUnion+
+    ;
+
+complexUnion
+    :   subtree (OR_SIGN subtree)*
     ;
 
 expression
-    :   sibling
-	|   depthClosure
-	|   simpleExpression
-    ;
-
-sibling
-    :   union+
-    ;
-
-union
-    :   simpleExpression (OR_SIGN expression)*
+    :   depthClosure
+	|   atomExpression
     ;
 
 depthClosure
-    :   child NUMBER_SIGN
+    :   indented NUMBER_SIGN
     ;
 
-simpleExpression
-    :   term
+atomExpression
+    :   atomSibling
 	|   breadthClosure
+    ;
+
+atomSibling
+    :   atomUnion+
+    ;
+
+atomUnion
+    :   term (OR_SIGN term)*
     ;
 
 breadthClosure
@@ -130,7 +136,7 @@ breadthClosure
     ;
 
 term
-    :   PAR_OPEN expression PAR_CLOSE
+    :   PAR_OPEN subtree PAR_CLOSE
     |   depthTerm
     |   node
     ;
