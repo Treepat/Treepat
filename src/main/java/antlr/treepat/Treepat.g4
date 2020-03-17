@@ -97,6 +97,11 @@ subtree
     :   expression NEWLINE* indented?
     ;
 
+expression
+    :   depthClosure
+	|   atomExpression
+    ;
+
 indented
     :   NEWLINE INDENT complexSibling DEDENT
     ;
@@ -109,13 +114,9 @@ complexUnion
     :   subtree (OR_SIGN subtree)*
     ;
 
-expression
-    :   depthClosure
-	|   atomExpression
-    ;
-
 depthClosure
-    :   indented NUMBER_SIGN
+    :   PAR_OPEN indented PAR_CLOSE NUMBER_SIGN
+    |   indented NUMBER_SIGN
     ;
 
 atomExpression
@@ -128,11 +129,15 @@ atomSibling
     ;
 
 atomUnion
-    :   term (OR_SIGN term)*
+    :   termNewLine (OR_SIGN termNewLine)*
     ;
 
 breadthClosure
-    :   term ASTERISK
+    :   termNewLine ASTERISK
+    ;
+
+termNewLine
+    :   NEWLINE* term NEWLINE*
     ;
 
 term
