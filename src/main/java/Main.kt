@@ -61,7 +61,7 @@ object Main {
         val lexer = TreepatLexer(CharStreams.fromFileName(fileName))
         val tokenStream = CommonTokenStream(lexer)
         val treepatParser = TreepatParser(tokenStream)
-        val tree: ParseTree = treepatParser.subtree()
+        val tree: ParseTree = treepatParser.treepat()
         val treepatVisitor = TreepatVisitorImplementation()
 
         showASTNodeFrame(treepatParser, tree)
