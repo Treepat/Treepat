@@ -37,6 +37,8 @@ internal class ASTNodesKtTest {
                 outputResult -> output = outputResult
             }
 
+            output = output.trim()
+
             val fileMessage = File(folderPath + it.replace(".in", ".msg")).readLines()
             val error = fileMessage.first()
 
@@ -84,6 +86,12 @@ internal class ASTNodesKtTest {
     @Test
     fun `should run all mix test cases`() {
         val nodeTestCasesFolder = "./src/test/java/ast/mix/"
+        runAllTestInFolder(nodeTestCasesFolder)
+    }
+
+    @Test
+    fun `should run all large test cases`() {
+        val nodeTestCasesFolder = "./src/test/java/ast/large/"
         runAllTestInFolder(nodeTestCasesFolder)
     }
 
