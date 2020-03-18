@@ -119,15 +119,15 @@ sibling
     ;
 
 union
-    :   breadthClosure (OR_SIGN breadthClosure)*
-    ;
-
-breadthClosure
-    :   child ASTERISK?
+    :   child (OR_SIGN child)*
     ;
 
 child
-    :   atomTerm indentWrapper?
+    :   breadthClosure indentWrapper?
+    ;
+
+breadthClosure
+    :   atomTerm ASTERISK? NEWLINE*
     ;
 
 atomTerm

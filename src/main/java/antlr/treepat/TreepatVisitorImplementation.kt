@@ -1,6 +1,7 @@
 package antlr.treepat
 
 import ast.ASTNode
+import ast.BreadthClosure
 import ast.Child
 import ast.Node
 import ast.Sibling
@@ -25,8 +26,8 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
 
     override fun visitBreadthClosure(ctx: TreepatParser.BreadthClosureContext): ASTNode {
         return when {
-            ctx.ASTERISK() == null -> ctx.child().accept(this)
-            else -> ctx.child().accept(this)
+            ctx.ASTERISK() == null -> ctx.atomTerm().accept(this)
+            else -> BreadthClosure(ctx.atomTerm().accept(this))
         }
     }
 
@@ -54,9 +55,9 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
     }
 
     override fun visitUnion(ctx: TreepatParser.UnionContext): ASTNode {
-        val expressions = ctx.breadthClosure()
+        val expressions = ctx.child()
             .stream()
-            .map { node: TreepatParser.BreadthClosureContext -> node.accept<ASTNode>(this) }
+            .map { node: TreepatParser.ChildContext -> node.accept<ASTNode>(this) }
             .collect(Collectors.toList())
         return Union(expressions)
     }
@@ -94,7 +95,7 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
     }
 
     override fun visitChild(ctx: TreepatParser.ChildContext): ASTNode {
-        val expression = ctx.atomTerm().accept(this)
+        val expression = ctx.breadthClosure().accept(this)
         if (ctx.indentWrapper() == null) {
             return expression
         }
