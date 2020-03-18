@@ -8,8 +8,8 @@ fun childFunction(
         val fathers = father.invoke(targetTreeNode)
         val children = child.invoke(targetTreeNode?.moveToFirstChild())
         when {
-            fathers.isEmpty() || children.isEmpty() -> listOf()
-            else -> listOf(fathers, children).flatten()
+            !fathers.hasMatch || !children.hasMatch -> VisitorFunctionResponse()
+            else -> VisitorFunctionResponse(listOf(fathers.matches, children.matches).flatten(), true)
         }
     }
 }

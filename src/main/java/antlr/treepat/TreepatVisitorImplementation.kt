@@ -4,6 +4,7 @@ import ast.ASTNode
 import ast.Child
 import ast.Node
 import ast.Sibling
+import ast.Union
 import java.util.stream.Collectors
 import org.antlr.v4.runtime.tree.ErrorNode
 import org.antlr.v4.runtime.tree.ParseTree
@@ -53,12 +54,11 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
     }
 
     override fun visitUnion(ctx: TreepatParser.UnionContext): ASTNode {
-        val nodes = ctx.breadthClosure()
+        val expressions = ctx.breadthClosure()
             .stream()
             .map { node: TreepatParser.BreadthClosureContext -> node.accept<ASTNode>(this) }
             .collect(Collectors.toList())
-        // TODO - Change when union node has implemented.
-        return nodes.first()
+        return Union(expressions)
     }
 
     override fun visitAtomTerm(ctx: TreepatParser.AtomTermContext): ASTNode {
