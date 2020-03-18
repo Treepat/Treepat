@@ -16,7 +16,7 @@ internal class ASTNodesKtTest {
         val lexer = TreepatLexer(CharStreams.fromString(inputAntlrString))
         val tokenStream = CommonTokenStream(lexer)
         val parser = TreepatParser(tokenStream)
-        return parser.subtree()
+        return parser.treepat()
     }
 
     private fun getOutputExpected(pathToOutputFile: String): String? {
