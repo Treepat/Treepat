@@ -59,7 +59,10 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
             .stream()
             .map { node: TreepatParser.ChildContext -> node.accept<ASTNode>(this) }
             .collect(Collectors.toList())
-        return Union(expressions)
+        return when (expressions.size) {
+            1 -> expressions.first()
+            else -> Union(expressions)
+        }
     }
 
     override fun visitAtomTerm(ctx: TreepatParser.AtomTermContext): ASTNode {

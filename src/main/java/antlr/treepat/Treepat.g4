@@ -154,7 +154,7 @@ nested
     ;
 
 OR_SIGN
-    : '|'
+    :   '|'
     ;
 
 PAR_OPEN
