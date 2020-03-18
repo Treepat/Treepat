@@ -1,5 +1,6 @@
-nodo1:et1
-    nodo2:et2
-    nodo3:et2
-        nodo4:et3
-    nodo5:et1
+A:et1
+    B:et2
+        C:et2
+        D:et3
+    A:et2
+        B:et2
