@@ -17,3 +17,7 @@ data class Sibling(var siblings: List<ASTNode>) : ASTNode {
 data class BreadthClosure(var expression: ASTNode) : ASTNode {
     override fun toString(): String = "$expression*"
 }
+
+data class Union(val expressions: List<ASTNode>) : ASTNode {
+    override fun toString(): String = expressions.joinToString(separator = "$END_LINE_STRING|$END_LINE_STRING")
+}

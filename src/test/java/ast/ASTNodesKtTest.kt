@@ -16,7 +16,7 @@ internal class ASTNodesKtTest {
         val lexer = TreepatLexer(CharStreams.fromString(inputAntlrString))
         val tokenStream = CommonTokenStream(lexer)
         val parser = TreepatParser(tokenStream)
-        return parser.subtree()
+        return parser.treepat()
     }
 
     private fun getOutputExpected(pathToOutputFile: String): String? {
@@ -72,6 +72,12 @@ internal class ASTNodesKtTest {
     @Test
     fun `should run all breadth closure test cases`() {
         val nodeTestCasesFolder = "./src/test/java/ast/breadth_closure/"
+        runAllTestInFolder(nodeTestCasesFolder)
+    }
+
+    @Test
+    fun `should run all union test cases`() {
+        val nodeTestCasesFolder = "./src/test/java/ast/union/"
         runAllTestInFolder(nodeTestCasesFolder)
     }
 
