@@ -33,10 +33,9 @@ object Main {
         val functionResult = rootFunctionModule.invoke(targetTreeNode)
 
         val solution: String
-        if (functionResult.hasMatch){
+        if (functionResult.hasMatch) {
             solution = targetTreeNode.matchedNodesString(functionResult.matches)
-        }
-        else{
+        } else {
             solution = "Match not found"
         }
     }

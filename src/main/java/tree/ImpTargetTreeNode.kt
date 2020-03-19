@@ -59,8 +59,7 @@ class ImpTargetTreeNode(
         if (iAmIn)
             if (str.length > 0) {
                 str = "$name:$tag($id)\n" + str.prependIndent(INDENT_STRING)
-            }
-            else {
+            } else {
                 str = "$name:$tag($id)"
             }
         return MatchedResponse(str, currentIndex)
