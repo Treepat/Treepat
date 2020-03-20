@@ -6,12 +6,14 @@ fun siblingFunction(
     return { targetTreeNode ->
         var currentNode = targetTreeNode
         val answer = siblings.mapIndexed { index, function ->
-            if (index != 0) { currentNode = currentNode?.moveToRightSibling() }
+            if (index != 0) {
+                currentNode = currentNode?.moveToRightSibling()
+            }
             function.invoke(currentNode)
         }
         val allHasMatches = answer.all { it.hasMatch }
         if (allHasMatches) {
-            VisitorFunctionResponse(answer.flatMap { it.matches }, true)
+            VisitorFunctionResponse(mergeList(answer.map { it.matches }), true)
         } else {
             VisitorFunctionResponse()
         }

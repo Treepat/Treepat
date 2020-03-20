@@ -18,13 +18,13 @@ internal class UnionFunctionKtTest {
     @Mock
     private lateinit var mockCurrentTargetTreeNode: TargetTreeNode
 
-    private val mockExpresionsOneMatch = listOf<VisitorFunction>(
-        { VisitorFunctionResponse(listOf(mockTargetTreeNode), true) },
+    private val mockExpressionsOneMatch = listOf<VisitorFunction>(
+        { VisitorFunctionResponse(listOf(listOf(mockTargetTreeNode)), true) },
         { VisitorFunctionResponse(emptyList(), false) },
         { VisitorFunctionResponse(emptyList(), false) }
     )
 
-    private val mockExpresionsNoMatches = listOf<VisitorFunction>(
+    private val mockExpressionsNoMatches = listOf<VisitorFunction>(
         { VisitorFunctionResponse(emptyList(), false) },
         { VisitorFunctionResponse(emptyList(), false) },
         { VisitorFunctionResponse(emptyList(), false) }
@@ -38,7 +38,7 @@ internal class UnionFunctionKtTest {
     @Test
     fun `should return a response with match if finds any match with the first match`() {
         // arrange
-        val function = unionFunction(mockExpresionsOneMatch)
+        val function = unionFunction(mockExpressionsOneMatch)
         // act
         val result = function(mockCurrentTargetTreeNode)
         // assert
@@ -47,14 +47,14 @@ internal class UnionFunctionKtTest {
         Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveToLeftSibling()
         Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveToFirstChild()
 
-        assertEquals(listOf(mockTargetTreeNode), result.matches)
+        assertEquals(listOf(listOf(mockTargetTreeNode)), result.matches)
         assertTrue(result.hasMatch)
     }
 
     @Test
     fun `should return a no match and empty list if no matches found`() {
         // arrange
-        val function = unionFunction(mockExpresionsNoMatches)
+        val function = unionFunction(mockExpressionsNoMatches)
         // act
         val result = function(mockCurrentTargetTreeNode)
         // assert
@@ -63,7 +63,7 @@ internal class UnionFunctionKtTest {
         Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveToLeftSibling()
         Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveToFirstChild()
 
-        assertEquals(emptyList(), result.matches)
+        assertEquals(emptyList(), result.matches.first())
         assertFalse(result.hasMatch)
     }
 }
