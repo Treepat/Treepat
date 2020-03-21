@@ -2,8 +2,6 @@ import antlr.tree_format.TreeFormatVisitorImplementation
 import antlr.treepat.TreepatVisitorImplementation
 import ast.ASTNode
 import functions.createVisitorFunction
-import javax.swing.JFrame
-import javax.swing.JPanel
 import org.antlr.v4.gui.TreeViewer
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
@@ -14,6 +12,9 @@ import tree_format.TreeFormatLexer
 import tree_format.TreeFormatParser
 import treepat.TreepatLexer
 import treepat.TreepatParser
+import javax.swing.JFrame
+import javax.swing.JPanel
+import javax.swing.JScrollPane
 
 object Main {
 
@@ -30,7 +31,6 @@ object Main {
 
         //
         val rootFunctionModule = createVisitorFunction(ASTRoot)
-        rootFunctionModule.invoke(targetTreeNode)
     }
 
     private fun showASTNodeFrame(parser: Parser, tree: ParseTree) {
@@ -39,7 +39,11 @@ object Main {
         val viewer = TreeViewer(listOf(*parser.ruleNames), tree)
         viewer.scale = 1.0
         panel.add(viewer)
-        frame.add(panel)
+        val scrollPane = JScrollPane(panel)
+        scrollPane.horizontalScrollBarPolicy = JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
+        scrollPane.verticalScrollBarPolicy = JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED
+        scrollPane.setBounds(50, 30, 300, 50)
+        frame.add(JPanel().add(scrollPane))
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         frame.pack()
         frame.isVisible = true
