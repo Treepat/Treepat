@@ -32,7 +32,7 @@ fun mergeList(list: List<List<List<TargetTreeNode>>>): List<List<TargetTreeNode>
     if (list.size <= 1) {
         return list.first()
     }
-    val mergeList = mergeList(list.drop(1))
+    val mergeList = mergeList(list.subList(1, list.size))
     val answer = mutableListOf<List<TargetTreeNode>>()
     for (firstList in list.first()) {
         for (secondList in mergeList) {
