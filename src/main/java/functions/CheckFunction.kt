@@ -7,7 +7,7 @@ fun checkFunction(expression: VisitorFunction): VisitorFunction = { targetTreeNo
     var listAnswer = listOf<List<TargetTreeNode>>()
     val allAnswers = mutableListOf<VisitorFunctionResponse>()
     while (currentNode != null) {
-        if ( !listAnswer.any { it.any { targetNode -> targetNode == currentNode }  } ) {
+        if (!listAnswer.any { it.any { targetNode -> targetNode == currentNode } }) {
             val invoke = expression.invoke(currentNode)
             allAnswers.add(invoke)
             listAnswer = invoke.matches

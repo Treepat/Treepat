@@ -2,6 +2,9 @@ import antlr.tree_format.TreeFormatVisitorImplementation
 import antlr.treepat.TreepatVisitorImplementation
 import ast.ASTNode
 import functions.createVisitorFunction
+import javax.swing.JFrame
+import javax.swing.JPanel
+import javax.swing.JScrollPane
 import org.antlr.v4.gui.TreeViewer
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
@@ -12,9 +15,6 @@ import tree_format.TreeFormatLexer
 import tree_format.TreeFormatParser
 import treepat.TreepatLexer
 import treepat.TreepatParser
-import javax.swing.JFrame
-import javax.swing.JPanel
-import javax.swing.JScrollPane
 
 object Main {
 
