@@ -11,8 +11,8 @@ fun breadthClosureFunction(
         val answer = mutableListOf<List<List<TargetTreeNode>>>(listOf(listOf()))
         while (currentNode != null && currentAnswer.hasMatch) {
             answer.add(currentAnswer.matches)
-            currentAnswer = expression.invoke(currentNode)
             currentNode = currentNode.moveToRightSibling()
+            currentAnswer = expression.invoke(currentNode)
         }
         VisitorFunctionResponse(mergeList(answer), true)
     }
