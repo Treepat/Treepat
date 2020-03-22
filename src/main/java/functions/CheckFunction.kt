@@ -15,7 +15,7 @@ fun checkFunction(expression: VisitorFunction): VisitorFunction = { targetTreeNo
         currentNode = currentNode.moveToRightSibling()
     }
     if (allAnswers.any { it.hasMatch }) {
-        VisitorFunctionResponse(allAnswers.flatMap { it.matches }, true)
+        VisitorFunctionResponse(allAnswers.filter { it.hasMatch }.flatMap { it.matches }, true)
     } else {
         VisitorFunctionResponse()
     }
