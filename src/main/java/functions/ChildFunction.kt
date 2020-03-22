@@ -6,12 +6,15 @@ fun childFunction(
 ): VisitorFunction {
     return { targetTreeNode ->
         val fathers = father.invoke(targetTreeNode)
-        val children = child.invoke(targetTreeNode?.moveToFirstChild())
-        when {
-            !fathers.hasMatch || !children.hasMatch -> VisitorFunctionResponse()
-            else -> {
-                VisitorFunctionResponse(mergeList(listOf(fathers.matches, children.matches)), true)
-            }
+        val children = fathers.responses.map {
+            val response = child.invoke(it.lastVisitedSibling?.moveToFirstChild())
+            mergeResponse(it, response)
+        }
+        val allHasMatches = children.filter { it.hasMatch }.flatMap { it.responses }
+        if (allHasMatches.isNotEmpty()) {
+            VisitorFunctionResponse(allHasMatches, true)
+        } else {
+            VisitorFunctionResponse(listOf(VisitorFunctionSimpleResponse(lastVisitedSibling = targetTreeNode)))
         }
     }
 }
