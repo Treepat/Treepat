@@ -31,6 +31,14 @@ object Main {
 
         //
         val rootFunctionModule = createVisitorFunction(ASTRoot)
+        val functionResult = rootFunctionModule.invoke(targetTreeNode)
+
+        val solutions: List<String>
+        if (functionResult.hasMatch) {
+            solutions = functionResult.responses.map { targetTreeNode.matchedNodesString(it.matches) }
+        } else {
+            solutions = listOf("Match not found")
+        }
     }
 
     private fun showASTNodeFrame(parser: Parser, tree: ParseTree) {
