@@ -79,15 +79,14 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
             .stream()
             .map { instruction: TreepatParser.UnionContext -> instruction.accept<ASTNode>(this) }
             .collect(Collectors.toList())
-        val returnASTNode = when (siblings.size) {
+        return when (siblings.size) {
             1 -> siblings.first()
             else -> createSiblingNode(siblings)
         }
-        return returnASTNode
     }
 
     private fun createSiblingNode(siblings: List<ASTNode>): ASTNode {
-        if( siblings.size == 2) {
+        if (siblings.size == 2) {
             return Sibling(siblings[0], siblings[1])
         }
         val secondParam = createSiblingNode(siblings.subList(1, siblings.size))

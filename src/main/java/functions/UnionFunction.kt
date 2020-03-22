@@ -13,5 +13,4 @@ fun unionFunction(
     } else {
         VisitorFunctionResponse(listOf(VisitorFunctionSimpleResponse(lastVisitedSibling = targetTreeNode)))
     }
-
 }

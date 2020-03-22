@@ -6,7 +6,7 @@ fun checkFunction(expression: VisitorFunction): VisitorFunction {
     fun go(targetTreeNode: TargetTreeNode?): VisitorFunctionResponse {
         var currentNode = targetTreeNode
         val answer = mutableListOf<VisitorFunctionResponse>()
-        while( currentNode != null ){
+        while (currentNode != null) {
             answer.add(expression.invoke(currentNode))
             currentNode = currentNode.moveToRightSibling()
         }

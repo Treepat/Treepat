@@ -7,7 +7,7 @@ fun siblingFunction(
     return { targetTreeNode ->
         val firstAnswer = firstSibling.invoke(targetTreeNode)
         var response = VisitorFunctionResponse(listOf(VisitorFunctionSimpleResponse(lastVisitedSibling = targetTreeNode)))
-        if( firstAnswer.hasMatch ) {
+        if (firstAnswer.hasMatch) {
             val answer =
                 firstAnswer.responses.map {
                     val response = secondSibling.invoke(it.lastVisitedSibling?.moveToRightSibling())

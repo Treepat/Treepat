@@ -63,7 +63,7 @@ fun mergeResponse(
         answerMatches.add(
             VisitorFunctionSimpleResponse(
                 simpleResponse.matches + secondIterator.matches,
-                if (secondIterator.matches.isEmpty()){
+                if (secondIterator.matches.isEmpty()) {
                     simpleResponse.lastVisitedSibling
                 } else {
                     secondIterator.lastVisitedSibling
