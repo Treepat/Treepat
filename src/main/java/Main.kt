@@ -33,11 +33,11 @@ object Main {
         val rootFunctionModule = createVisitorFunction(ASTRoot)
         val functionResult = rootFunctionModule.invoke(targetTreeNode)
 
-        val solution: String
+        val solutions: List<String>
         if (functionResult.hasMatch) {
-            solution = targetTreeNode.matchedNodesString(functionResult.matches)
+            solutions = functionResult.responses.map { targetTreeNode.matchedNodesString(it.matches) }
         } else {
-            solution = "Match not found"
+            solutions = listOf("Match not found")
         }
     }
 

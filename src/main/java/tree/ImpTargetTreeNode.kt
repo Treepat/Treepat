@@ -34,7 +34,11 @@ class ImpTargetTreeNode(
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun matchedNodesString(selectedNodes: List<TargetTreeNode>, initialIndex: Int, rightSiblingId: Int): MatchedResponse {
+    fun matchedNodesString(
+        selectedNodes: List<TargetTreeNode>,
+        initialIndex: Int,
+        rightSiblingId: Int
+    ): MatchedResponse {
         val iAmIn = selectedNodes[initialIndex].id == id
         var str = ""
         var currentIndex = initialIndex
@@ -42,25 +46,36 @@ class ImpTargetTreeNode(
             currentIndex++
         }
         while (currentIndex < selectedNodes.size && selectedNodes[currentIndex].id < rightSiblingId) {
-            var goalInd = (children as List<ImpTargetTreeNode>).binarySearch(ImpTargetTreeNode("", "", selectedNodes[currentIndex].id), ImpTargetTreeNodeComparator())
+            var goalInd = (children as List<ImpTargetTreeNode>).binarySearch(
+                ImpTargetTreeNode(
+                    "",
+                    "",
+                    selectedNodes[currentIndex].id
+                ), ImpTargetTreeNodeComparator()
+            )
 
             if (goalInd < 0 || (goalInd == 0 && selectedNodes[currentIndex].id != children[0].id)) {
                 goalInd *= -1
-                goalInd -= 1 // TODO - This might not be needed in the future when searching for siblings but cannot be tested right now
+                goalInd -= 2 // TODO - This might not be needed in the future when searching for siblings but cannot be tested right now
             }
 
-            val response = (children[goalInd] as ImpTargetTreeNode).matchedNodesString(selectedNodes, currentIndex, if (goalInd + 1 == children.size) Int.MAX_VALUE else children[goalInd + 1].id)
-            str += response.matchedString + END_LINE_STRING
+            val response = (children[goalInd] as ImpTargetTreeNode).matchedNodesString(
+                selectedNodes,
+                currentIndex,
+                if (goalInd + 1 == children.size) Int.MAX_VALUE else children[goalInd + 1].id
+            )
+            str += response.matchedString.prependIndent(INDENT_STRING) + END_LINE_STRING
 
             currentIndex = response.currentIndex
         }
         str = str.removeSuffix(END_LINE_STRING)
-        if (iAmIn)
+        if (iAmIn) {
             if (str.length > 0) {
-                str = "$name:$tag($id)\n" + str.prependIndent(INDENT_STRING)
+                str = "$name:$tag($id)\n$str"
             } else {
                 str = "$name:$tag($id)"
             }
+        }
         return MatchedResponse(str, currentIndex)
     }
 
@@ -80,7 +95,10 @@ class ImpTargetTreeNode(
     @Suppress("UNCHECKED_CAST")
     private fun getRightSibling(son: TargetTreeNode): TargetTreeNode? {
         if (children.isNotEmpty()) {
-            val index = (children as List<ImpTargetTreeNode>).binarySearch(son as ImpTargetTreeNode, ImpTargetTreeNodeComparator())
+            val index = (children as List<ImpTargetTreeNode>).binarySearch(
+                son as ImpTargetTreeNode,
+                ImpTargetTreeNodeComparator()
+            )
             if (index >= 0 && index + 1 < children.size)
                 return children[index + 1]
         }
@@ -90,7 +108,10 @@ class ImpTargetTreeNode(
     @Suppress("UNCHECKED_CAST")
     private fun getLeftSibling(son: TargetTreeNode): TargetTreeNode? {
         if (children.isNotEmpty()) {
-            val index = (children as List<ImpTargetTreeNode>).binarySearch(son as ImpTargetTreeNode, ImpTargetTreeNodeComparator())
+            val index = (children as List<ImpTargetTreeNode>).binarySearch(
+                son as ImpTargetTreeNode,
+                ImpTargetTreeNodeComparator()
+            )
             if (index > 0)
                 return children[index - 1]
         }
