@@ -1,21 +1,23 @@
 package functions
 
 fun siblingFunction(
-    siblings: List<VisitorFunction>
+    firstSibling: VisitorFunction,
+    secondSibling: VisitorFunction
 ): VisitorFunction {
     return { targetTreeNode ->
-        var currentNode = targetTreeNode
-        val answer = siblings.mapIndexed { index, function ->
-            if (index != 0) {
-                currentNode = currentNode?.moveToRightSibling()
+        val firstAnswer = firstSibling.invoke(targetTreeNode)
+        var response = VisitorFunctionResponse(listOf(VisitorFunctionSimpleResponse(lastVisitedSibling = targetTreeNode)))
+        if (firstAnswer.hasMatch) {
+            val answer =
+                firstAnswer.responses.map {
+                    val response = secondSibling.invoke(it.lastVisitedSibling?.moveToRightSibling())
+                    mergeResponse(it, response)
+                }
+            val allHasMatches = answer.filter { it.hasMatch }.flatMap { it.responses }
+            if (allHasMatches.isNotEmpty()) {
+                response = VisitorFunctionResponse(allHasMatches, true)
             }
-            function.invoke(currentNode)
         }
-        val allHasMatches = answer.all { it.hasMatch }
-        if (allHasMatches) {
-            VisitorFunctionResponse(mergeList(answer.map { it.matches }), true)
-        } else {
-            VisitorFunctionResponse()
-        }
+        response
     }
 }
