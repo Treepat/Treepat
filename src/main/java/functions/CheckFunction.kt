@@ -2,21 +2,21 @@ package functions
 
 import tree.TargetTreeNode
 
-fun checkFunction(expression: VisitorFunction): VisitorFunction = { targetTreeNode ->
-    var currentNode = targetTreeNode
-    var listAnswer = listOf<List<TargetTreeNode>>()
-    val allAnswers = mutableListOf<VisitorFunctionResponse>()
-    while (currentNode != null) {
-        if (!listAnswer.any { it.any { targetNode -> targetNode == currentNode } }) {
-            val invoke = expression.invoke(currentNode)
-            allAnswers.add(invoke)
-            listAnswer = invoke.matches
+fun checkFunction(expression: VisitorFunction): VisitorFunction {
+    fun go(targetTreeNode: TargetTreeNode?): VisitorFunctionResponse {
+        if (targetTreeNode == null) return VisitorFunctionResponse()
+        val currentAnswer = expression.invoke(targetTreeNode)
+        val answer = mutableListOf(currentAnswer)
+        answer.addAll(currentAnswer.responses.map {
+            go(it.lastVisitedSibling?.moveToRightSibling())
+        })
+        val allHasMatches = answer.filter { it.hasMatch }.flatMap { it.responses }
+        return if (allHasMatches.isNotEmpty()) {
+            VisitorFunctionResponse(allHasMatches, true)
+        } else {
+            VisitorFunctionResponse()
         }
-        currentNode = currentNode.moveToRightSibling()
     }
-    if (allAnswers.any { it.hasMatch }) {
-        VisitorFunctionResponse(allAnswers.filter { it.hasMatch }.flatMap { it.matches }, true)
-    } else {
-        VisitorFunctionResponse()
-    }
+
+    return ::go
 }

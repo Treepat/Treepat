@@ -9,8 +9,13 @@ import ast.Sibling
 import ast.Union
 import tree.TargetTreeNode
 
+data class VisitorFunctionSimpleResponse(
+    val matches: List<TargetTreeNode> = emptyList(),
+    val lastVisitedSibling: TargetTreeNode? = null
+)
+
 data class VisitorFunctionResponse(
-    val matches: List<List<TargetTreeNode>> = listOf(listOf()),
+    val responses: List<VisitorFunctionSimpleResponse> = listOf(VisitorFunctionSimpleResponse()),
     val hasMatch: Boolean = false
 )
 
@@ -20,7 +25,10 @@ fun createVisitorFunction(node: ASTNode): VisitorFunction {
     return when (node) {
         is Child -> childFunction(createVisitorFunction(node.father), createVisitorFunction(node.child))
         is Node -> nodeFunction(node.name)
-        is Sibling -> siblingFunction(node.siblings.map { createVisitorFunction(it) })
+        is Sibling -> siblingFunction(
+            createVisitorFunction(node.firstSiblings),
+            createVisitorFunction(node.secondSibling)
+        )
         is BreadthClosure -> breadthClosureFunction(createVisitorFunction(node.expression))
         is Union -> unionFunction(node.expressions.map(::createVisitorFunction))
         is Check -> checkFunction(createVisitorFunction(node.expression))
@@ -28,16 +36,40 @@ fun createVisitorFunction(node: ASTNode): VisitorFunction {
     }
 }
 
-fun mergeList(list: List<List<List<TargetTreeNode>>>): List<List<TargetTreeNode>> {
-    if (list.size <= 1) {
-        return list.first()
-    }
-    val mergeList = mergeList(list.subList(1, list.size))
-    val answer = mutableListOf<List<TargetTreeNode>>()
-    for (firstList in list.first()) {
-        for (secondList in mergeList) {
-            answer.add(firstList + secondList)
+fun mergeResponse(
+    firstResponse: VisitorFunctionResponse,
+    secondResponse: VisitorFunctionResponse
+): VisitorFunctionResponse {
+    val answerMatches = mutableListOf<VisitorFunctionSimpleResponse>()
+    for (iterator in firstResponse.responses) {
+        for (secondIterator in secondResponse.responses) {
+            answerMatches.add(
+                VisitorFunctionSimpleResponse(
+                    iterator.matches + secondIterator.matches,
+                    iterator.lastVisitedSibling
+                )
+            )
         }
     }
-    return answer.toList()
+    return VisitorFunctionResponse(answerMatches, firstResponse.hasMatch && secondResponse.hasMatch)
+}
+
+fun mergeResponse(
+    simpleResponse: VisitorFunctionSimpleResponse,
+    secondResponse: VisitorFunctionResponse
+): VisitorFunctionResponse {
+    val answerMatches = mutableListOf<VisitorFunctionSimpleResponse>()
+    for (secondIterator in secondResponse.responses) {
+        answerMatches.add(
+            VisitorFunctionSimpleResponse(
+                simpleResponse.matches + secondIterator.matches,
+                if (secondIterator.matches.isEmpty()){
+                    simpleResponse.lastVisitedSibling
+                } else {
+                    secondIterator.lastVisitedSibling
+                }
+            )
+        )
+    }
+    return VisitorFunctionResponse(answerMatches, secondResponse.hasMatch)
 }
