@@ -80,6 +80,12 @@ internal class ASTNodesKtTest {
     }
 
     @Test
+    fun `should run all large no stable test cases with only child operator`() {
+        val nodeTestCasesFolder = "./src/test/java/ast/large_no_stable_only_child/"
+        runAllTestInFolder(nodeTestCasesFolder, runTest)
+    }
+
+    @Test
     fun `should have at least one sibling not end line`() {
         // Old version
         // arrange
