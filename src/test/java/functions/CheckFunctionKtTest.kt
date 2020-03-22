@@ -10,7 +10,7 @@ import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import tree.TargetTreeNode
 
-internal class UnionFunctionKtTest {
+internal class CheckFunctionKtTest {
 
     @Mock
     private lateinit var mockTargetTreeNode: TargetTreeNode
@@ -18,17 +18,9 @@ internal class UnionFunctionKtTest {
     @Mock
     private lateinit var mockCurrentTargetTreeNode: TargetTreeNode
 
-    private val mockExpressionsOneMatch = listOf<VisitorFunction>(
-        { VisitorFunctionResponse(listOf(listOf(mockTargetTreeNode)), true) },
-        { VisitorFunctionResponse(emptyList(), false) },
-        { VisitorFunctionResponse(emptyList(), false) }
-    )
+    private val mockExpressionsOneMatch: VisitorFunction = { VisitorFunctionResponse(listOf(listOf(mockTargetTreeNode)), true) }
 
-    private val mockExpressionsNoMatches = listOf<VisitorFunction>(
-        { VisitorFunctionResponse(emptyList(), false) },
-        { VisitorFunctionResponse(emptyList(), false) },
-        { VisitorFunctionResponse(emptyList(), false) }
-    )
+    private val mockExpressionsNoMatches: VisitorFunction = { VisitorFunctionResponse(emptyList(), false) }
 
     @BeforeEach
     fun setUp() {
@@ -38,11 +30,11 @@ internal class UnionFunctionKtTest {
     @Test
     fun `should return a response with match if finds any match with the first match`() {
         // arrange
-        val function = unionFunction(mockExpressionsOneMatch)
+        val function = checkFunction(mockExpressionsOneMatch)
         // act
         val result = function(mockCurrentTargetTreeNode)
         // assert
-        Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveToRightSibling()
+        Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(1)).moveToRightSibling()
         Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveToParent()
         Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveToLeftSibling()
         Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveToFirstChild()
@@ -54,16 +46,32 @@ internal class UnionFunctionKtTest {
     @Test
     fun `should return a no match and empty list if no matches found`() {
         // arrange
-        val function = unionFunction(mockExpressionsNoMatches)
+        val function = checkFunction(mockExpressionsNoMatches)
         // act
         val result = function(mockCurrentTargetTreeNode)
+        // assert
+        Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(1)).moveToRightSibling()
+        Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveToParent()
+        Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveToLeftSibling()
+        Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveToFirstChild()
+
+        assertEquals(listOf(emptyList()), result.matches)
+        assertFalse(result.hasMatch)
+    }
+
+    @Test
+    fun `should return a response with match if finds any match with the first match, whit null node`() {
+        // arrange
+        val function = checkFunction(mockExpressionsOneMatch)
+        // act
+        val result = function(null)
         // assert
         Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveToRightSibling()
         Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveToParent()
         Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveToLeftSibling()
         Mockito.verify(mockCurrentTargetTreeNode, Mockito.times(0)).moveToFirstChild()
 
-        assertEquals(emptyList(), result.matches.first())
+        assertEquals(listOf(emptyList()), result.matches)
         assertFalse(result.hasMatch)
     }
 }

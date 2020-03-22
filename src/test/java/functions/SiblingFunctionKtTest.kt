@@ -24,7 +24,7 @@ class SiblingFunctionKtTest {
     @BeforeEach
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        mockVisitorFunction = { VisitorFunctionResponse(listOf(mockTargetTreeNode), true) }
+        mockVisitorFunction = { VisitorFunctionResponse(listOf(listOf(mockTargetTreeNode)), true) }
     }
 
     @Test
@@ -40,7 +40,7 @@ class SiblingFunctionKtTest {
         verify(mockCurrentTargetTreeNode, times(0)).moveToLeftSibling()
         verify(mockCurrentTargetTreeNode, times(0)).moveToFirstChild()
 
-        assertEquals(siblings.size, result.matches.size)
+        assertEquals(siblings.size, result.matches.first().size)
         assertTrue(result.hasMatch)
     }
 
@@ -58,7 +58,7 @@ class SiblingFunctionKtTest {
         verify(mockCurrentTargetTreeNode, times(0)).moveToLeftSibling()
         verify(mockCurrentTargetTreeNode, times(0)).moveToFirstChild()
 
-        assertEquals(siblings.size, result.matches.size)
+        assertEquals(siblings.size, result.matches.first().size)
         assertTrue(result.hasMatch)
     }
 }

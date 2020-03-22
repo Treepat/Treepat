@@ -9,7 +9,9 @@ fun childFunction(
         val children = child.invoke(targetTreeNode?.moveToFirstChild())
         when {
             !fathers.hasMatch || !children.hasMatch -> VisitorFunctionResponse()
-            else -> VisitorFunctionResponse(listOf(fathers.matches, children.matches).flatten(), true)
+            else -> {
+                VisitorFunctionResponse(mergeList(listOf(fathers.matches, children.matches)), true)
+            }
         }
     }
 }

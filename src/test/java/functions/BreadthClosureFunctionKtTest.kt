@@ -24,7 +24,7 @@ class BreadthClosureFunctionKtTest {
     @BeforeEach
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        mockVisitorFunction = { VisitorFunctionResponse(listOf(mockTargetTreeNode), true) }
+        mockVisitorFunction = { VisitorFunctionResponse(listOf(listOf(mockTargetTreeNode)), true) }
     }
 
     @Test
@@ -40,7 +40,7 @@ class BreadthClosureFunctionKtTest {
         verify(mockCurrentTargetTreeNode, times(0)).moveToLeftSibling()
         verify(mockCurrentTargetTreeNode, times(0)).moveToFirstChild()
 
-        assertEquals(0, result.matches.size)
+        assertEquals(0, result.matches.first().size)
         assertTrue(result.hasMatch)
     }
 
@@ -58,7 +58,7 @@ class BreadthClosureFunctionKtTest {
         verify(mockCurrentTargetTreeNode, times(0)).moveToLeftSibling()
         verify(mockCurrentTargetTreeNode, times(0)).moveToFirstChild()
 
-        assertEquals(2, result.matches.size)
+        assertEquals(2, result.matches.first().size)
         assertTrue(result.hasMatch)
     }
 }

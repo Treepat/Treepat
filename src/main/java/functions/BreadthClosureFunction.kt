@@ -7,11 +7,13 @@ fun breadthClosureFunction(
 ): VisitorFunction {
     return { targetTreeNode ->
         var currentNode = targetTreeNode
-        val answer = mutableListOf<List<TargetTreeNode>>()
-        while (currentNode != null) {
-            answer.add(expression.invoke(currentNode).matches)
+        var currentAnswer = expression.invoke(currentNode)
+        val answer = mutableListOf<List<List<TargetTreeNode>>>(listOf(listOf()))
+        while (currentNode != null && currentAnswer.hasMatch) {
+            answer.add(currentAnswer.matches)
             currentNode = currentNode.moveToRightSibling()
+            currentAnswer = expression.invoke(currentNode)
         }
-        VisitorFunctionResponse(answer.filter { it.isNotEmpty() }.flatten(), true)
+        VisitorFunctionResponse(mergeList(answer), true)
     }
 }
