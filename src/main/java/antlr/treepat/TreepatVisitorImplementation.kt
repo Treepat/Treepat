@@ -2,6 +2,7 @@ package antlr.treepat
 
 import ast.ASTNode
 import ast.BreadthClosure
+import ast.Check
 import ast.Child
 import ast.Node
 import ast.Sibling
@@ -78,10 +79,11 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
             .stream()
             .map { instruction: TreepatParser.UnionContext -> instruction.accept<ASTNode>(this) }
             .collect(Collectors.toList())
-        return when (siblings.size) {
+        val returnASTNode = when (siblings.size) {
             1 -> siblings.first()
             else -> Sibling(siblings)
         }
+        return Check(returnASTNode)
     }
 
     override fun visitAtomTermWrapper(ctx: TreepatParser.AtomTermWrapperContext): ASTNode {

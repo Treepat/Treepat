@@ -25,8 +25,8 @@ internal class ChildFunctionKtTest {
     @BeforeEach
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        mockFatherVisitorFunction = { VisitorFunctionResponse(listOf(mockTargetTreeNode), true) }
-        mockChildVisitorFunction = { VisitorFunctionResponse(listOf(mockTargetTreeNode), true) }
+        mockFatherVisitorFunction = { VisitorFunctionResponse(listOf(listOf(mockTargetTreeNode)), true) }
+        mockChildVisitorFunction = { VisitorFunctionResponse(listOf(listOf(mockTargetTreeNode)), true) }
     }
 
     @Test
@@ -44,7 +44,7 @@ internal class ChildFunctionKtTest {
         verify(mockCurrentTargetTreeNode, times(0)).moveToLeftSibling()
         verify(mockCurrentTargetTreeNode, times(1)).moveToFirstChild()
 
-        assertEquals(children.size, result.matches.size)
+        assertEquals(children.size, result.matches.first().size)
         assertTrue(result.hasMatch)
     }
 }
