@@ -53,7 +53,6 @@ class ImpTargetTreeNode(
             str += response.matchedString + END_LINE_STRING
 
             currentIndex = response.currentIndex
-            currentIndex++
         }
         str = str.removeSuffix(END_LINE_STRING)
         if (iAmIn)
@@ -67,9 +66,10 @@ class ImpTargetTreeNode(
 
     override fun toString(): String {
         var str = "$name:$tag"
-        if (children.isNotEmpty())
+        if (children.isNotEmpty()) {
             str += END_LINE_STRING
-        str += children.joinToString(separator = END_LINE_STRING).prependIndent(INDENT_STRING)
+            str += children.joinToString(separator = END_LINE_STRING).prependIndent(INDENT_STRING)
+        }
         return str
     }
 
