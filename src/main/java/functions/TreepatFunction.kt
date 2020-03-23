@@ -2,13 +2,8 @@ package functions
 
 fun treepatFunction(expression: VisitorFunction): VisitorFunction {
     return { targetTreeNode ->
-        if (targetTreeNode == null) {
-            VisitorFunctionResponse(listOf(VisitorFunctionSimpleResponse(lastVisitedSibling = targetTreeNode)))
-        }
         var currentNode = targetTreeNode
         val answers = mutableListOf<VisitorFunctionResponse>()
-        answers.add(expression.invoke(currentNode))
-        currentNode = currentNode?.nextLeftmostPreorderNode()
         while (currentNode != null) {
             answers.add(expression.invoke(currentNode))
             currentNode = currentNode.nextLeftmostPreorderNode()
