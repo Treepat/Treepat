@@ -1,12 +1,13 @@
 package ast
 
+import TestFunction
 import antlr.treepat.TreepatVisitorImplementation
-import java.io.File
 import kotlin.test.assertEquals
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTree
 import org.junit.jupiter.api.Test
+import runAllTestInFolder
 import treepat.TreepatLexer
 import treepat.TreepatParser
 
@@ -19,72 +20,74 @@ internal class ASTNodesKtTest {
         return parser.treepat()
     }
 
-    private fun getOutputExpected(pathToOutputFile: String): String? {
-        val fileOutput = File(pathToOutputFile)
-        if (fileOutput.exists())
-            return CharStreams.fromFileName(pathToOutputFile).toString()
-        return null
-    }
+    private val runTest: TestFunction = { inputAntlrString, output, error ->
+        val tree = createParserTree(inputAntlrString)
+        val visitor = TreepatVisitorImplementation()
 
-    private fun runAllTestInFolder(folderPath: String) {
-        File(folderPath).list { _, name -> name.endsWith(".in") }!!.forEach {
-            // arrange
+        // act
+        val root = visitor.visit(tree)
 
-            val inputAntlrString = CharStreams.fromFileName(folderPath + it).toString()
-
-            var output = inputAntlrString
-            getOutputExpected(folderPath + it.replace(".in", ".out"))?.let {
-                outputResult -> output = outputResult
-            }
-
-            val fileMessage = File(folderPath + it.replace(".in", ".msg")).readLines()
-            val error = fileMessage.first()
-
-            val tree = createParserTree(inputAntlrString)
-            val visitor = TreepatVisitorImplementation()
-
-            // act
-            val root = visitor.visit(tree)
-
-            // assert
-            assertEquals(root.toString(), output, error)
-        }
+        // assert
+        assertEquals(output, root.toString(), error)
     }
 
     @Test
     fun `should run all node test cases`() {
         val nodeTestCasesFolder = "./src/test/java/ast/node/"
-        runAllTestInFolder(nodeTestCasesFolder)
+        runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all child test cases`() {
         val nodeTestCasesFolder = "./src/test/java/ast/child/"
-        runAllTestInFolder(nodeTestCasesFolder)
+        runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all sibling test cases`() {
         val nodeTestCasesFolder = "./src/test/java/ast/sibling/"
-        runAllTestInFolder(nodeTestCasesFolder)
+        runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all breadth closure test cases`() {
         val nodeTestCasesFolder = "./src/test/java/ast/breadth_closure/"
-        runAllTestInFolder(nodeTestCasesFolder)
+        runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all union test cases`() {
         val nodeTestCasesFolder = "./src/test/java/ast/union/"
-        runAllTestInFolder(nodeTestCasesFolder)
+        runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all mix test cases`() {
         val nodeTestCasesFolder = "./src/test/java/ast/mix/"
-        runAllTestInFolder(nodeTestCasesFolder)
+        runAllTestInFolder(nodeTestCasesFolder, runTest)
+    }
+
+    @Test
+    fun `should run all large stable test cases`() {
+        val nodeTestCasesFolder = "./src/test/java/ast/large_stable/"
+        runAllTestInFolder(nodeTestCasesFolder, runTest)
+    }
+
+    @Test
+    fun `should run all large no stable test cases`() {
+        val nodeTestCasesFolder = "./src/test/java/ast/large_no_stable/"
+        runAllTestInFolder(nodeTestCasesFolder, runTest)
+    }
+
+    @Test
+    fun `should run all large no stable test cases with only child operator`() {
+        val nodeTestCasesFolder = "./src/test/java/ast/large_no_stable_only_child/"
+        runAllTestInFolder(nodeTestCasesFolder, runTest)
+    }
+    @Test
+    fun `should run all large no stable test cases with mix`() {
+        val nodeTestCasesFolder = "./src/test/java/ast/large_no_stable_mix/"
+        runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 
     @Test
