@@ -2,7 +2,7 @@ package tree
 
 import TestFunction
 import antlr.tree_format.TreeFormatVisitorImplementation
-import antlr.treepat.TreepatVisitorImplementation
+import kotlin.test.assertEquals
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTree
@@ -10,9 +10,6 @@ import org.junit.jupiter.api.Test
 import runAllTestInFolder
 import tree_format.TreeFormatLexer
 import tree_format.TreeFormatParser
-import treepat.TreepatLexer
-import treepat.TreepatParser
-import kotlin.test.assertEquals
 
 internal class ImpTargetTreeNodeTest {
 
@@ -31,7 +28,7 @@ internal class ImpTargetTreeNodeTest {
         val root = visitor.visit(tree)
 
         // assert
-        assertEquals(root.toString(), output, error)
+        assertEquals(output, root.toString(), error)
     }
 
     @Test
