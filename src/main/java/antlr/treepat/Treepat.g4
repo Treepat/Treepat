@@ -147,10 +147,19 @@ depthTerm
 
 node
     :   name=ID
+    |   dot
+    ;
+
+dot
+    :   DOT
     ;
 
 nested
     :   PAR_OPEN treepat PAR_CLOSE
+    ;
+
+DOT:
+    '.'
     ;
 
 OR_SIGN

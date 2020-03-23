@@ -4,6 +4,7 @@ import ast.ASTNode
 import ast.BreadthClosure
 import ast.Check
 import ast.Child
+import ast.Dot
 import ast.Node
 import ast.Sibling
 import ast.Union
@@ -32,6 +33,7 @@ fun createVisitorFunction(node: ASTNode): VisitorFunction {
         is BreadthClosure -> breadthClosureFunction(createVisitorFunction(node.expression))
         is Union -> unionFunction(node.expressions.map(::createVisitorFunction))
         is Check -> checkFunction(createVisitorFunction(node.expression))
+        is Dot -> dotFunction()
         else -> throw IllegalArgumentException("This ASTNode subtype is not supported.")
     }
 }
