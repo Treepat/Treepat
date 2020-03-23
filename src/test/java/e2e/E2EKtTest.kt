@@ -95,4 +95,10 @@ internal class E2EKtTest {
         val nodeTestCasesFolder = "./src/test/java/e2e/mix/"
         runAllTestInFolderE2E(nodeTestCasesFolder, runTest)
     }
+
+    @Test
+    fun `should run all dot test cases`() {
+        val nodeTestCasesFolder = "./src/test/java/e2e/dot/"
+        runAllTestInFolderE2E(nodeTestCasesFolder, runTest)
+    }
 }
