@@ -91,6 +91,12 @@ internal class ASTNodesKtTest {
     }
 
     @Test
+    fun `should run all dot test cases`() {
+        val nodeTestCasesFolder = "./src/test/java/ast/dot/"
+        runAllTestInFolder(nodeTestCasesFolder, runTest)
+    }
+
+    @Test
     fun `should have at least one sibling not end line`() {
         // Old version
         // arrange
