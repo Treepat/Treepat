@@ -33,6 +33,25 @@ class ImpTargetTreeNode(
         return matchedNodesString(selectedNodes, 0, Int.MAX_VALUE).matchedString
     }
 
+    override fun nextLeftmostPreorderNode(): TargetTreeNode? {
+        if (children.isNotEmpty()) {
+            return children.first()
+        }
+        return nextSiblingLeftmostChild()
+    }
+
+    fun nextSiblingLeftmostChild(): TargetTreeNode? {
+        val rightSibling = moveToRightSibling()
+        if (rightSibling != null) {
+            return rightSibling.nextLeftmostPreorderNode()
+        }
+        return nextUpwardPreorderNode()
+    }
+
+    private fun nextUpwardPreorderNode(): TargetTreeNode? {
+        return (parent as ImpTargetTreeNode?)?.nextSiblingLeftmostChild()
+    }
+
     @Suppress("UNCHECKED_CAST")
     fun matchedNodesString(
         selectedNodes: List<TargetTreeNode>,

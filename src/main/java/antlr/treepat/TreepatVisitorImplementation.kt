@@ -7,6 +7,7 @@ import ast.Child
 import ast.Dot
 import ast.Node
 import ast.Sibling
+import ast.Treepat
 import ast.Union
 import java.util.stream.Collectors
 import org.antlr.v4.runtime.tree.ErrorNode
@@ -49,7 +50,7 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
     }
 
     override fun visitIndent(ctx: TreepatParser.IndentContext): ASTNode {
-        return Check(ctx.treepat().accept(this))
+        return ctx.subtree().accept(this)
     }
 
     override fun visitNestedIndent(ctx: TreepatParser.NestedIndentContext): ASTNode {
@@ -72,7 +73,7 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
     }
 
     override fun visitNested(ctx: TreepatParser.NestedContext): ASTNode {
-        return ctx.treepat().accept(this)
+        return ctx.subtree().accept(this)
     }
 
     override fun visitSibling(ctx: TreepatParser.SiblingContext): ASTNode {
@@ -104,7 +105,7 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
     }
 
     override fun visitTreepat(ctx: TreepatParser.TreepatContext): ASTNode {
-        return ctx.sibling().accept<ASTNode>(this)
+        return Treepat(ctx.subtree().accept(this))
     }
 
     override fun visitChild(ctx: TreepatParser.ChildContext): ASTNode {
@@ -130,5 +131,9 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
 
     override fun visitErrorNode(errorNode: ErrorNode): ASTNode? {
         throw NotImplementedError("This method is not supported.")
+    }
+
+    override fun visitSubtree(ctx: TreepatParser.SubtreeContext): ASTNode {
+        return Check(ctx.sibling().accept<ASTNode>(this))
     }
 }
