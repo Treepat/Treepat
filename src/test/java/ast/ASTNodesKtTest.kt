@@ -84,6 +84,11 @@ internal class ASTNodesKtTest {
         val nodeTestCasesFolder = "./src/test/java/ast/large_no_stable_only_child/"
         runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
+    @Test
+    fun `should run all large no stable test cases with mix`() {
+        val nodeTestCasesFolder = "./src/test/java/ast/large_no_stable_mix/"
+        runAllTestInFolder(nodeTestCasesFolder, runTest)
+    }
 
     @Test
     fun `should have at least one sibling not end line`() {
