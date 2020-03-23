@@ -2,6 +2,7 @@ package antlr.treepat
 
 import ast.ASTNode
 import ast.BreadthClosure
+import ast.Check
 import ast.Child
 import ast.Node
 import ast.Sibling
@@ -47,7 +48,7 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
     }
 
     override fun visitIndent(ctx: TreepatParser.IndentContext): ASTNode {
-        return ctx.treepat().accept(this)
+        return Check(ctx.treepat().accept(this))
     }
 
     override fun visitNestedIndent(ctx: TreepatParser.NestedIndentContext): ASTNode {
@@ -80,8 +81,16 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
             .collect(Collectors.toList())
         return when (siblings.size) {
             1 -> siblings.first()
-            else -> Sibling(siblings)
+            else -> createSiblingNode(siblings)
         }
+    }
+
+    private fun createSiblingNode(siblings: List<ASTNode>): ASTNode {
+        if (siblings.size == 2) {
+            return Sibling(siblings[0], siblings[1])
+        }
+        val secondParam = createSiblingNode(siblings.subList(1, siblings.size))
+        return Sibling(siblings.first(), secondParam)
     }
 
     override fun visitAtomTermWrapper(ctx: TreepatParser.AtomTermWrapperContext): ASTNode {

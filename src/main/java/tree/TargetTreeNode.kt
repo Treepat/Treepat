@@ -10,6 +10,7 @@ interface TargetTreeNode {
     fun moveToLeftSibling(): TargetTreeNode?
     fun moveToParent(): TargetTreeNode?
     fun moveToFirstChild(): TargetTreeNode?
+    fun matchedNodesString(selectedNodes: List<TargetTreeNode>): String
 
     override fun toString(): String
 }
