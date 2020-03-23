@@ -39,7 +39,7 @@ object Main {
         } else {
             solutions = listOf("Match not found")
         }
-        print(solutions.joinToString("\n"))
+        print(solutions.joinToString("\n-\n"))
     }
 
     private fun showASTNodeFrame(parser: Parser, tree: ParseTree) {
