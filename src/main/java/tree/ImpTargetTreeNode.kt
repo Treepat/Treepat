@@ -75,7 +75,7 @@ class ImpTargetTreeNode(
 
             if (goalInd < 0 || (goalInd == 0 && selectedNodes[currentIndex].id != children[0].id)) {
                 goalInd *= -1
-                goalInd -= 2 // TODO - This might not be needed in the future when searching for siblings but cannot be tested right now
+                goalInd -= 2
             }
 
             val response = (children[goalInd] as ImpTargetTreeNode).matchedNodesString(

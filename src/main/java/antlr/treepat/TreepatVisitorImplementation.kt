@@ -50,7 +50,7 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
     }
 
     override fun visitIndent(ctx: TreepatParser.IndentContext): ASTNode {
-        return ctx.subtree().accept(this)
+        return Check(ctx.subtree().accept(this))
     }
 
     override fun visitNestedIndent(ctx: TreepatParser.NestedIndentContext): ASTNode {
@@ -105,7 +105,7 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
     }
 
     override fun visitTreepat(ctx: TreepatParser.TreepatContext): ASTNode {
-        return Treepat(ctx.subtree().accept(this))
+        return Treepat(Check(ctx.subtree().accept(this)))
     }
 
     override fun visitChild(ctx: TreepatParser.ChildContext): ASTNode {
@@ -134,6 +134,6 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
     }
 
     override fun visitSubtree(ctx: TreepatParser.SubtreeContext): ASTNode {
-        return Check(ctx.sibling().accept<ASTNode>(this))
+        return ctx.sibling().accept<ASTNode>(this)
     }
 }

@@ -13,7 +13,7 @@ fun treepatFunction(expression: VisitorFunction): VisitorFunction {
             answers.add(expression.invoke(currentNode))
             currentNode = currentNode.nextLeftmostPreorderNode()
         }
-        val simpleResponses = answers.filter { it.hasMatch }.flatMap { it.responses }
+        val simpleResponses = answers.filter { it.hasMatch }.flatMap { it.responses }.filter { it.matches.isNotEmpty() }
         if (simpleResponses.isNotEmpty()) {
             VisitorFunctionResponse(simpleResponses, true)
         } else {
