@@ -8,13 +8,13 @@ import ast.Dot
 import ast.Node
 import ast.Sibling
 import ast.Union
+import java.util.stream.Collectors
 import org.antlr.v4.runtime.tree.ErrorNode
 import org.antlr.v4.runtime.tree.ParseTree
 import org.antlr.v4.runtime.tree.RuleNode
 import org.antlr.v4.runtime.tree.TerminalNode
 import treepat.TreepatParser
 import treepat.TreepatVisitor
-import java.util.stream.Collectors
 
 class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
 
