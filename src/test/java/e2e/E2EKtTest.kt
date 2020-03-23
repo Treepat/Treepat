@@ -23,18 +23,18 @@ internal class E2EKtTest {
         val lexer = TreeFormatLexer(CharStreams.fromString(tree))
         val tokenStream = CommonTokenStream(lexer)
         val fileParser = TreeFormatParser(tokenStream)
-        val tree: ParseTree = fileParser.subtree()
+        val treeFile: ParseTree = fileParser.subtree()
         val treeVisitor = TreeFormatVisitorImplementation()
-        return treeVisitor.visit(tree)
+        return treeVisitor.visit(treeFile)
     }
 
     private fun parseTreepat(tree: String): ASTNode {
         val lexer = TreepatLexer(CharStreams.fromString(tree))
         val tokenStream = CommonTokenStream(lexer)
         val treepatParser = TreepatParser(tokenStream)
-        val tree: ParseTree = treepatParser.treepat()
+        val treeTreepat: ParseTree = treepatParser.treepat()
         val treepatVisitor = TreepatVisitorImplementation()
-        return treepatVisitor.visit(tree)
+        return treepatVisitor.visit(treeTreepat)
     }
 
     private val runTest: TestFunctionE2E = { treepatAntlrString, treeAntlrString, output, error ->
@@ -93,6 +93,12 @@ internal class E2EKtTest {
     @Test
     fun `should run all mix test cases`() {
         val nodeTestCasesFolder = "./src/test/java/e2e/mix/"
+        runAllTestInFolderE2E(nodeTestCasesFolder, runTest)
+    }
+
+    @Test
+    fun `should run all dot test cases`() {
+        val nodeTestCasesFolder = "./src/test/java/e2e/dot/"
         runAllTestInFolderE2E(nodeTestCasesFolder, runTest)
     }
 }

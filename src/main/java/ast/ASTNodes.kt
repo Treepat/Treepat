@@ -28,3 +28,7 @@ data class BreadthClosure(var expression: ASTNode) : ASTNode {
 data class Union(val expressions: List<ASTNode>) : ASTNode {
     override fun toString(): String = expressions.joinToString(separator = "$END_LINE_STRING|$END_LINE_STRING")
 }
+
+class Dot() : ASTNode {
+    override fun toString(): String = "."
+}

@@ -4,6 +4,7 @@ import ast.ASTNode
 import ast.BreadthClosure
 import ast.Check
 import ast.Child
+import ast.Dot
 import ast.Node
 import ast.Sibling
 import ast.Union
@@ -33,7 +34,7 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
     }
 
     override fun visitNode(ctx: TreepatParser.NodeContext): ASTNode {
-        return Node(ctx.name.text)
+        return if (ctx.dot() != null) ctx.dot().accept(this) else Node(ctx.name.text)
     }
 
     override fun visit(parseTree: ParseTree): ASTNode {
@@ -113,6 +114,10 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
         }
         val child = ctx.indentWrapper().accept(this)
         return Child(expression, child)
+    }
+
+    override fun visitDot(ctx: TreepatParser.DotContext): ASTNode {
+        return Dot()
     }
 
     override fun visitChildren(ruleNode: RuleNode): ASTNode? {
