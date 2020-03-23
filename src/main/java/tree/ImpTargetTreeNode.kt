@@ -39,10 +39,10 @@ class ImpTargetTreeNode(
         initialIndex: Int,
         rightSiblingId: Int
     ): MatchedResponse {
-        val iAmIn = selectedNodes[initialIndex].id == id
         var str = ""
         var currentIndex = initialIndex
-        if (iAmIn) {
+        if (selectedNodes[initialIndex].id == id) {
+            str = "$name:$tag($id)"
             currentIndex++
         }
         while (currentIndex < selectedNodes.size && selectedNodes[currentIndex].id < rightSiblingId) {
@@ -62,20 +62,13 @@ class ImpTargetTreeNode(
             val response = (children[goalInd] as ImpTargetTreeNode).matchedNodesString(
                 selectedNodes,
                 currentIndex,
-                if (goalInd + 1 == children.size) Int.MAX_VALUE else children[goalInd + 1].id
+                if (goalInd + 1 == children.size) rightSiblingId else children[goalInd + 1].id
             )
-            str += response.matchedString.prependIndent(INDENT_STRING) + END_LINE_STRING
+            str += END_LINE_STRING + response.matchedString.prependIndent(INDENT_STRING)
 
             currentIndex = response.currentIndex
         }
-        str = str.removeSuffix(END_LINE_STRING)
-        if (iAmIn) {
-            if (str.length > 0) {
-                str = "$name:$tag($id)\n$str"
-            } else {
-                str = "$name:$tag($id)"
-            }
-        }
+        str = str.removePrefix(END_LINE_STRING)
         return MatchedResponse(str, currentIndex)
     }
 

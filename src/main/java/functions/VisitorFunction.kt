@@ -56,14 +56,15 @@ fun mergeResponse(
 
 fun mergeResponse(
     simpleResponse: VisitorFunctionSimpleResponse,
-    secondResponse: VisitorFunctionResponse
+    secondResponse: VisitorFunctionResponse,
+    lastVisitedSiblingFirst: Boolean = false
 ): VisitorFunctionResponse {
     val answerMatches = mutableListOf<VisitorFunctionSimpleResponse>()
     for (secondIterator in secondResponse.responses) {
         answerMatches.add(
             VisitorFunctionSimpleResponse(
                 simpleResponse.matches + secondIterator.matches,
-                if (secondIterator.matches.isEmpty()) {
+                if (lastVisitedSiblingFirst || secondIterator.matches.isEmpty()) {
                     simpleResponse.lastVisitedSibling
                 } else {
                     secondIterator.lastVisitedSibling
