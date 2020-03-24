@@ -7,6 +7,7 @@ import ast.Child
 import ast.Dot
 import ast.Node
 import ast.Sibling
+import ast.Treepat
 import ast.Union
 import java.util.stream.Collectors
 import org.antlr.v4.runtime.tree.ErrorNode
@@ -18,42 +19,33 @@ import treepat.TreepatVisitor
 
 class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
 
-    override fun visitDepthClosure(ctx: TreepatParser.DepthClosureContext): ASTNode {
-        return ctx.indentWrapper().accept(this)
-    }
+    override fun visit(parseTree: ParseTree): ASTNode = parseTree.accept<ASTNode>(this)
 
-    override fun visitDepthTerm(ctx: TreepatParser.DepthTermContext): ASTNode {
-        return ctx.node().accept(this)
-    }
+    override fun visitIndent(ctx: TreepatParser.IndentContext): ASTNode = Check(ctx.subtree().accept(this))
 
-    override fun visitBreadthClosure(ctx: TreepatParser.BreadthClosureContext): ASTNode {
-        return when {
-            ctx.ASTERISK() == null -> ctx.atomTerm().accept(this)
-            else -> BreadthClosure(ctx.atomTerm().accept(this))
-        }
-    }
+    override fun visitSubtree(ctx: TreepatParser.SubtreeContext): ASTNode = ctx.sibling().accept<ASTNode>(this)
 
-    override fun visitNode(ctx: TreepatParser.NodeContext): ASTNode {
-        return if (ctx.dot() != null) ctx.dot().accept(this) else Node(ctx.name.text)
-    }
+    override fun visitTreepat(ctx: TreepatParser.TreepatContext): ASTNode = Treepat(Check(ctx.subtree().accept(this)))
 
-    override fun visit(parseTree: ParseTree): ASTNode {
-        return parseTree.accept<ASTNode>(this)
-    }
+    override fun visitNested(ctx: TreepatParser.NestedContext): ASTNode = ctx.subtree().accept(this)
+
+    override fun visitNestedIndent(ctx: TreepatParser.NestedIndentContext): ASTNode = ctx.indent().accept(this)
+
+    override fun visitDepthClosure(ctx: TreepatParser.DepthClosureContext): ASTNode = ctx.indentWrapper().accept(this)
+
+    override fun visitDepthTerm(ctx: TreepatParser.DepthTermContext): ASTNode = ctx.node().accept(this)
+
+    override fun visitAtomTerm(ctx: TreepatParser.AtomTermContext): ASTNode = ctx.atomTermWrapper().accept(this)
+
+    override fun visitNode(ctx: TreepatParser.NodeContext): ASTNode = if (ctx.dot() != null) ctx.dot().accept(this) else Node(ctx.name.text)
+
+    override fun visitDot(ctx: TreepatParser.DotContext): ASTNode = Dot()
 
     override fun visitIndentWrapper(ctx: TreepatParser.IndentWrapperContext): ASTNode {
         return when {
             ctx.indent() != null -> ctx.indent().accept<ASTNode>(this)
             else -> ctx.nestedIndent().accept<ASTNode>(this)
         }
-    }
-
-    override fun visitIndent(ctx: TreepatParser.IndentContext): ASTNode {
-        return Check(ctx.treepat().accept(this))
-    }
-
-    override fun visitNestedIndent(ctx: TreepatParser.NestedIndentContext): ASTNode {
-        return ctx.indent().accept(this)
     }
 
     override fun visitUnion(ctx: TreepatParser.UnionContext): ASTNode {
@@ -65,14 +57,6 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
             1 -> expressions.first()
             else -> Union(expressions)
         }
-    }
-
-    override fun visitAtomTerm(ctx: TreepatParser.AtomTermContext): ASTNode {
-        return ctx.atomTermWrapper().accept(this)
-    }
-
-    override fun visitNested(ctx: TreepatParser.NestedContext): ASTNode {
-        return ctx.treepat().accept(this)
     }
 
     override fun visitSibling(ctx: TreepatParser.SiblingContext): ASTNode {
@@ -103,10 +87,6 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
         }
     }
 
-    override fun visitTreepat(ctx: TreepatParser.TreepatContext): ASTNode {
-        return ctx.sibling().accept<ASTNode>(this)
-    }
-
     override fun visitChild(ctx: TreepatParser.ChildContext): ASTNode {
         val expression = ctx.breadthClosure().accept(this)
         if (ctx.indentWrapper() == null) {
@@ -116,8 +96,11 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
         return Child(expression, child)
     }
 
-    override fun visitDot(ctx: TreepatParser.DotContext): ASTNode {
-        return Dot()
+    override fun visitBreadthClosure(ctx: TreepatParser.BreadthClosureContext): ASTNode {
+        return when {
+            ctx.ASTERISK() == null -> ctx.atomTerm().accept(this)
+            else -> BreadthClosure(ctx.atomTerm().accept(this))
+        }
     }
 
     override fun visitChildren(ruleNode: RuleNode): ASTNode? {

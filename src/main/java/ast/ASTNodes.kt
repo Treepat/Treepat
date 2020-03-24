@@ -5,6 +5,10 @@ interface ASTNode
 const val INDENT_STRING = "    "
 const val END_LINE_STRING = "\n"
 
+data class Treepat(var subtree: ASTNode) : ASTNode {
+    override fun toString(): String = "$subtree"
+}
+
 data class Check(var expression: ASTNode) : ASTNode {
     override fun toString(): String = "$expression"
 }
@@ -29,6 +33,6 @@ data class Union(val expressions: List<ASTNode>) : ASTNode {
     override fun toString(): String = expressions.joinToString(separator = "$END_LINE_STRING|$END_LINE_STRING")
 }
 
-class Dot() : ASTNode {
+class Dot : ASTNode {
     override fun toString(): String = "."
 }
