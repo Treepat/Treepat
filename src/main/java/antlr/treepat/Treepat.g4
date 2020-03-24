@@ -94,6 +94,10 @@ tokens { INDENT, DEDENT }
 }
 
 treepat
+    :   subtree
+    ;
+
+subtree
     :   sibling
     ;
 
@@ -111,7 +115,7 @@ nestedIndent
     ;
 
 indent
-    :   NEWLINE INDENT treepat DEDENT
+    :   NEWLINE INDENT subtree DEDENT
     ;
 
 sibling
@@ -155,7 +159,7 @@ dot
     ;
 
 nested
-    :   PAR_OPEN treepat PAR_CLOSE
+    :   PAR_OPEN subtree PAR_CLOSE
     ;
 
 DOT:

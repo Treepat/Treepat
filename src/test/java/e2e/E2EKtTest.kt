@@ -51,7 +51,7 @@ internal class E2EKtTest {
         val functionResult = rootFunctionModule.invoke(targetTreeNode)
 
         val solutions: List<String> = if (functionResult.hasMatch) {
-            functionResult.responses.map { targetTreeNode.matchedNodesString(it.matches) }
+            functionResult.responses.map { targetTreeNode.matchedNodesString(it.matches).trimIndent() }
         } else {
             listOf("Match not found")
         }

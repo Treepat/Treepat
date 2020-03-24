@@ -7,6 +7,7 @@ import ast.Child
 import ast.Dot
 import ast.Node
 import ast.Sibling
+import ast.Treepat
 import ast.Union
 import tree.TargetTreeNode
 
@@ -24,6 +25,7 @@ typealias VisitorFunction = (TargetTreeNode?) -> VisitorFunctionResponse
 
 fun createVisitorFunction(node: ASTNode): VisitorFunction {
     return when (node) {
+        is Treepat -> treepatFunction(createVisitorFunction(node.subtree))
         is Child -> childFunction(createVisitorFunction(node.father), createVisitorFunction(node.child))
         is Node -> nodeFunction(node.name)
         is Sibling -> siblingFunction(

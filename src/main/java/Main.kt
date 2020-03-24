@@ -35,7 +35,7 @@ object Main {
 
         val solutions: List<String>
         if (functionResult.hasMatch) {
-            solutions = functionResult.responses.map { targetTreeNode.matchedNodesString(it.matches) }
+            solutions = functionResult.responses.map { targetTreeNode.matchedNodesString(it.matches).trimIndent() }
         } else {
             solutions = listOf("Match not found")
         }
