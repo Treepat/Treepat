@@ -15,7 +15,7 @@ import tree_format.TreeFormatParser
  */
 internal class GivenTargetTreeThenBuildImpTargetTreeKtTest {
 
-    private val resourcesLocation = "./src/test/kotlin/target_trees/"
+    private val resourcesLocation = "./src/it/resources/target_trees/"
 
     private fun createParserTree(inputAntlrString: String): ParseTree {
         val lexer = TreeFormatLexer(CharStreams.fromString(inputAntlrString))
