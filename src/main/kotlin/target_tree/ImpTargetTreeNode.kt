@@ -1,4 +1,4 @@
-package tree
+package target_tree
 
 data class MatchedResponse(val matchedString: String, val currentIndex: Int)
 

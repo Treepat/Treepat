@@ -10,7 +10,7 @@ import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.Parser
 import org.antlr.v4.runtime.tree.ParseTree
-import tree.TargetTreeNode
+import target_tree.TargetTreeNode
 import tree_format.TreeFormatLexer
 import tree_format.TreeFormatParser
 import treepat.TreepatLexer

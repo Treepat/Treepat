@@ -1,6 +1,6 @@
 package operators
 
-import tree.TargetTreeNode
+import target_tree.TargetTreeNode
 
 data class VisitorFunctionResponse(
     val responses: List<VisitorFunctionSimpleResponse> = listOf(VisitorFunctionSimpleResponse()),

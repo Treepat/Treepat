@@ -9,7 +9,7 @@ import ast.Node
 import ast.Sibling
 import ast.Treepat
 import ast.Union
-import tree.TargetTreeNode
+import target_tree.TargetTreeNode
 
 typealias VisitorFunction = (TargetTreeNode?) -> VisitorFunctionResponse
 

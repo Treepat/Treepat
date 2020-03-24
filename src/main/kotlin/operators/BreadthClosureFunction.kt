@@ -1,6 +1,6 @@
 package operators
 
-import tree.TargetTreeNode
+import target_tree.TargetTreeNode
 
 fun breadthClosureFunction(
     expression: VisitorFunction
