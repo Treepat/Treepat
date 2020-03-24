@@ -33,66 +33,66 @@ internal class ASTNodesKtTest {
 
     @Test
     fun `should run all node test cases`() {
-        val nodeTestCasesFolder = "./src/test/java/ast/node/"
+        val nodeTestCasesFolder = "./src/test/kotlin/ast/node/"
         runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all child test cases`() {
-        val nodeTestCasesFolder = "./src/test/java/ast/child/"
+        val nodeTestCasesFolder = "./src/test/kotlin/ast/child/"
         runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all sibling test cases`() {
-        val nodeTestCasesFolder = "./src/test/java/ast/sibling/"
+        val nodeTestCasesFolder = "./src/test/kotlin/ast/sibling/"
         runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all breadth closure test cases`() {
-        val nodeTestCasesFolder = "./src/test/java/ast/breadth_closure/"
+        val nodeTestCasesFolder = "./src/test/kotlin/ast/breadth_closure/"
         runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all union test cases`() {
-        val nodeTestCasesFolder = "./src/test/java/ast/union/"
+        val nodeTestCasesFolder = "./src/test/kotlin/ast/union/"
         runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all mix test cases`() {
-        val nodeTestCasesFolder = "./src/test/java/ast/mix/"
+        val nodeTestCasesFolder = "./src/test/kotlin/ast/mix/"
         runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all large stable test cases`() {
-        val nodeTestCasesFolder = "./src/test/java/ast/large_stable/"
+        val nodeTestCasesFolder = "./src/test/kotlin/ast/large_stable/"
         runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all large no stable test cases`() {
-        val nodeTestCasesFolder = "./src/test/java/ast/large_no_stable/"
+        val nodeTestCasesFolder = "./src/test/kotlin/ast/large_no_stable/"
         runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all large no stable test cases with only child operator`() {
-        val nodeTestCasesFolder = "./src/test/java/ast/large_no_stable_only_child/"
+        val nodeTestCasesFolder = "./src/test/kotlin/ast/large_no_stable_only_child/"
         runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
     @Test
     fun `should run all large no stable test cases with mix`() {
-        val nodeTestCasesFolder = "./src/test/java/ast/large_no_stable_mix/"
+        val nodeTestCasesFolder = "./src/test/kotlin/ast/large_no_stable_mix/"
         runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all dot test cases`() {
-        val nodeTestCasesFolder = "./src/test/java/ast/dot/"
+        val nodeTestCasesFolder = "./src/test/kotlin/ast/dot/"
         runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 }

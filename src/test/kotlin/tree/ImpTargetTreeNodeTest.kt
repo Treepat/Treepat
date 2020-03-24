@@ -33,19 +33,19 @@ internal class ImpTargetTreeNodeTest {
 
     @Test
     fun `should run all mix test cases for tree`() {
-        val nodeTestCasesFolder = "./src/test/java/tree/mix/"
+        val nodeTestCasesFolder = "./src/test/kotlin/tree/mix/"
         runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all large stable test cases for tree`() {
-        val nodeTestCasesFolder = "./src/test/java/tree/large_stable/"
+        val nodeTestCasesFolder = "./src/test/kotlin/tree/large_stable/"
         runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all large no stable test cases for tree`() {
-        val nodeTestCasesFolder = "./src/test/java/tree/large_no_stable/"
+        val nodeTestCasesFolder = "./src/test/kotlin/tree/large_no_stable/"
         runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
 }

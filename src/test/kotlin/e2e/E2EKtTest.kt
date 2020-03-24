@@ -62,43 +62,43 @@ internal class E2EKtTest {
 
     @Test
     fun `should run all node test cases`() {
-        val nodeTestCasesFolder = "./src/test/java/e2e/node/"
+        val nodeTestCasesFolder = "./src/test/kotlin/e2e/node/"
         runAllTestInFolderE2E(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all child test cases`() {
-        val nodeTestCasesFolder = "./src/test/java/e2e/child/"
+        val nodeTestCasesFolder = "./src/test/kotlin/e2e/child/"
         runAllTestInFolderE2E(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all sibling test cases`() {
-        val nodeTestCasesFolder = "./src/test/java/e2e/sibling/"
+        val nodeTestCasesFolder = "./src/test/kotlin/e2e/sibling/"
         runAllTestInFolderE2E(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all breadth closure test cases`() {
-        val nodeTestCasesFolder = "./src/test/java/e2e/breadth_closure/"
+        val nodeTestCasesFolder = "./src/test/kotlin/e2e/breadth_closure/"
         runAllTestInFolderE2E(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all union test cases`() {
-        val nodeTestCasesFolder = "./src/test/java/e2e/union/"
+        val nodeTestCasesFolder = "./src/test/kotlin/e2e/union/"
         runAllTestInFolderE2E(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all mix test cases`() {
-        val nodeTestCasesFolder = "./src/test/java/e2e/mix/"
+        val nodeTestCasesFolder = "./src/test/kotlin/e2e/mix/"
         runAllTestInFolderE2E(nodeTestCasesFolder, runTest)
     }
 
     @Test
     fun `should run all dot test cases`() {
-        val nodeTestCasesFolder = "./src/test/java/e2e/dot/"
+        val nodeTestCasesFolder = "./src/test/kotlin/e2e/dot/"
         runAllTestInFolderE2E(nodeTestCasesFolder, runTest)
     }
 }

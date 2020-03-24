@@ -46,8 +46,6 @@
 
     <build>
         <plugins>
-            <!-- This is just to make sure the class is set as main class to execute from the jar-->
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -90,7 +88,7 @@
                             <goal>test-compile</goal>
                         </goals>
                         <configuration>
-                            <sourceDirs>${project.basedir}/src/test/java</sourceDirs>
+                            <sourceDirs>${project.basedir}/src/test/kotlin</sourceDirs>
                         </configuration>
                     </execution>
                 </executions>
@@ -198,7 +196,7 @@
                 <artifactId>antlr4-maven-plugin</artifactId>
                 <version>4.1</version>
                 <configuration>
-                    <sourceDirectory>${project.basedir}/src/main/java/antlr</sourceDirectory>
+                    <sourceDirectory>src/main/kotlin/antlr</sourceDirectory>
                     <outputDirectory>${project.basedir}/src/main/generated-sources/antlr</outputDirectory>
                     <visitor>true</visitor>
                 </configuration>
