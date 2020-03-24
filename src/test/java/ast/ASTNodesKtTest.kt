@@ -95,26 +95,4 @@ internal class ASTNodesKtTest {
         val nodeTestCasesFolder = "./src/test/java/ast/dot/"
         runAllTestInFolder(nodeTestCasesFolder, runTest)
     }
-
-    @Test
-    fun `should have at least one sibling not end line`() {
-        // Old version
-        // arrange
-        val inputAntlrString = """
-            A
-                B C
-        """.trimIndent()
-        val output = """
-            A
-                B
-                C
-        """.trimIndent()
-        val tree = createParserTree(inputAntlrString)
-        val visitor = TreepatVisitorImplementation()
-        // act
-        val root = visitor.visit(tree)
-        // assert
-        assertEquals(root.toString(), output)
-        // TODO - sibling should have only one node
-    }
 }

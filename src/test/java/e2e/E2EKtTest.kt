@@ -4,8 +4,8 @@ import TestFunctionE2E
 import antlr.tree_format.TreeFormatVisitorImplementation
 import antlr.treepat.TreepatVisitorImplementation
 import ast.ASTNode
-import functions.createVisitorFunction
 import kotlin.test.assertEquals
+import operators.createVisitorFunction
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTree

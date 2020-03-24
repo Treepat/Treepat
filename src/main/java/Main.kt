@@ -1,10 +1,10 @@
 import antlr.tree_format.TreeFormatVisitorImplementation
 import antlr.treepat.TreepatVisitorImplementation
 import ast.ASTNode
-import functions.createVisitorFunction
 import javax.swing.JFrame
 import javax.swing.JPanel
 import javax.swing.JScrollPane
+import operators.createVisitorFunction
 import org.antlr.v4.gui.TreeViewer
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
@@ -24,20 +24,20 @@ object Main {
     @JvmStatic
     fun main(args: Array<String>) {
         // Treepat Parsing
-        val ASTRoot: ASTNode = parseTreepat(args[0])
+        val astRoot: ASTNode = parseTreepat(args[0])
 
         // Tree File Parsing
         val targetTreeNode: TargetTreeNode = parseTreeFile(args[1])
 
         //
-        val rootFunctionModule = createVisitorFunction(ASTRoot)
+        val rootFunctionModule = createVisitorFunction(astRoot)
         val functionResult = rootFunctionModule.invoke(targetTreeNode)
 
         val solutions: List<String>
-        if (functionResult.hasMatch) {
-            solutions = functionResult.responses.map { targetTreeNode.matchedNodesString(it.matches).trimIndent() }
+        solutions = if (functionResult.hasMatch) {
+            functionResult.responses.map { targetTreeNode.matchedNodesString(it.matches).trimIndent() }
         } else {
-            solutions = listOf("Match not found")
+            listOf("Match not found")
         }
         print(solutions.joinToString("\n-\n"))
     }

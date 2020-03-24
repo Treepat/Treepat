@@ -1,4 +1,4 @@
-package functions
+package operators
 
 fun treepatFunction(expression: VisitorFunction): VisitorFunction = { targetTreeNode ->
     var currentNode = targetTreeNode

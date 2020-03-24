@@ -4,28 +4,29 @@ interface ASTNode
 
 const val INDENT_STRING = "    "
 const val END_LINE_STRING = "\n"
+const val DOT = "."
 
-data class Treepat(var subtree: ASTNode) : ASTNode {
+data class Treepat(val subtree: ASTNode) : ASTNode {
     override fun toString(): String = "$subtree"
 }
 
-data class Check(var expression: ASTNode) : ASTNode {
+data class Check(val expression: ASTNode) : ASTNode {
     override fun toString(): String = "$expression"
 }
 
-data class Child(var father: ASTNode, var child: ASTNode) : ASTNode {
+data class Child(val father: ASTNode, val child: ASTNode) : ASTNode {
     override fun toString(): String = "$father\n${child.toString().prependIndent(INDENT_STRING)}"
 }
 
-data class Node(var name: String) : ASTNode {
+data class Node(val name: String) : ASTNode {
     override fun toString(): String = name
 }
 
-data class Sibling(var firstSiblings: ASTNode, var secondSibling: ASTNode) : ASTNode {
+data class Sibling(val firstSiblings: ASTNode, val secondSibling: ASTNode) : ASTNode {
     override fun toString(): String = "$firstSiblings$END_LINE_STRING$secondSibling"
 }
 
-data class BreadthClosure(var expression: ASTNode) : ASTNode {
+data class BreadthClosure(val expression: ASTNode) : ASTNode {
     override fun toString(): String = "$expression*"
 }
 
@@ -34,5 +35,5 @@ data class Union(val expressions: List<ASTNode>) : ASTNode {
 }
 
 class Dot : ASTNode {
-    override fun toString(): String = "."
+    override fun toString(): String = DOT
 }
