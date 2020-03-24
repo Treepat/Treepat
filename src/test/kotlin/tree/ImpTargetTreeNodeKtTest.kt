@@ -11,7 +11,7 @@ import runAllTestInFolder
 import tree_format.TreeFormatLexer
 import tree_format.TreeFormatParser
 
-internal class ImpTargetTreeNodeTest {
+internal class ImpTargetTreeNodeKtTest {
 
     private fun createParserTree(inputAntlrString: String): ParseTree {
         val lexer = TreeFormatLexer(CharStreams.fromString(inputAntlrString))
