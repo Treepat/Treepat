@@ -28,7 +28,7 @@ mvn test
 ```
 
 ### Run
-The repository contains a sample input files. To run the interpreter use the following command:
+The repository contains a sample set of input files. To run the interpreter use the following command:
 ```bash
 mvn exec:java -Dexec.mainClass="Main" -Dexec.args="test.tp test.tef" 
 ```
