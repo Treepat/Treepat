@@ -12,7 +12,7 @@ Follow these steps to install the project.
 
 Make sure you have [maven](https://maven.apache.org/) installed. To make sure you have it installed run:
 ```bash
-mvn --vesion
+mvn --version
 ```
 
 ### Compile
