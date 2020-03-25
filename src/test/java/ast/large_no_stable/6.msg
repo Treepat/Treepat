@@ -1,1 +1,0 @@
-6. Large file with 500 nodes
