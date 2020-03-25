@@ -1,7 +1,7 @@
 # Treepat
 
 Treepat is a language to recognize patterns in trees in a similar way as regular expressions recognize patterns in 
-strings.Treepat includes analogous operators to regex union, concatenation, and closure, which are extended to the 
+strings. Treepat includes analogous operators to regex union, concatenation, and closure, which are extended to the 
 notion of trees.
 
 ## Installation
