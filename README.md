@@ -32,8 +32,7 @@ The repository contains a sample set of input files. To run the interpreter use 
 ```bash
 mvn exec:java -Dexec.mainClass="Main" -Dexec.args="test.tp test.tef" 
 ```
-Note that `test.tp` is a file that contains the Treepat expression and `test.tef` contains the target tree to find 
-patterns.
+Note that `test.tp` is a file that contains the Treepat expression and `test.tef` contains the target tree where the patterns will be matched.
 
 This command should print:
 ```
