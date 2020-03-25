@@ -25,7 +25,7 @@ object VisitorFunctionResponseFactory {
         responses: List<VisitorFunctionResponse>,
         targetTreeNode: TargetTreeNode?
     ): VisitorFunctionResponse {
-        val allHasMatches = responses.filter { it.hasMatch }.flatMap { it.responses }
+        val allHasMatches = responses.filter { it.hasMatch }.flatMap { it.responses }.filter { it.matches.isNotEmpty() }
         return if (allHasMatches.isNotEmpty()) {
             VisitorFunctionResponse(allHasMatches, true)
         } else {

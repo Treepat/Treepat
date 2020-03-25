@@ -7,10 +7,5 @@ fun treepatFunction(expression: VisitorFunction): VisitorFunction = { targetTree
         answers.add(expression.invoke(currentNode))
         currentNode = currentNode.nextLeftmostPreorderNode()
     }
-    val simpleResponses = answers.filter { it.hasMatch }.flatMap { it.responses }.filter { it.matches.isNotEmpty() }
-    if (simpleResponses.isNotEmpty()) {
-        VisitorFunctionResponse(simpleResponses, true)
-    } else {
-        VisitorFunctionResponse(listOf(VisitorFunctionSimpleResponse(lastVisitedSibling = targetTreeNode)))
-    }
+    VisitorFunctionResponseFactory.createResponse(answers, targetTreeNode)
 }
