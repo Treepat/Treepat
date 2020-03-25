@@ -1,0 +1,1 @@
+6. Tree with 500 nodes.
