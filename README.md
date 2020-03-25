@@ -22,7 +22,7 @@ mvn compile
 ```
 
 ### Test
-To make sure that everything was installed correctly run the tests by running:
+To make sure that everything was installed correctly you can test it by running:
 ```bash
 mvn test 
 ```
