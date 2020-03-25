@@ -16,7 +16,7 @@ mvn --version
 ```
 
 ### Compile
-To run the project must first compile the source code using the following maven command:
+To compile the source code use the following maven command:
 ```bash
 mvn compile 
 ```
