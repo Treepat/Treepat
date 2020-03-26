@@ -30,6 +30,6 @@ jobs:
       with:
         java-version: 1.12
     - name: Build with Maven
-      run: mvn -ntp -B package --file pom.xml
+      run: mvn -ntp -B -Dmaven.test.skip=true package --file pom.xml
 
 
