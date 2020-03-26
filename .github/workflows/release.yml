@@ -19,4 +19,4 @@ jobs:
         with:
           java-version: 1.12
       - name: Create Jar
-        run: mvn -ntp -B deploy -Dregistry=https://maven.pkg.github.com/Treepat -Dtoken=${{ secrets.GITHUB_TOKEN }} --file pom.xml
+        run: mvn -ntp -B deploy -Dregistry=https://maven.pkg.github.com/Treepat -Dtoken=${{ secrets.GITHUB_TOKEN }}
