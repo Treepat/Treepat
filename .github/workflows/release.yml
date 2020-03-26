@@ -19,6 +19,6 @@ jobs:
         with:
           java-version: 1.12
       - name: Publish package
-        run: mvn -ntp -B deploy
+        run: mvn -ntp -B -Dmaven.test.skip=true deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

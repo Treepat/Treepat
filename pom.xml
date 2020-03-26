@@ -7,7 +7,7 @@
     <distributionManagement>
         <repository>
             <uniqueVersion>false</uniqueVersion>
-            <id>treepat-repo</id>
+            <id>github</id>
             <name>Treepat Repository</name>
             <url>https://maven.pkg.github.com/Treepat</url>
             <layout>default</layout>
