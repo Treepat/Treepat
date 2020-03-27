@@ -8,8 +8,12 @@ fun childFunction(
     var answers = emptyList<VisitorFunctionResponse>()
     if (fathers.hasMatch) {
         answers = fathers.responses.map {
-            val response = child.invoke(it.lastVisitedSibling?.moveToFirstChild())
-            VisitorFunctionResponseFactory.createMergeResponse(it, response, true)
+            if (it.matches.isEmpty()) {
+                VisitorFunctionResponseFactory.createResponseWithZeroMatches(targetTreeNode, true)
+            } else {
+                val response = child.invoke(it.lastVisitedSibling?.moveToFirstChild())
+                VisitorFunctionResponseFactory.createMergeResponse(it, response, true)
+            }
         }
     }
     VisitorFunctionResponseFactory.createResponse(answers, targetTreeNode)
