@@ -9,8 +9,9 @@ fun siblingFunction(
     if (firstAnswer.hasMatch) {
         answers = firstAnswer.responses.map {
             var nextNode = targetTreeNode
-            if (it.matches.isNotEmpty())
+            if (it.matches.isNotEmpty()) {
                 nextNode = it.lastVisitedSibling?.moveToRightSibling()
+            }
             val response = secondSibling.invoke(nextNode)
             VisitorFunctionResponseFactory.createMergeResponse(it, response)
         }

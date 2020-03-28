@@ -4,11 +4,13 @@ fun treepatFunction(expression: VisitorFunction): VisitorFunction = { targetTree
     var currentNode = targetTreeNode
     val answers = mutableListOf<VisitorFunctionResponse>()
     while (currentNode != null) {
-        val v = expression.invoke(currentNode)
-        answers.add(VisitorFunctionResponse(
-            v.responses.filter { it.matches.isNotEmpty() },
-            v.hasMatch
-        ))
+        val response = expression.invoke(currentNode)
+        answers.add(
+            VisitorFunctionResponse(
+                response.responses.filter { it.matches.isNotEmpty() },
+                response.hasMatch
+            )
+        )
         currentNode = currentNode.nextLeftmostPreorderNode()
     }
     val allHasMatches = answers.filter { it.hasMatch }.filter { it.responses.isNotEmpty() }.map { it.responses.last() }
