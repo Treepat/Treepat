@@ -7,7 +7,7 @@ fun depthClosureFunction(
 ): VisitorFunction {
     fun go(targetTreeNode: TargetTreeNode?): VisitorFunctionResponse {
         val currentAnswer = expression.invoke(targetTreeNode)
-        if (targetTreeNode == null ||  !currentAnswer.hasMatch) {
+        if (targetTreeNode == null || !currentAnswer.hasMatch) {
             return VisitorFunctionResponseFactory.createResponseWithZeroMatches(targetTreeNode)
         }
         val answer = mutableListOf<VisitorFunctionResponse>()
