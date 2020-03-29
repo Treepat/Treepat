@@ -8,7 +8,11 @@ fun siblingFunction(
     var answers = emptyList<VisitorFunctionResponse>()
     if (firstAnswer.hasMatch) {
         answers = firstAnswer.responses.map {
-            val response = secondSibling.invoke(it.lastVisitedSibling?.moveToRightSibling())
+            var nextNode = targetTreeNode
+            if (it.matches.isNotEmpty()) {
+                nextNode = it.lastVisitedSibling?.moveToRightSibling()
+            }
+            val response = secondSibling.invoke(nextNode)
             VisitorFunctionResponseFactory.createMergeResponse(it, response)
         }
     }
