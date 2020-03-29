@@ -15,6 +15,7 @@ import io.mockk.verify
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
+import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import org.antlr.v4.runtime.Token
 import org.antlr.v4.runtime.tree.ErrorNode
@@ -24,7 +25,6 @@ import org.antlr.v4.runtime.tree.TerminalNode
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import treepat.TreepatParser
-import kotlin.test.assertNotNull
 
 @ExtendWith(MockKExtension::class)
 internal class TreepatVisitorImplementationKtTest {
