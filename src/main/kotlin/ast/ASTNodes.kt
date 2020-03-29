@@ -38,3 +38,12 @@ data class Union(val expressions: List<ASTNode>) : ASTNode {
 class Dot : ASTNode {
     override fun toString(): String = DOT
 }
+
+data class DepthClosure(val expression: ASTNode) : ASTNode {
+    override fun toString(): String =
+        "($END_LINE_STRING${expression.toString().prependIndent(INDENT_STRING)}$END_LINE_STRING)#"
+}
+
+data class DepthTerm(val node: ASTNode) : ASTNode {
+    override fun toString(): String = "@$node"
+}

@@ -3,6 +3,8 @@ package antlr.treepat
 import ast.ASTNode
 import ast.BreadthClosure
 import ast.Child
+import ast.DepthClosure
+import ast.DepthTerm
 import ast.Dot
 import ast.Node
 import ast.Treepat
@@ -24,9 +26,9 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
 
     override fun visitDot(ctx: TreepatParser.DotContext): ASTNode = Dot()
 
-    override fun visitDepthClosure(ctx: TreepatParser.DepthClosureContext): ASTNode = ctx.indentWrapper().accept(this)
+    override fun visitDepthClosure(ctx: TreepatParser.DepthClosureContext): ASTNode = DepthClosure(ctx.indentWrapper().accept(this))
 
-    override fun visitDepthTerm(ctx: TreepatParser.DepthTermContext): ASTNode = ctx.node().accept(this)
+    override fun visitDepthTerm(ctx: TreepatParser.DepthTermContext): ASTNode = DepthTerm(ctx.node().accept(this))
 
     override fun visit(parseTree: ParseTree): ASTNode = parseTree.accept(this)
 

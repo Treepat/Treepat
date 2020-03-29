@@ -113,6 +113,12 @@ internal class GivenTreepatExpressionAndTreeThenFindMatchesKtTest {
         return makeTests(nodeTestCasesFolder)
     }
 
+    @TestFactory
+    fun `should run all depth closure test cases`(): List<DynamicTest> {
+        val nodeTestCasesFolder = "${resourcesLocation}depth_closure/"
+        return makeTests(nodeTestCasesFolder)
+    }
+
     private fun makeTests(folderPath: String): List<DynamicTest> {
         val tests = mutableListOf<DynamicTest>()
         File(folderPath).list { _, name -> name.endsWith(".tp") }!!.forEach {
