@@ -2,7 +2,6 @@ package antlr.treepat
 
 import ast.ASTNode
 import ast.BreadthClosure
-import ast.Check
 import ast.Child
 import ast.Dot
 import ast.Node
@@ -25,6 +24,7 @@ import org.antlr.v4.runtime.tree.TerminalNode
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import treepat.TreepatParser
+import kotlin.test.assertNotNull
 
 @ExtendWith(MockKExtension::class)
 internal class TreepatVisitorImplementationKtTest {
@@ -151,15 +151,14 @@ internal class TreepatVisitorImplementationKtTest {
     }
 
     @Test
-    fun `visitIndent should return Check with the call of subtree visitor`() {
+    fun `visitIndent should call of subtree visitor`() {
         // arrange
         every { mockIndentContext.subtree().accept(treepatVisitorImplementation) } returns mockASTNode
         // act
         val result = treepatVisitorImplementation.visitIndent(mockIndentContext)
         // assert
         verify(exactly = 1) { mockIndentContext.subtree().accept(treepatVisitorImplementation) }
-        assert(result is Check)
-        assertEquals(mockASTNode, (result as Check).expression)
+        assertEquals(mockASTNode, result)
     }
 
     @Test
@@ -196,16 +195,15 @@ internal class TreepatVisitorImplementationKtTest {
     }
 
     @Test
-    fun `visitTreepat should return Treepat with Check of subtree visitor response`() {
+    fun `visitTreepat should return Treepat with subtree visitor response`() {
         // arrange
         every { mockTreepatContext.subtree().accept(treepatVisitorImplementation) } returns mockASTNode
         // act
         val result = treepatVisitorImplementation.visitTreepat(mockTreepatContext)
         // assert
         verify(exactly = 1) { mockTreepatContext.subtree().accept(treepatVisitorImplementation) }
-        assert(result is Treepat)
-        assert((result as Treepat).subtree is Check)
-        assertEquals((result.subtree as Check).expression, mockASTNode)
+        assertNotNull(result as? Treepat)
+        assertEquals(mockASTNode, (result as Treepat).subtree)
     }
 
     @Test
