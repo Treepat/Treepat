@@ -159,7 +159,7 @@ internal class TreeFormatVisitorImplementationKtTest {
     }
 
     @Test
-    fun `visitSibling shuld return ImpTargetTreeNode with children list`() {
+    fun `visitSibling should return ImpTargetTreeNode with children list`() {
         // arrange
         val tChildren = listOf(mockSubtreeContext, mockSubtreeContext)
         every { mockSubtreeContext.accept(treeFormatVisitorImplementation) } returns mockTargetTree

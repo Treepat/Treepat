@@ -3,6 +3,8 @@ package antlr.treepat
 import ast.ASTNode
 import ast.BreadthClosure
 import ast.Child
+import ast.DepthClosure
+import ast.DepthTerm
 import ast.Dot
 import ast.Node
 import ast.Treepat
@@ -125,7 +127,8 @@ internal class TreepatVisitorImplementationKtTest {
         val result = treepatVisitorImplementation.visitDepthClosure(mockDepthClosureContext)
         // assert
         verify(exactly = 1) { mockDepthClosureContext.indentWrapper().accept(treepatVisitorImplementation) }
-        assertEquals(mockASTNode, result)
+        assert(result is DepthClosure)
+        assertEquals(mockASTNode, (result as DepthClosure).expression)
     }
 
     @Test
@@ -136,7 +139,8 @@ internal class TreepatVisitorImplementationKtTest {
         val result = treepatVisitorImplementation.visitDepthTerm(mockDepthTermContext)
         // assert
         verify(exactly = 1) { mockDepthTermContext.node().accept(treepatVisitorImplementation) }
-        assertEquals(mockASTNode, result)
+        assert(result is DepthTerm)
+        assertEquals(mockASTNode, (result as DepthTerm).node)
     }
 
     @Test
