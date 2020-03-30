@@ -11,7 +11,8 @@ fun childFunction(
             if (it.matches.isEmpty()) {
                 VisitorFunctionResponseFactory.createResponseWithZeroMatches(targetTreeNode, true)
             } else {
-                val response = child.invoke(it.lastVisitedSibling?.moveToFirstChild())
+                val nextMove = it.oddParent ?: it.lastVisitedSibling
+                val response = child.invoke(nextMove?.moveToFirstChild())
                 VisitorFunctionResponseFactory.createMergeResponse(it, response, true)
             }
         }
