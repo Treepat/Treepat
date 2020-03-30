@@ -98,4 +98,10 @@ internal class GivenTreepatExpressionBuildASTNodeTreeKtTest {
         val nodeTestCasesFolder = "${resourcesLocation}dot/"
         return makeTestsFromResourceFolder(nodeTestCasesFolder, runTest)
     }
+
+    @TestFactory
+    fun `should run all depth closure test cases`(): List<DynamicTest> {
+        val nodeTestCasesFolder = "${resourcesLocation}depth_closure/"
+        return makeTestsFromResourceFolder(nodeTestCasesFolder, runTest)
+    }
 }

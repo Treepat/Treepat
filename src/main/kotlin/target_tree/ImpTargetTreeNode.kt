@@ -20,7 +20,7 @@ class ImpTargetTreeNode(
     override fun moveToFirstChild(): TargetTreeNode? = children.firstOrNull()
 
     override fun matchedNodesString(selectedNodes: List<TargetTreeNode>): String =
-        matchedNodesString(selectedNodes, 0, Int.MAX_VALUE).matchedString
+        matchedNodesString(selectedNodes.sortedBy { it.id }, 0, Int.MAX_VALUE).matchedString
 
     override fun nextLeftmostPreorderNode(): TargetTreeNode? {
         if (children.isNotEmpty()) {
