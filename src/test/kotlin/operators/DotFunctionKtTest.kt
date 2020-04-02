@@ -2,13 +2,12 @@ package operators
 
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
-import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.extension.ExtendWith
-import target_tree.TargetTreeNode
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNull
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+import target_tree.TargetTreeNode
 
 @ExtendWith(MockKExtension::class)
 internal class DotFunctionKtTest {
@@ -28,7 +27,7 @@ internal class DotFunctionKtTest {
     }
 
     @Test
-    fun `dotFunction should return zero matches whrn targetTreeNode is null`() {
+    fun `dotFunction should return zero matches when targetTreeNode is null`() {
         // act
         val result = dotFunction().invoke(null)
         // assert
