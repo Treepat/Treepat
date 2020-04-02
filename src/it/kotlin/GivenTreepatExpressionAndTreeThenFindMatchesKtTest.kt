@@ -108,14 +108,51 @@ internal class GivenTreepatExpressionAndTreeThenFindMatchesKtTest {
     }
 
     @TestFactory
-    fun `should run all large test cases`(): List<DynamicTest> {
-        val nodeTestCasesFolder = "${resourcesLocation}large/"
+    fun `should run all depth closure test cases`(): List<DynamicTest> {
+        val nodeTestCasesFolder = "${resourcesLocation}depth_closure/"
+        return makeTests(nodeTestCasesFolder)
+    }
+
+
+    @TestFactory
+    fun `should run all node large test cases`(): List<DynamicTest> {
+        val nodeTestCasesFolder = "${resourcesLocation}node/large/"
         return makeTests(nodeTestCasesFolder)
     }
 
     @TestFactory
-    fun `should run all depth closure test cases`(): List<DynamicTest> {
-        val nodeTestCasesFolder = "${resourcesLocation}depth_closure/"
+    fun `should run all child large test cases`(): List<DynamicTest> {
+        val nodeTestCasesFolder = "${resourcesLocation}child/large/"
+        return makeTests(nodeTestCasesFolder)
+    }
+
+    @TestFactory
+    fun `should run all sibling large test cases`(): List<DynamicTest> {
+        val nodeTestCasesFolder = "${resourcesLocation}sibling/large/"
+        return makeTests(nodeTestCasesFolder)
+    }
+
+    @TestFactory
+    fun `should run all breadth closure large test cases`(): List<DynamicTest> {
+        val nodeTestCasesFolder = "${resourcesLocation}breadth_closure/large/"
+        return makeTests(nodeTestCasesFolder)
+    }
+
+    @TestFactory
+    fun `should run all union large test cases`(): List<DynamicTest> {
+        val nodeTestCasesFolder = "${resourcesLocation}union/large/"
+        return makeTests(nodeTestCasesFolder)
+    }
+
+    @TestFactory
+    fun `should run all dot large test cases`(): List<DynamicTest> {
+        val nodeTestCasesFolder = "${resourcesLocation}dot/large/"
+        return makeTests(nodeTestCasesFolder)
+    }
+
+    @TestFactory
+    fun `should run all depth closure large test cases`(): List<DynamicTest> {
+        val nodeTestCasesFolder = "${resourcesLocation}depth_closure/large/"
         return makeTests(nodeTestCasesFolder)
     }
 

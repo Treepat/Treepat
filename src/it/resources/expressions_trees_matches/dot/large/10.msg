@@ -1,0 +1,1 @@
+10. Tree with 10000 nodes.
