@@ -2,7 +2,6 @@ package antlr.treepat
 
 import ast.ASTNode
 import ast.BreadthClosure
-import ast.Check
 import ast.Child
 import ast.DepthClosure
 import ast.DepthTerm
@@ -33,7 +32,7 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
 
     override fun visit(parseTree: ParseTree): ASTNode = parseTree.accept(this)
 
-    override fun visitIndent(ctx: TreepatParser.IndentContext): ASTNode = Check(ctx.subtree().accept(this))
+    override fun visitIndent(ctx: TreepatParser.IndentContext): ASTNode = ctx.subtree().accept(this)
 
     override fun visitNestedIndent(ctx: TreepatParser.NestedIndentContext): ASTNode = ctx.indent().accept(this)
 
@@ -41,7 +40,7 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
 
     override fun visitNested(ctx: TreepatParser.NestedContext): ASTNode = ctx.subtree().accept(this)
 
-    override fun visitTreepat(ctx: TreepatParser.TreepatContext): ASTNode = Treepat(Check(ctx.subtree().accept(this)))
+    override fun visitTreepat(ctx: TreepatParser.TreepatContext): ASTNode = Treepat(ctx.subtree().accept(this))
 
     override fun visitChildren(ruleNode: RuleNode): ASTNode? = throw NotImplementedError(UNSUPPORTED_METHOD_MESSAGE)
 

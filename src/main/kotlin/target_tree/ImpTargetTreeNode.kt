@@ -32,7 +32,7 @@ class ImpTargetTreeNode(
     fun nextSiblingLeftmostChild(): TargetTreeNode? {
         val rightSibling = moveToRightSibling()
         if (rightSibling != null) {
-            return rightSibling.nextLeftmostPreorderNode()
+            return rightSibling
         }
         return nextUpwardPreorderNode()
     }
