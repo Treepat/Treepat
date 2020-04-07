@@ -10,6 +10,7 @@ data class Treepat(val subtree: ASTNode) : ASTNode {
     override fun toString(): String = "$subtree"
 }
 
+@Deprecated("This class is not longer used and right now is not needed.")
 data class Check(val expression: ASTNode) : ASTNode {
     override fun toString(): String = "$expression"
 }
@@ -36,4 +37,13 @@ data class Union(val expressions: List<ASTNode>) : ASTNode {
 
 class Dot : ASTNode {
     override fun toString(): String = DOT
+}
+
+data class DepthClosure(val expression: ASTNode) : ASTNode {
+    override fun toString(): String =
+        "($END_LINE_STRING${expression.toString().prependIndent(INDENT_STRING)}$END_LINE_STRING)#"
+}
+
+data class DepthTerm(val node: ASTNode) : ASTNode {
+    override fun toString(): String = "@$node"
 }
