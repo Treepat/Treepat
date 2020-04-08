@@ -27,9 +27,14 @@ mvn compile
 ```
 
 ### Test
-To make sure that everything was installed correctly you can test it by running:
+To run unit tests:
 ```bash
 mvn test 
+```
+
+To run integration tests:
+```bash
+mvn verify 
 ```
 
 ### Run
