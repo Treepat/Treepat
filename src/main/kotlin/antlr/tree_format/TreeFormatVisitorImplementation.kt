@@ -13,7 +13,7 @@ class TreeFormatVisitorImplementation : TreeFormatVisitor<TargetTreeNode> {
 
     private var idCount: Int = 0
 
-    override fun visitChild(context: TreeFormatParser.ChildContext): TargetTreeNode = context.sibling().accept(this)
+    override fun visitChild(context: TreeFormatParser.ChildContext): TargetTreeNode = visitSibling(context.sibling())
 
     override fun visitNode(context: TreeFormatParser.NodeContext): TargetTreeNode =
         ImpTargetTreeNode(context.name.text, context.tag.text, idCount++)
@@ -32,11 +32,11 @@ class TreeFormatVisitorImplementation : TreeFormatVisitor<TargetTreeNode> {
         throw NotImplementedError("This method is not supported.")
 
     override fun visitSubtree(context: TreeFormatParser.SubtreeContext): TargetTreeNode {
-        val node: ImpTargetTreeNode = context.node().accept(this) as ImpTargetTreeNode
+        val node: ImpTargetTreeNode = visitNode(context.node()) as ImpTargetTreeNode
         if (context.child() == null) {
             return node
         }
-        node.children = context.child().accept(this).children
+        node.children = visitChild(context.child()).children
         node.children.forEach { (it as ImpTargetTreeNode).parent = node }
         return node
     }
@@ -44,7 +44,7 @@ class TreeFormatVisitorImplementation : TreeFormatVisitor<TargetTreeNode> {
     override fun visitSibling(context: TreeFormatParser.SiblingContext): TargetTreeNode {
         val siblings = context.subtree().toList()
         val siblingNodes = mutableListOf<TargetTreeNode>()
-        siblings.forEach { siblingNodes.add(it.accept(this)) }
+        siblings.forEach { siblingNodes.add(visitSubtree(it)) }
         return ImpTargetTreeNode(children = siblingNodes)
     }
 }

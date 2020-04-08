@@ -4,19 +4,8 @@ fun treepatFunction(expression: VisitorFunction): VisitorFunction = { targetTree
     var currentNode = targetTreeNode
     val answers = mutableListOf<VisitorFunctionResponse>()
     while (currentNode != null) {
-        val response = expression.invoke(currentNode)
-        answers.add(
-            VisitorFunctionResponse(
-                response.responses.filter { it.matches.isNotEmpty() },
-                response.hasMatch
-            )
-        )
+        answers.add(expression.invoke(currentNode))
         currentNode = currentNode.nextLeftmostPreorderNode()
     }
-    val allHasMatches = answers.filter { it.hasMatch }.filter { it.responses.isNotEmpty() }.map { it.responses.last() }
-    if (allHasMatches.isNotEmpty()) {
-        VisitorFunctionResponse(allHasMatches, true)
-    } else {
-        VisitorFunctionResponseFactory.createResponseWithZeroMatches(targetTreeNode)
-    }
+    VisitorFunctionResponseFactory.createResponse(answers, targetTreeNode)
 }

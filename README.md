@@ -15,11 +15,6 @@ Make sure you have [maven](https://maven.apache.org/) installed. To make sure yo
 mvn --version
 ```
 
-The project requires JDK 12.
-```bash
-Java version: 12.0.2, vendor: AdoptOpenJDK
-```
-
 ### Compile
 To compile the source code use the following maven command:
 ```bash
