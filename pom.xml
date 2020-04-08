@@ -9,6 +9,14 @@
     <version>1.0-SNAPSHOT</version>
     <name>Treepat</name>
 
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Treepat Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/Treepat/Treepat</url>
+        </repository>
+    </distributionManagement>
+
     <properties>
         <kotlin.version>1.3.61</kotlin.version>
         <antlr.generated.files>${project.basedir}/src/main/generated-sources/antlr</antlr.generated.files>
