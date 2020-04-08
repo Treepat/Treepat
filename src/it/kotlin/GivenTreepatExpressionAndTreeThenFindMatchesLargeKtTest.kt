@@ -15,12 +15,10 @@ import treepat.TreepatLexer
 import treepat.TreepatParser
 import java.io.File
 
-typealias GivenTreepatExpressionAndTreeThenFindMatchesFunction = (String, String, String, String) -> Unit
-
 /**
- * Given a treepat expression and a target_trees then find all matches of the expression in the target_trees.
+ * Given a treepat expression and a target_trees then find all matches of the expression in the target_trees large test.
  */
-internal class GivenTreepatExpressionAndTreeThenFindMatchesKtTest {
+internal class GivenTreepatExpressionAndTreeThenFindMatchesLargeKtTest {
 
     private val resourcesLocation = "./src/it/resources/expressions_trees_matches/"
 
@@ -66,50 +64,44 @@ internal class GivenTreepatExpressionAndTreeThenFindMatchesKtTest {
         }
 
     @TestFactory
-    fun `should run all node test cases`(): List<DynamicTest> {
-        val nodeTestCasesFolder = "${resourcesLocation}node/"
+    fun `should run all node large test cases`(): List<DynamicTest> {
+        val nodeTestCasesFolder = "${resourcesLocation}node/large/"
         return makeTests(nodeTestCasesFolder)
     }
 
     @TestFactory
-    fun `should run all child test cases`(): List<DynamicTest> {
-        val nodeTestCasesFolder = "${resourcesLocation}child/"
+    fun `should run all child large test cases`(): List<DynamicTest> {
+        val nodeTestCasesFolder = "${resourcesLocation}child/large/"
         return makeTests(nodeTestCasesFolder)
     }
 
     @TestFactory
-    fun `should run all sibling test cases`(): List<DynamicTest> {
-        val nodeTestCasesFolder = "${resourcesLocation}sibling/"
+    fun `should run all sibling large test cases`(): List<DynamicTest> {
+        val nodeTestCasesFolder = "${resourcesLocation}sibling/large/"
         return makeTests(nodeTestCasesFolder)
     }
 
     @TestFactory
-    fun `should run all breadth closure test cases`(): List<DynamicTest> {
-        val nodeTestCasesFolder = "${resourcesLocation}breadth_closure/"
+    fun `should run all breadth closure large test cases`(): List<DynamicTest> {
+        val nodeTestCasesFolder = "${resourcesLocation}breadth_closure/large/"
         return makeTests(nodeTestCasesFolder)
     }
 
     @TestFactory
-    fun `should run all union test cases`(): List<DynamicTest> {
-        val nodeTestCasesFolder = "${resourcesLocation}union/"
+    fun `should run all union large test cases`(): List<DynamicTest> {
+        val nodeTestCasesFolder = "${resourcesLocation}union/large/"
         return makeTests(nodeTestCasesFolder)
     }
 
     @TestFactory
-    fun `should run all mix test cases`(): List<DynamicTest> {
-        val nodeTestCasesFolder = "${resourcesLocation}mix/"
+    fun `should run all dot large test cases`(): List<DynamicTest> {
+        val nodeTestCasesFolder = "${resourcesLocation}dot/large/"
         return makeTests(nodeTestCasesFolder)
     }
 
     @TestFactory
-    fun `should run all dot test cases`(): List<DynamicTest> {
-        val nodeTestCasesFolder = "${resourcesLocation}dot/"
-        return makeTests(nodeTestCasesFolder)
-    }
-
-    @TestFactory
-    fun `should run all depth closure test cases`(): List<DynamicTest> {
-        val nodeTestCasesFolder = "${resourcesLocation}depth_closure/"
+    fun `should run all depth closure large test cases`(): List<DynamicTest> {
+        val nodeTestCasesFolder = "${resourcesLocation}depth_closure/large/"
         return makeTests(nodeTestCasesFolder)
     }
 
