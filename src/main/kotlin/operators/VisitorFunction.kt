@@ -2,9 +2,8 @@ package operators
 
 import ast.ASTNode
 import ast.BreadthClosure
+import ast.Check
 import ast.Child
-import ast.DepthClosure
-import ast.DepthTerm
 import ast.Dot
 import ast.Node
 import ast.Sibling
@@ -21,8 +20,7 @@ fun createVisitorFunction(node: ASTNode): VisitorFunction = when (node) {
     is Sibling -> siblingFunction(createVisitorFunction(node.firstSiblings), createVisitorFunction(node.secondSibling))
     is BreadthClosure -> breadthClosureFunction(createVisitorFunction(node.expression))
     is Union -> unionFunction(node.expressions.map(::createVisitorFunction))
+    is Check -> checkFunction(createVisitorFunction(node.expression))
     is Dot -> dotFunction()
-    is DepthTerm -> depthTermFunction(createVisitorFunction(node.node))
-    is DepthClosure -> depthClosureFunction(createVisitorFunction(node.expression))
     else -> throw IllegalArgumentException("This ASTNode subtype is not supported.")
 }

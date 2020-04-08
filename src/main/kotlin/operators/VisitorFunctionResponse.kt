@@ -9,9 +9,7 @@ data class VisitorFunctionResponse(
 
 data class VisitorFunctionSimpleResponse(
     val matches: List<TargetTreeNode> = emptyList(),
-    val lastVisitedSibling: TargetTreeNode? = null,
-    val depthTerm: TargetTreeNode? = null,
-    val oddParent: TargetTreeNode? = null
+    val lastVisitedSibling: TargetTreeNode? = null
 ) {
     constructor(targetTreeNode: TargetTreeNode) : this(listOf(targetTreeNode), targetTreeNode)
 }
@@ -23,20 +21,11 @@ object VisitorFunctionResponseFactory {
     fun createResponseWithZeroMatches(targetTreeNode: TargetTreeNode? = null, hasMatch: Boolean = false) =
         VisitorFunctionResponse(listOf(VisitorFunctionSimpleResponse(lastVisitedSibling = targetTreeNode)), hasMatch)
 
-    fun createResponseWithDepthTerm(
-        response: VisitorFunctionResponse,
-        depthTerm: TargetTreeNode?,
-        oddParent: TargetTreeNode?
-    ): VisitorFunctionResponse {
-        val responses = response.responses.map { it.copy(depthTerm = depthTerm, oddParent = oddParent) }
-        return VisitorFunctionResponse(responses, response.hasMatch)
-    }
-
     fun createResponse(
         responses: List<VisitorFunctionResponse>,
         targetTreeNode: TargetTreeNode?
     ): VisitorFunctionResponse {
-        val allHasMatches = responses.filter { it.hasMatch }.flatMap { it.responses }
+        val allHasMatches = responses.filter { it.hasMatch }.flatMap { it.responses }.filter { it.matches.isNotEmpty() }
         return if (allHasMatches.isNotEmpty()) {
             VisitorFunctionResponse(allHasMatches, true)
         } else {
@@ -47,8 +36,7 @@ object VisitorFunctionResponseFactory {
     fun createMergeResponse(
         simpleResponse: VisitorFunctionSimpleResponse,
         secondResponse: VisitorFunctionResponse,
-        lastVisitedSiblingFirst: Boolean = false,
-        hasMatch: Boolean = false
+        lastVisitedSiblingFirst: Boolean = false
     ): VisitorFunctionResponse {
         val answerMatches = mutableListOf<VisitorFunctionSimpleResponse>()
         for (secondIterator in secondResponse.responses) {
@@ -59,16 +47,10 @@ object VisitorFunctionResponseFactory {
                         simpleResponse.lastVisitedSibling
                     } else {
                         secondIterator.lastVisitedSibling
-                    },
-                    if (lastVisitedSiblingFirst && simpleResponse.depthTerm != null) {
-                        secondIterator.lastVisitedSibling?.moveToRightSibling()
-                    } else {
-                        simpleResponse.depthTerm ?: secondIterator.depthTerm
-                    },
-                    secondIterator.oddParent ?: simpleResponse.oddParent
+                    }
                 )
             )
         }
-        return VisitorFunctionResponse(answerMatches, secondResponse.hasMatch || hasMatch)
+        return VisitorFunctionResponse(answerMatches, secondResponse.hasMatch)
     }
 }
