@@ -31,19 +31,3 @@ jobs:
         java-version: 1.12
     - name: Build with Maven
       run: mvn -ntp -B -Dmaven.test.skip=true package --file pom.xml
-
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 1.12
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.12
-    - name: Deploy in Github Packages
-      env:
-        GITHUB_USERNAME: x-access-token
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: mvn -ntp -B --settings settings.xml deploy -Dmaven.verify.skip=true -Dmaven.test.skip=true
-
-
