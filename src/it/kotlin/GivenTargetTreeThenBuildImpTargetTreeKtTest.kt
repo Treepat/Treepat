@@ -1,11 +1,9 @@
-import TestFunction
-import antlr.tree_format.TreeFormatVisitorImplementation
+import grammars.antlr.tree_format.TreeFormatVisitorImplementation
 import kotlin.test.assertEquals
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTree
 import org.junit.jupiter.api.DynamicTest
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import tree_format.TreeFormatLexer
 import tree_format.TreeFormatParser

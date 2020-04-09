@@ -19,7 +19,7 @@
 
     <properties>
         <kotlin.version>1.3.61</kotlin.version>
-        <antlr.generated.files>${project.basedir}/src/main/generated-sources/antlr</antlr.generated.files>
+        <grammar.antlr.generated.files>${project.basedir}/src/main/generated-sources/grammars/antlr</grammar.antlr.generated.files>
         <main.class>Main</main.class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -193,7 +193,7 @@
                 <version>0.8.5</version>
                 <configuration>
                     <excludes>
-                        <exclude>${antlr.generated.files}</exclude>
+                        <exclude>${grammars.antlr.generated.files}</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -211,14 +211,14 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Generates files from antlr grammar. -->
+            <!-- Generates files from antlr grammars. -->
             <plugin>
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr4-maven-plugin</artifactId>
                 <version>4.1</version>
                 <configuration>
-                    <sourceDirectory>src/main/kotlin/antlr</sourceDirectory>
-                    <outputDirectory>${antlr.generated.files}</outputDirectory>
+                    <sourceDirectory>src/main/kotlin/grammars/antlr</sourceDirectory>
+                    <outputDirectory>${grammars.antlr.generated.files}</outputDirectory>
                     <visitor>true</visitor>
                 </configuration>
                 <executions>
