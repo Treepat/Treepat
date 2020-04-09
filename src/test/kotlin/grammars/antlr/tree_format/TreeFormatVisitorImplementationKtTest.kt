@@ -1,4 +1,4 @@
-package antlr.tree_format
+package grammars.antlr.tree_format
 
 import io.mockk.Called
 import io.mockk.every

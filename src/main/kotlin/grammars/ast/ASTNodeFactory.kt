@@ -1,4 +1,4 @@
-package ast
+package grammars.ast
 
 fun <T> List<T>.tail() = subList(1, size)
 

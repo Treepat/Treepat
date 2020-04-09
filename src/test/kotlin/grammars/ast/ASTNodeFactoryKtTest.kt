@@ -1,4 +1,4 @@
-package ast
+package grammars.ast
 
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension

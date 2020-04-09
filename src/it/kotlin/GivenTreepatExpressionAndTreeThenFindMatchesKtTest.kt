@@ -1,6 +1,6 @@
-import antlr.tree_format.TreeFormatVisitorImplementation
-import antlr.treepat.TreepatVisitorImplementation
-import ast.ASTNode
+import grammars.antlr.tree_format.TreeFormatVisitorImplementation
+import grammars.antlr.treepat.TreepatVisitorImplementation
+import grammars.ast.ASTNode
 import kotlin.test.assertEquals
 import operators.createVisitorFunction
 import org.antlr.v4.runtime.CharStreams

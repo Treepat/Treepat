@@ -47,8 +47,12 @@ Note that `test.tp` is a file that contains the Treepat expression and `test.tef
 This command should print:
 ```
 A:1(0)
-    B:2(2)
-    C:3(3)
+    B:2(1)
+        C:3(2)
+            E:4(3)
+    D:6(5)
+    E:7(6)
+        F:8(7)
 ```
 
 ## Usage

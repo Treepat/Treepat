@@ -1,5 +1,5 @@
-// Define a grammar called Treepat.
-grammar Treepat;
+// Define a grammars called TreeFormat.
+grammars TreeFormat;
 
 // Here starts the implementation for INDENT and DEDENT tokens.
 tokens { INDENT, DEDENT }
@@ -30,7 +30,7 @@ tokens { INDENT, DEDENT }
       }
 
       // First emit an extra line break that serves as the end of the statement.
-      this.emit(commonToken(TreepatParser.NEWLINE, "\n"));
+      this.emit(commonToken(TreeFormatParser.NEWLINE, "\n"));
 
       // Now emit as much DEDENT tokens as needed.
       while (!indents.isEmpty()) {
@@ -39,7 +39,7 @@ tokens { INDENT, DEDENT }
       }
 
       // Put the EOF back on the token stream.
-      this.emit(commonToken(TreepatParser.EOF, "<EOF>"));
+      this.emit(commonToken(TreeFormatParser.EOF, "<EOF>"));
     }
 
     Token next = super.nextToken();
@@ -53,7 +53,7 @@ tokens { INDENT, DEDENT }
   }
 
   private Token createDedent() {
-    CommonToken dedent = commonToken(TreepatParser.DEDENT, "");
+    CommonToken dedent = commonToken(TreeFormatParser.DEDENT, "");
     dedent.setLine(this.lastToken.getLine());
     return dedent;
   }
@@ -93,105 +93,42 @@ tokens { INDENT, DEDENT }
   }
 }
 
-treepat
-    :   subtree
-    ;
+@parser::members{
+
+}
 
 subtree
-    :   sibling
-    ;
-
-depthClosure
-    :   indentWrapper NUMBER_SIGN
-    ;
-
-indentWrapper
-    :   indent
-    |   nestedIndent
-    ;
-
-nestedIndent
-    :   PAR_OPEN indent PAR_CLOSE
-    ;
-
-indent
-    :   NEWLINE INDENT subtree DEDENT
-    ;
-
-sibling
-    :   union+
-    ;
-
-union
-    :   child (OR_SIGN child)*
+    :   node NEWLINE* child
+    |   node NEWLINE*
     ;
 
 child
-    :   breadthClosure indentWrapper?
+    :   NEWLINE INDENT sibling DEDENT
     ;
 
-breadthClosure
-    :   atomTerm ASTERISK? NEWLINE*
-    ;
-
-atomTerm
-    :   NEWLINE* atomTermWrapper NEWLINE*
-    ;
-
-atomTermWrapper
-    :   depthClosure
-    |   nested
-    |   depthTerm
-    |   node
-    ;
-
-depthTerm
-    :   AT_SIGN node
+sibling
+    :   subtree+
     ;
 
 node
-    :   name=ID
-    |   dot
+    :   name=information COLON tag=information
     ;
 
-dot
-    :   DOT
+information
+    :   STRING
+    |   MARKLESS_STRING
     ;
 
-nested
-    :   PAR_OPEN subtree PAR_CLOSE
+COLON
+    :   ':'
     ;
 
-DOT:
-    '.'
+STRING
+    :   '"' ~'"'* '"'
     ;
 
-OR_SIGN
-    :   '|'
-    ;
-
-PAR_OPEN
-    :   '('
-    ;
-
-PAR_CLOSE
-    :   ')'
-    ;
-
-NUMBER_SIGN
-    :   '#'
-    ;
-
-AT_SIGN
-    :   '@'
-    ;
-
-ASTERISK
-    :   '*'
-    ;
-
-ID
-    :   [A-Za-z][A-Za-z0-9_]*
+MARKLESS_STRING
+    :   [A-Za-z0-9_]+
     ;
 
 NEWLINE
@@ -216,7 +153,7 @@ NEWLINE
          }
          else if (indent > previous) {
            indents.push(indent);
-           emit(commonToken(TreepatParser.INDENT, spaces));
+           emit(commonToken(TreeFormatParser.INDENT, spaces));
          }
          else {
            // Possibly emit more than 1 DEDENT token.

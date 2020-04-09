@@ -1,6 +1,6 @@
 package operators
 
-import ast.ASTNode
+import grammars.ast.ASTNode
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import kotlin.test.assertEquals

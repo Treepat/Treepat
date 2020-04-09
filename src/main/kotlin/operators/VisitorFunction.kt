@@ -1,15 +1,15 @@
 package operators
 
-import ast.ASTNode
-import ast.BreadthClosure
-import ast.Child
-import ast.DepthClosure
-import ast.DepthTerm
-import ast.Dot
-import ast.Node
-import ast.Sibling
-import ast.Treepat
-import ast.Union
+import grammars.ast.ASTNode
+import grammars.ast.BreadthClosure
+import grammars.ast.Child
+import grammars.ast.DepthClosure
+import grammars.ast.DepthTerm
+import grammars.ast.Dot
+import grammars.ast.Node
+import grammars.ast.Sibling
+import grammars.ast.Treepat
+import grammars.ast.Union
 import target_tree.TargetTreeNode
 
 typealias VisitorFunction = (TargetTreeNode?) -> VisitorFunctionResponse

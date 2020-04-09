@@ -1,4 +1,4 @@
-import antlr.treepat.TreepatVisitorImplementation
+import grammars.antlr.treepat.TreepatVisitorImplementation
 import kotlin.test.assertEquals
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
@@ -13,7 +13,7 @@ import treepat.TreepatParser
  */
 internal class GivenTreepatExpressionBuildASTNodeTreeKtTest {
 
-    private val resourcesLocation = "./src/it/resources/ast/"
+    private val resourcesLocation = "./src/it/resources/grammar.ast/"
 
     private fun createParserTree(inputAntlrString: String): ParseTree {
         val lexer = TreepatLexer(CharStreams.fromString(inputAntlrString))

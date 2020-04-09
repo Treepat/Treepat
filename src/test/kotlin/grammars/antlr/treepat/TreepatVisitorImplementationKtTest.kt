@@ -1,14 +1,14 @@
-package antlr.treepat
+package grammars.antlr.treepat
 
-import ast.ASTNode
-import ast.BreadthClosure
-import ast.Child
-import ast.DepthClosure
-import ast.DepthTerm
-import ast.Dot
-import ast.Node
-import ast.Treepat
-import ast.Union
+import grammars.ast.ASTNode
+import grammars.ast.BreadthClosure
+import grammars.ast.Child
+import grammars.ast.DepthClosure
+import grammars.ast.DepthTerm
+import grammars.ast.Dot
+import grammars.ast.Node
+import grammars.ast.Treepat
+import grammars.ast.Union
 import io.mockk.Called
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
