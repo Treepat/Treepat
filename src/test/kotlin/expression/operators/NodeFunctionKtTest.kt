@@ -1,24 +1,27 @@
-package operators
+package expression.operators
 
+import MockValues.tNodeName
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
-import kotlin.test.assertNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import target_tree.TargetTreeNode
 
 @ExtendWith(MockKExtension::class)
-internal class DotFunctionKtTest {
+internal class NodeFunctionKtTest {
 
     @MockK
     private lateinit var mockTargetTreeNode: TargetTreeNode
 
     @Test
-    fun `dotFunction should return matches with any targetTreeNode except null`() {
+    fun `nodeFunction should return a response with match if target node name matches with grammar node`() {
+        // arrange
+        every { mockTargetTreeNode.name } returns tNodeName
         // act
-        val result = dotFunction().invoke(mockTargetTreeNode)
+        val result = nodeFunction(tNodeName).invoke(mockTargetTreeNode)
         // assert
         assert(result.hasMatch)
         assertEquals(result.responses.size, 1)
@@ -27,13 +30,16 @@ internal class DotFunctionKtTest {
     }
 
     @Test
-    fun `dotFunction should return zero matches when targetTreeNode is null`() {
+    fun `nodeFunction should return zero response when match if target node name doesn't matches with grammar node`() {
+        // arrange
+        val tOtherName = "other name"
+        every { mockTargetTreeNode.name } returns tNodeName
         // act
-        val result = dotFunction().invoke(null)
+        val result = nodeFunction(tOtherName).invoke(mockTargetTreeNode)
         // assert
         assertFalse(result.hasMatch)
         assertEquals(result.responses.size, 1)
         assertFalse(result.responses.first().matches.contains(mockTargetTreeNode))
-        assertNull(result.responses.first().lastVisitedSibling)
+        assertEquals(mockTargetTreeNode, result.responses.first().lastVisitedSibling)
     }
 }

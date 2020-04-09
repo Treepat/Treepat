@@ -1,4 +1,4 @@
-package operators
+package expression.operators
 
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension

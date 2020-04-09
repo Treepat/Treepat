@@ -1,4 +1,4 @@
-package operators
+package expression.operators
 
 fun dotFunction(): VisitorFunction = { targetTreeNode ->
     if (targetTreeNode == null) {

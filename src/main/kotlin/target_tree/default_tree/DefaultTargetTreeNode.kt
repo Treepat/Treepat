@@ -1,19 +1,21 @@
-package target_tree
+package target_tree.default_tree
+
+import target_tree.TargetTreeNode
 
 data class MatchedResponse(val matchedString: String, val currentIndex: Int)
 
-class ImpTargetTreeNode(
+class DefaultTargetTreeNode(
     override val name: String = "",
     override val tag: String = "",
     override val id: Int = -1,
     override var children: List<TargetTreeNode> = mutableListOf()
-) : TargetTreeNode, Comparable<ImpTargetTreeNode> {
+) : TargetTreeNode, Comparable<DefaultTargetTreeNode> {
 
     var parent: TargetTreeNode? = null
 
-    override fun moveToRightSibling(): TargetTreeNode? = (parent as? ImpTargetTreeNode)?.getRightSibling(this)
+    override fun moveToRightSibling(): TargetTreeNode? = (parent as? DefaultTargetTreeNode)?.getRightSibling(this)
 
-    override fun moveToLeftSibling(): TargetTreeNode? = (parent as? ImpTargetTreeNode)?.getLeftSibling(this)
+    override fun moveToLeftSibling(): TargetTreeNode? = (parent as? DefaultTargetTreeNode)?.getLeftSibling(this)
 
     override fun moveToParent(): TargetTreeNode? = parent
 
@@ -38,7 +40,7 @@ class ImpTargetTreeNode(
     }
 
     private fun nextUpwardPreorderNode(): TargetTreeNode? {
-        return (parent as ImpTargetTreeNode?)?.nextSiblingLeftmostChild()
+        return (parent as DefaultTargetTreeNode?)?.nextSiblingLeftmostChild()
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -54,8 +56,8 @@ class ImpTargetTreeNode(
             currentIndex++
         }
         while (currentIndex < selectedNodes.size && selectedNodes[currentIndex].id < rightSiblingId) {
-            var goalInd = (children as List<ImpTargetTreeNode>).binarySearch(
-                ImpTargetTreeNode("", "", selectedNodes[currentIndex].id)
+            var goalInd = (children as List<DefaultTargetTreeNode>).binarySearch(
+                DefaultTargetTreeNode("", "", selectedNodes[currentIndex].id)
             )
 
             if (goalInd < 0 || (goalInd == 0 && selectedNodes[currentIndex].id != children[0].id)) {
@@ -63,12 +65,14 @@ class ImpTargetTreeNode(
                 goalInd -= 2
             }
 
-            val response = (children[goalInd] as ImpTargetTreeNode).matchedNodesString(
+            val response = (children[goalInd] as DefaultTargetTreeNode).matchedNodesString(
                 selectedNodes,
                 currentIndex,
                 if (goalInd + 1 == children.size) rightSiblingId else children[goalInd + 1].id
             )
-            str += END_LINE_STRING + response.matchedString.prependIndent(INDENT_STRING)
+            str += END_LINE_STRING + response.matchedString.prependIndent(
+                INDENT_STRING
+            )
 
             currentIndex = response.currentIndex
         }
@@ -80,7 +84,9 @@ class ImpTargetTreeNode(
         var str = "$name:$tag"
         if (children.isNotEmpty()) {
             str += END_LINE_STRING
-            str += children.joinToString(separator = END_LINE_STRING).prependIndent(INDENT_STRING)
+            str += children.joinToString(separator = END_LINE_STRING).prependIndent(
+                INDENT_STRING
+            )
         }
         return str
     }
@@ -88,7 +94,7 @@ class ImpTargetTreeNode(
     @Suppress("UNCHECKED_CAST")
     private fun getRightSibling(son: TargetTreeNode): TargetTreeNode? {
         if (children.isNotEmpty()) {
-            val index = (children as List<ImpTargetTreeNode>).binarySearch(son as ImpTargetTreeNode)
+            val index = (children as List<DefaultTargetTreeNode>).binarySearch(son as DefaultTargetTreeNode)
             if (index >= 0 && index + 1 < children.size) {
                 return children[index + 1]
             }
@@ -99,7 +105,7 @@ class ImpTargetTreeNode(
     @Suppress("UNCHECKED_CAST")
     private fun getLeftSibling(son: TargetTreeNode): TargetTreeNode? {
         if (children.isNotEmpty()) {
-            val index = (children as List<ImpTargetTreeNode>).binarySearch(son as ImpTargetTreeNode)
+            val index = (children as List<DefaultTargetTreeNode>).binarySearch(son as DefaultTargetTreeNode)
             if (index > 0) {
                 return children[index - 1]
             }
@@ -112,5 +118,5 @@ class ImpTargetTreeNode(
         const val END_LINE_STRING = "\n"
     }
 
-    override fun compareTo(other: ImpTargetTreeNode): Int = id.compareTo(other.id)
+    override fun compareTo(other: DefaultTargetTreeNode): Int = id.compareTo(other.id)
 }

@@ -1,4 +1,4 @@
-package operators
+package expression.operators
 
 fun childFunction(
     father: VisitorFunction,

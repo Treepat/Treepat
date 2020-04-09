@@ -14,8 +14,8 @@ import org.antlr.v4.runtime.tree.RuleNode
 import org.antlr.v4.runtime.tree.TerminalNode
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import target_tree.ImpTargetTreeNode
 import target_tree.TargetTreeNode
+import target_tree.default_tree.DefaultTargetTreeNode
 import tree_format.TreeFormatParser
 
 @ExtendWith(MockKExtension::class)
@@ -80,7 +80,7 @@ internal class TreeFormatVisitorImplementationKtTest {
         // act
         val result = treeFormatVisitorImplementation.visitNode(mockNodeContext)
         // assert
-        assertNotNull(result as? ImpTargetTreeNode)
+        assertNotNull(result as? DefaultTargetTreeNode)
         assertEquals("Name", result.name)
         assertEquals("Tag", result.tag)
     }
@@ -90,7 +90,7 @@ internal class TreeFormatVisitorImplementationKtTest {
         // act
         val result = treeFormatVisitorImplementation.visitInformation(mockInformationContext)
         // assert
-        assertEquals(ImpTargetTreeNode().id, result.id)
+        assertEquals(DefaultTargetTreeNode().id, result.id)
     }
 
     @Test
@@ -132,7 +132,7 @@ internal class TreeFormatVisitorImplementationKtTest {
     @Test
     fun `visitSubtree should return ImpTargetTreeNode if child is null`() {
         // arrange
-        val tTargetTreeNode = ImpTargetTreeNode()
+        val tTargetTreeNode = DefaultTargetTreeNode()
         every { mockSubtreeContext.child() } returns null
         every { mockSubtreeContext.node().accept(treeFormatVisitorImplementation) } returns tTargetTreeNode
         // act
@@ -146,7 +146,12 @@ internal class TreeFormatVisitorImplementationKtTest {
     @Test
     fun `visitSubtree should return ImpTargetTreeNode with list of children when child is null`() {
         // arrange
-        val tTargetTreeNodeImpl = ImpTargetTreeNode(children = listOf(ImpTargetTreeNode(), ImpTargetTreeNode()))
+        val tTargetTreeNodeImpl = DefaultTargetTreeNode(
+            children = listOf(
+                DefaultTargetTreeNode(),
+                DefaultTargetTreeNode()
+            )
+        )
         every { mockChildContext.accept(treeFormatVisitorImplementation) } returns tTargetTreeNodeImpl
         every { mockSubtreeContext.child() } returns mockChildContext
         every { mockSubtreeContext.node().accept(treeFormatVisitorImplementation) } returns tTargetTreeNodeImpl

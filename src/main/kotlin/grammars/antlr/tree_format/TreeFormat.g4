@@ -1,5 +1,5 @@
-// Define a grammars called TreeFormat.
-grammars TreeFormat;
+// Define a grammar called TreeFormat.
+grammar TreeFormat;
 
 // Here starts the implementation for INDENT and DEDENT tokens.
 tokens { INDENT, DEDENT }

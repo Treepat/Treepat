@@ -1,4 +1,4 @@
-package operators
+package expression.operators
 
 import io.mockk.every
 import io.mockk.impl.annotations.MockK

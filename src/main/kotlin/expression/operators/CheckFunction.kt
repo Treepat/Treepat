@@ -1,4 +1,4 @@
-package operators
+package expression.operators
 
 @Deprecated("This function is not longer used and right now is not needed.")
 fun checkFunction(expression: VisitorFunction): VisitorFunction = { targetTreeNode ->

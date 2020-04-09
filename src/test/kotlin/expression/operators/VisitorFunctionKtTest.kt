@@ -1,4 +1,4 @@
-package operators
+package expression.operators
 
 import grammars.ast.ASTNode
 import io.mockk.impl.annotations.MockK

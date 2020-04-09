@@ -1,23 +1,23 @@
+import expression.TreepatExpression
 import grammars.antlr.tree_format.TreeFormatVisitorImplementation
 import grammars.antlr.treepat.TreepatVisitorImplementation
 import grammars.ast.ASTNode
-import expression.TreepatExpression
+import java.nio.file.Paths
+import javax.swing.JFrame
+import javax.swing.JPanel
+import javax.swing.JScrollPane
 import org.antlr.v4.gui.TreeViewer
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.Parser
 import org.antlr.v4.runtime.tree.ParseTree
-import target_tree.DefaultTargetTree
-import target_tree.ImpTargetTreeNode
 import target_tree.TargetTreeNode
+import target_tree.default_tree.DefaultTargetTree
+import target_tree.default_tree.DefaultTargetTreeNode
 import tree_format.TreeFormatLexer
 import tree_format.TreeFormatParser
 import treepat.TreepatLexer
 import treepat.TreepatParser
-import java.nio.file.Paths
-import javax.swing.JFrame
-import javax.swing.JPanel
-import javax.swing.JScrollPane
 
 object Main {
 
@@ -29,7 +29,8 @@ object Main {
         // Treepat Parsing
         val treepatExpression = TreepatExpression.createFromFile(Paths.get(args[0]))
         // Tree File Parsing
-        val targetTree = DefaultTargetTree<ImpTargetTreeNode>(Paths.get(args[1]))
+        val targetTree =
+            DefaultTargetTree<DefaultTargetTreeNode>(Paths.get(args[1]))
 
         val functionResult = targetTree.findMatchesRaw(treepatExpression)
 

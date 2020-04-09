@@ -1,4 +1,4 @@
-package operators
+package expression.operators
 
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 import target_tree.TargetTreeNode
 
 @ExtendWith(MockKExtension::class)
-internal class SiblingFunctionKtTest {
+internal class TreepatFunctionKtTest {
 
     @MockK
     private lateinit var mockTargetTreeNode: TargetTreeNode
@@ -27,33 +27,36 @@ internal class SiblingFunctionKtTest {
     }
 
     @Test
-    fun `siblingFunction should return a response with zero matches if the non sibling doesn't have matches`() {
+    fun `treepatFunction should return empty response if targetTreeNode is null`() {
         // act
-        val result = siblingFunction(expressionWithZeroMatch, expressionWithZeroMatch).invoke(mockTargetTreeNode)
+        val result = treepatFunction(expressionWithMatch).invoke(null)
         // assert
         assertFalse(result.hasMatch)
         assertEquals(0, result.responses.filter { it.matches.isNotEmpty() }.size)
-        assert(result.responses.all { it.lastVisitedSibling == mockTargetTreeNode })
+        assert(result.responses.all { it.lastVisitedSibling == null })
     }
 
     @Test
-    fun `siblingFunction should return a response with zero matches if the first sibling doesn't have matches`() {
-        // act
-        val result = siblingFunction(expressionWithZeroMatch, expressionWithMatch).invoke(mockTargetTreeNode)
-        // assert
-        assertFalse(result.hasMatch)
-        assertEquals(0, result.responses.filter { it.matches.isNotEmpty() }.size)
-        assert(result.responses.all { it.lastVisitedSibling == mockTargetTreeNode })
-    }
-
-    @Test
-    fun `siblingFunction should return a response with zero matches if the second sibling doesn't have matches`() {
+    fun `treepatFunction should return all matches found in all the tree`() {
         // arrange
-        every { mockTargetTreeNode.moveToRightSibling() } returns mockTargetTreeNode
+        every { mockTargetTreeNode.nextLeftmostPreorderNode() } returns null
         // act
-        val result = siblingFunction(expressionWithMatch, expressionWithZeroMatch).invoke(mockTargetTreeNode)
+        val result = treepatFunction(expressionWithMatch).invoke(mockTargetTreeNode)
         // assert
-        verify { mockTargetTreeNode.moveToRightSibling() }
+        verify { mockTargetTreeNode.nextLeftmostPreorderNode() }
+        assert(result.hasMatch)
+        assertEquals(1, result.responses.filter { it.matches.isNotEmpty() }.size)
+        assert(result.responses.all { it.lastVisitedSibling == mockTargetTreeNode })
+    }
+
+    @Test
+    fun `treepatFunction should return empty response if no matches found `() {
+        // arrange
+        every { mockTargetTreeNode.nextLeftmostPreorderNode() } returns null
+        // act
+        val result = treepatFunction(expressionWithZeroMatch).invoke(mockTargetTreeNode)
+        // assert
+        verify { mockTargetTreeNode.nextLeftmostPreorderNode() }
         assertFalse(result.hasMatch)
         assertEquals(0, result.responses.filter { it.matches.isNotEmpty() }.size)
         assert(result.responses.all { it.lastVisitedSibling == mockTargetTreeNode })

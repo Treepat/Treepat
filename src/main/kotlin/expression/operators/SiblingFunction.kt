@@ -1,4 +1,4 @@
-package operators
+package expression.operators
 
 fun siblingFunction(
     firstSibling: VisitorFunction,

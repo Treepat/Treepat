@@ -2,7 +2,7 @@ import grammars.antlr.tree_format.TreeFormatVisitorImplementation
 import grammars.antlr.treepat.TreepatVisitorImplementation
 import grammars.ast.ASTNode
 import kotlin.test.assertEquals
-import operators.createVisitorFunction
+import expression.operators.createVisitorFunction
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTree

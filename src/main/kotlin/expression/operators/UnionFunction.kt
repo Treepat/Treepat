@@ -1,4 +1,4 @@
-package operators
+package expression.operators
 
 fun unionFunction(expressions: List<VisitorFunction>): VisitorFunction = { targetTreeNode ->
     val answers = expressions.map { it.invoke(targetTreeNode) }.filter { it.hasMatch }

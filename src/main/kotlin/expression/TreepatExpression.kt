@@ -1,17 +1,17 @@
 package expression
 
+import expression.operators.VisitorFunction
+import expression.operators.VisitorFunctionResponse
+import expression.operators.createVisitorFunction
 import grammars.antlr.treepat.TreepatVisitorImplementation
 import grammars.ast.ASTNode
-import operators.VisitorFunction
-import operators.VisitorFunctionResponse
-import operators.createVisitorFunction
+import java.nio.file.Path
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTree
 import target_tree.TargetTreeNode
 import treepat.TreepatLexer
 import treepat.TreepatParser
-import java.nio.file.Path
 
 class TreepatExpression(val expression: VisitorFunction) {
 
@@ -30,4 +30,3 @@ class TreepatExpression(val expression: VisitorFunction) {
 
     fun executeExpression(targetTreeNode: TargetTreeNode?): VisitorFunctionResponse = expression.invoke(targetTreeNode)
 }
-
