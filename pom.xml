@@ -6,7 +6,7 @@
 
     <groupId>co.edu.javeriana.treepat</groupId>
     <artifactId>Treepat</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.2</version>
     <name>Treepat</name>
 
     <distributionManagement>
