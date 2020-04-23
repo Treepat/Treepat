@@ -6,14 +6,18 @@
 
     <groupId>com.github.treepat</groupId>
     <artifactId>Treepat</artifactId>
-    <version>1.2.0</version>
+    <version>2.2.4</version>
     <name>Treepat</name>
 
     <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
         <repository>
-            <id>github</id>
-            <name>GitHub Treepat Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/Treepat/Treepat</url>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/
+            </url>
         </repository>
     </distributionManagement>
 
