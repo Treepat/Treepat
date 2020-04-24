@@ -278,7 +278,7 @@
                 <version>2.9.1</version>
                 <configuration>
                     <sourceFileExcludes>
-                        <sourceFileExclude>target/generated-sources/**/*.java</sourceFileExclude>
+                        <sourceFileExclude>**/generated-sources/**/*.java</sourceFileExclude>
                     </sourceFileExcludes>
                 </configuration>
                 <executions>
