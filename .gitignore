@@ -285,3 +285,4 @@ $RECYCLE.BIN/
 src/main/generated-sources
 
 .envrc
+.java-version
