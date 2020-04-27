@@ -4,7 +4,7 @@
 
     <groupId>com.github.treepat</groupId>
     <artifactId>Treepat</artifactId>
-    <version>2.2.6</version>
+    <version>2.2.7-SNAPSHOT</version>
     <name>Treepat</name>
 
     <distributionManagement>
@@ -24,7 +24,7 @@
         <connection>scm:git:git://https://github.com/Treepat/Treepat.git</connection>
         <developerConnection>scm:git:git@https://github.com/Treepat/Treepat.git</developerConnection>
         <url>https://https://github.com/Treepat/Treepat</url>
-        <tag>Treepat-2.2.6</tag>
+        <tag>Treepat-2.2.4</tag>
     </scm>
 
     <properties>
