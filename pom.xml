@@ -6,6 +6,37 @@
     <artifactId>Treepat</artifactId>
     <version>2.2.7-SNAPSHOT</version>
     <name>Treepat</name>
+    <packaging>jar</packaging>
+
+    <description>
+        Treepat is a language to recognise patterns in trees in a similar way as regular expressions recognize patterns in strings. Treepat includes analogous operators to regex union, concatenation, and closure, which are extended to the notion of trees.
+    </description>
+    <url>https://github.com/Treepat/Treepat</url>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Dorian Moreno</name>
+            <email>moreno.dorian@javeriana.edu.co</email>
+            <organization>Javeriana</organization>
+        </developer>
+        <developer>
+            <name>Juan Pablo Peñaloza</name>
+            <email>juan-penaloza@javeriana.edu.co</email>
+            <organization>Javeriana</organization>
+        </developer>
+        <developer>
+            <name>Johan Murillo</name>
+            <email>johanmurillo@javeriana.edu.co</email>
+            <organization>Javeriana</organization>
+        </developer>
+    </developers>
 
     <distributionManagement>
         <snapshotRepository>
@@ -24,7 +55,6 @@
         <connection>scm:git:git://https://github.com/Treepat/Treepat.git</connection>
         <developerConnection>scm:git:git@https://github.com/Treepat/Treepat.git</developerConnection>
         <url>https://https://github.com/Treepat/Treepat</url>
-        <tag>Treepat-2.2.4</tag>
     </scm>
 
     <properties>
@@ -241,50 +271,19 @@
                 </executions>
             </plugin>
 
+            <!-- Sonatype. -->
             <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>3.0.0-M1</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
-                        <id>default-deploy</id>
-                        <phase>deploy</phase>
+                        <id>attach-javadocs</id>
                         <goals>
-                            <goal>deploy</goal>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.3</version>
-                <configuration>
-                    <localCheckout>true</localCheckout>
-                    <pushChanges>false</pushChanges>
-                    <mavenExecutorId>forked-path</mavenExecutorId>
-                    <arguments>
-                        -Dgpg.passphrase=${gpg.passphrase}
-                        -Dmaven.javadoc.skip=true
-                    </arguments>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.maven.scm</groupId>
-                        <artifactId>maven-scm-provider-gitexe</artifactId>
-                        <version>1.9.5</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.7</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -299,36 +298,31 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-    <profiles>
-        <!-- GPG Signature on release -->
-        <profile>
-            <id>release-sign-artifacts</id>
-            <activation>
-                <property>
-                    <name>performRelease</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
