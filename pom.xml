@@ -4,7 +4,7 @@
 
     <groupId>com.github.treepat</groupId>
     <artifactId>Treepat</artifactId>
-    <version>2.2.7-SNAPSHOT</version>
+    <version>1.2.4</version>
     <name>Treepat</name>
     <packaging>jar</packaging>
 
@@ -62,8 +62,14 @@
         <grammar.antlr.generated.files>${project.basedir}/src/main/generated-sources/grammars/antlr</grammar.antlr.generated.files>
         <main.class>Main</main.class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
     </properties>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jcenter</id>
+            <name>JCenter</name>
+            <url>https://jcenter.bintray.com/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <dependencies>
         <dependency>
@@ -212,7 +218,7 @@
                             </excludes>
                         </configuration>
                     </execution>
-                    <execution>
+                    <!-- <execution>
                         <id>large-test</id>
                         <phase>integration-test</phase>
                         <goals>
@@ -223,7 +229,7 @@
                                 <include>*LargeKtTest</include>
                             </includes>
                         </configuration>
-                    </execution>
+                    </execution>-->
                 </executions>
             </plugin>
             <!-- Generates coverage report. -->
@@ -272,10 +278,13 @@
             </plugin>
 
             <!-- Sonatype. -->
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.2.0</version>
+                <configuration>
+                    <excludePackageNames>treepat:tree_format</excludePackageNames>
+                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -284,11 +293,11 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -322,6 +331,23 @@
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                     <autoReleaseAfterClose>false</autoReleaseAfterClose>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>empty-javadoc-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>javadoc</classifier>
+                            <classesDirectory>${basedir}/javadoc</classesDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
