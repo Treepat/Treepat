@@ -1,16 +1,16 @@
-package expression.operators
+package com.github.treepat.expression.operators
 
-import grammars.ast.ASTNode
-import grammars.ast.BreadthClosure
-import grammars.ast.Child
-import grammars.ast.DepthClosure
-import grammars.ast.DepthTerm
-import grammars.ast.Dot
-import grammars.ast.Node
-import grammars.ast.Sibling
-import grammars.ast.Treepat
-import grammars.ast.Union
-import target_tree.TargetTreeNode
+import com.github.treepat.grammars.ast.ASTNode
+import com.github.treepat.grammars.ast.BreadthClosure
+import com.github.treepat.grammars.ast.Child
+import com.github.treepat.grammars.ast.DepthClosure
+import com.github.treepat.grammars.ast.DepthTerm
+import com.github.treepat.grammars.ast.Dot
+import com.github.treepat.grammars.ast.Node
+import com.github.treepat.grammars.ast.Sibling
+import com.github.treepat.grammars.ast.Treepat
+import com.github.treepat.grammars.ast.Union
+import com.github.treepat.target_tree.TargetTreeNode
 
 typealias VisitorFunction = (TargetTreeNode?) -> VisitorFunctionResponse
 

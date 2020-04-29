@@ -1,5 +1,8 @@
-package grammars.antlr.tree_format
+package com.github.treepat.grammars.antlr.tree_format
 
+import antlr.tree_format.TreeFormatParser
+import com.github.treepat.target_tree.TargetTreeNode
+import com.github.treepat.target_tree.default_tree.DefaultTargetTreeNode
 import io.mockk.Called
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -14,9 +17,6 @@ import org.antlr.v4.runtime.tree.RuleNode
 import org.antlr.v4.runtime.tree.TerminalNode
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import target_tree.TargetTreeNode
-import target_tree.default_tree.DefaultTargetTreeNode
-import tree_format.TreeFormatParser
 
 @ExtendWith(MockKExtension::class)
 internal class TreeFormatVisitorImplementationKtTest {

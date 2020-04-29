@@ -1,6 +1,7 @@
 // Define a grammar called Treepat.
 grammar Treepat;
 
+
 // Here starts the implementation for INDENT and DEDENT tokens.
 tokens { INDENT, DEDENT }
 @lexer::members {

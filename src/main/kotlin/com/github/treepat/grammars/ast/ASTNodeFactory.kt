@@ -1,4 +1,4 @@
-package grammars.ast
+package com.github.treepat.grammars.ast
 
 fun <T> List<T>.tail() = subList(1, size)
 

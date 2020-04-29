@@ -1,4 +1,4 @@
-package expression.operators
+package com.github.treepat.expression.operators
 
 fun childFunction(
     father: VisitorFunction,

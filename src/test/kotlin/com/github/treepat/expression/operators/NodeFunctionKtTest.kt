@@ -1,6 +1,7 @@
-package expression.operators
+package com.github.treepat.expression.operators
 
 import MockValues.tNodeName
+import com.github.treepat.target_tree.TargetTreeNode
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
@@ -8,7 +9,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import target_tree.TargetTreeNode
 
 @ExtendWith(MockKExtension::class)
 internal class NodeFunctionKtTest {

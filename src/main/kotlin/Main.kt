@@ -1,9 +1,14 @@
-package com.github.treepat
-
+import antlr.tree_format.TreeFormatLexer
+import antlr.tree_format.TreeFormatParser
+import antlr.treepat.TreepatLexer
+import antlr.treepat.TreepatParser
 import com.github.treepat.expression.TreepatExpression
 import com.github.treepat.grammars.antlr.tree_format.TreeFormatVisitorImplementation
 import com.github.treepat.grammars.antlr.treepat.TreepatVisitorImplementation
 import com.github.treepat.grammars.ast.ASTNode
+import com.github.treepat.target_tree.TargetTreeNode
+import com.github.treepat.target_tree.default_tree.DefaultTargetTree
+import com.github.treepat.target_tree.default_tree.DefaultTargetTreeNode
 import java.nio.file.Paths
 import javax.swing.JFrame
 import javax.swing.JPanel
@@ -13,13 +18,6 @@ import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.Parser
 import org.antlr.v4.runtime.tree.ParseTree
-import com.github.treepat.target_tree.TargetTreeNode
-import com.github.treepat.target_tree.default_tree.DefaultTargetTree
-import com.github.treepat.target_tree.default_tree.DefaultTargetTreeNode
-import tree_format.TreeFormatLexer
-import tree_format.TreeFormatParser
-import treepat.TreepatLexer
-import treepat.TreepatParser
 
 object Main {
 

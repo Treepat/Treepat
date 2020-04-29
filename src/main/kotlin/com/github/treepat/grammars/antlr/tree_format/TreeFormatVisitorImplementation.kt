@@ -1,13 +1,13 @@
-package grammars.antlr.tree_format
+package com.github.treepat.grammars.antlr.tree_format
 
+import antlr.tree_format.TreeFormatParser
+import antlr.tree_format.TreeFormatVisitor
+import com.github.treepat.target_tree.TargetTreeNode
+import com.github.treepat.target_tree.default_tree.DefaultTargetTreeNode
 import org.antlr.v4.runtime.tree.ErrorNode
 import org.antlr.v4.runtime.tree.ParseTree
 import org.antlr.v4.runtime.tree.RuleNode
 import org.antlr.v4.runtime.tree.TerminalNode
-import target_tree.TargetTreeNode
-import target_tree.default_tree.DefaultTargetTreeNode
-import tree_format.TreeFormatParser
-import tree_format.TreeFormatVisitor
 
 class TreeFormatVisitorImplementation : TreeFormatVisitor<TargetTreeNode> {
 

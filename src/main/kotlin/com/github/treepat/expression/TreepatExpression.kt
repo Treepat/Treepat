@@ -1,17 +1,17 @@
-package expression
+package com.github.treepat.expression
 
-import expression.operators.VisitorFunction
-import expression.operators.VisitorFunctionResponse
-import expression.operators.createVisitorFunction
-import grammars.antlr.treepat.TreepatVisitorImplementation
-import grammars.ast.ASTNode
+import antlr.treepat.TreepatLexer
+import antlr.treepat.TreepatParser
+import com.github.treepat.expression.operators.VisitorFunction
+import com.github.treepat.expression.operators.VisitorFunctionResponse
+import com.github.treepat.expression.operators.createVisitorFunction
+import com.github.treepat.grammars.antlr.treepat.TreepatVisitorImplementation
+import com.github.treepat.grammars.ast.ASTNode
+import com.github.treepat.target_tree.TargetTreeNode
 import java.nio.file.Path
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTree
-import target_tree.TargetTreeNode
-import treepat.TreepatLexer
-import treepat.TreepatParser
 
 class TreepatExpression(val expression: VisitorFunction) {
 

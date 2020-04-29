@@ -1,4 +1,4 @@
-package grammars.ast
+package com.github.treepat.grammars.ast
 
 interface ASTNode
 

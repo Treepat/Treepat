@@ -1,6 +1,6 @@
-package expression.operators
+package com.github.treepat.expression.operators
 
-import target_tree.TargetTreeNode
+import com.github.treepat.target_tree.TargetTreeNode
 
 fun depthClosureFunction(
     expression: VisitorFunction

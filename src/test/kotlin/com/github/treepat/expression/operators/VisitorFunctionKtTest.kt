@@ -1,6 +1,6 @@
-package expression.operators
+package com.github.treepat.expression.operators
 
-import grammars.ast.ASTNode
+import com.github.treepat.grammars.ast.ASTNode
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import kotlin.test.assertEquals

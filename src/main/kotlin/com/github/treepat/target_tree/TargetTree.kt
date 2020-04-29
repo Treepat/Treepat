@@ -1,7 +1,7 @@
-package target_tree
+package com.github.treepat.target_tree
 
-import expression.TreepatExpression
-import expression.operators.VisitorFunctionResponse
+import com.github.treepat.expression.TreepatExpression
+import com.github.treepat.expression.operators.VisitorFunctionResponse
 
 interface TargetTree<T : TargetTreeNode> {
     var root: T?

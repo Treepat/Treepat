@@ -1,4 +1,4 @@
-package target_tree
+package com.github.treepat.target_tree
 
 interface TargetTreeNode {
     val name: String

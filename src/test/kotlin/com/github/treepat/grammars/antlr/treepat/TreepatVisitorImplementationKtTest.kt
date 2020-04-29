@@ -1,14 +1,15 @@
-package grammars.antlr.treepat
+package com.github.treepat.grammars.antlr.treepat
 
-import grammars.ast.ASTNode
-import grammars.ast.BreadthClosure
-import grammars.ast.Child
-import grammars.ast.DepthClosure
-import grammars.ast.DepthTerm
-import grammars.ast.Dot
-import grammars.ast.Node
-import grammars.ast.Treepat
-import grammars.ast.Union
+import antlr.treepat.TreepatParser
+import com.github.treepat.grammars.ast.ASTNode
+import com.github.treepat.grammars.ast.BreadthClosure
+import com.github.treepat.grammars.ast.Child
+import com.github.treepat.grammars.ast.DepthClosure
+import com.github.treepat.grammars.ast.DepthTerm
+import com.github.treepat.grammars.ast.Dot
+import com.github.treepat.grammars.ast.Node
+import com.github.treepat.grammars.ast.Treepat
+import com.github.treepat.grammars.ast.Union
 import io.mockk.Called
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -26,7 +27,6 @@ import org.antlr.v4.runtime.tree.RuleNode
 import org.antlr.v4.runtime.tree.TerminalNode
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import treepat.TreepatParser
 
 @ExtendWith(MockKExtension::class)
 internal class TreepatVisitorImplementationKtTest {

@@ -1,6 +1,6 @@
-package target_tree.default_tree
+package com.github.treepat.target_tree.default_tree
 
-import target_tree.TargetTreeNode
+import com.github.treepat.target_tree.TargetTreeNode
 
 data class MatchedResponse(val matchedString: String, val currentIndex: Int)
 

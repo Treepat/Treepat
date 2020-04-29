@@ -1,14 +1,14 @@
-package target_tree.default_tree
+package com.github.treepat.target_tree.default_tree
 
-import grammars.antlr.tree_format.TreeFormatVisitorImplementation
+import antlr.tree_format.TreeFormatLexer
+import antlr.tree_format.TreeFormatParser
+import com.github.treepat.grammars.antlr.tree_format.TreeFormatVisitorImplementation
+import com.github.treepat.target_tree.TargetTree
+import com.github.treepat.target_tree.TargetTreeNode
 import java.nio.file.Path
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTree
-import target_tree.TargetTree
-import target_tree.TargetTreeNode
-import tree_format.TreeFormatLexer
-import tree_format.TreeFormatParser
 
 class DefaultTargetTree<T : TargetTreeNode>(override var root: T? = null) :
     TargetTree<T> {

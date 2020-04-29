@@ -1,22 +1,22 @@
-import grammars.antlr.tree_format.TreeFormatVisitorImplementation
-import grammars.antlr.treepat.TreepatVisitorImplementation
-import grammars.ast.ASTNode
+import com.github.treepat.grammars.antlr.tree_format.TreeFormatVisitorImplementation
+import com.github.treepat.grammars.antlr.treepat.TreepatVisitorImplementation
+import com.github.treepat.grammars.ast.ASTNode
 import kotlin.test.assertEquals
-import expression.operators.createVisitorFunction
+import com.github.treepat.expression.operators.createVisitorFunction
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTree
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
-import target_tree.TargetTreeNode
-import tree_format.TreeFormatLexer
-import tree_format.TreeFormatParser
-import treepat.TreepatLexer
-import treepat.TreepatParser
+import com.github.treepat.target_tree.TargetTreeNode
+import antlr.tree_format.TreeFormatLexer
+import antlr.tree_format.TreeFormatParser
+import antlr.treepat.TreepatLexer
+import antlr.treepat.TreepatParser
 import java.io.File
 
 /**
- * Given a treepat expression and a target_trees then find all matches of the expression in the target_trees large test.
+ * Given a treepat com.github.treepat.expression and a target_trees then find all matches of the com.github.treepat.expression in the target_trees large test.
  */
 internal class GivenTreepatExpressionAndTreeThenFindMatchesLargeKtTest {
 
