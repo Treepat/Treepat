@@ -27,10 +27,10 @@ object Main {
     @JvmStatic
     fun main(args: Array<String>) {
         // Treepat Parsing
-        val treepatExpression = TreepatExpression.createFromFile(Paths.get(args[0]))
+        val treepatExpression = TreepatExpression.createFromFile(args[0])
         // Tree File Parsing
         val targetTree =
-            DefaultTargetTree<DefaultTargetTreeNode>(Paths.get(args[1]))
+            DefaultTargetTree<DefaultTargetTreeNode>(args[1])
 
         val functionResult = targetTree.findMatchesRaw(treepatExpression)
 

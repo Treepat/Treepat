@@ -16,8 +16,8 @@ class DefaultTargetTree<T : TargetTreeNode>(override var root: T? = null) :
     /**
      * Read tree from grammar.antlr.
      */
-    constructor(tree_file: Path) : this() {
-        val lexer = TreeFormatLexer(CharStreams.fromPath(tree_file))
+    constructor(tree_file: String) : this() {
+        val lexer = TreeFormatLexer(CharStreams.fromFileName(tree_file))
         val tokenStream = CommonTokenStream(lexer)
         val fileParser = TreeFormatParser(tokenStream)
         val tree: ParseTree = fileParser.subtree()

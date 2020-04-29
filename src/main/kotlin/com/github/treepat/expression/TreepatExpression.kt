@@ -17,8 +17,8 @@ class TreepatExpression(val expression: VisitorFunction) {
 
     companion object Factory {
 
-        fun createFromFile(treepatFilePath: Path): TreepatExpression {
-            val lexer = TreepatLexer(CharStreams.fromPath(treepatFilePath))
+        fun createFromFile(treepatFilePath: String): TreepatExpression {
+            val lexer = TreepatLexer(CharStreams.fromFileName(treepatFilePath))
             val tokenStream = CommonTokenStream(lexer)
             val treepatParser = TreepatParser(tokenStream)
             val tree: ParseTree = treepatParser.treepat()
