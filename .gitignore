@@ -283,6 +283,8 @@ $RECYCLE.BIN/
 
 # Antlr generate files
 src/main/generated-sources
+src/main/kotlin/antlr
+src/main/kotlin/*.tokens
 
 .envrc
 .java-version
