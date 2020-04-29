@@ -8,7 +8,6 @@ import com.github.treepat.expression.operators.createVisitorFunction
 import com.github.treepat.grammars.antlr.treepat.TreepatVisitorImplementation
 import com.github.treepat.grammars.ast.ASTNode
 import com.github.treepat.target_tree.TargetTreeNode
-import java.nio.file.Path
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTree

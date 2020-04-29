@@ -5,7 +5,6 @@ import antlr.tree_format.TreeFormatParser
 import com.github.treepat.grammars.antlr.tree_format.TreeFormatVisitorImplementation
 import com.github.treepat.target_tree.TargetTree
 import com.github.treepat.target_tree.TargetTreeNode
-import java.nio.file.Path
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTree

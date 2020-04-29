@@ -9,7 +9,6 @@ import com.github.treepat.grammars.ast.ASTNode
 import com.github.treepat.target_tree.TargetTreeNode
 import com.github.treepat.target_tree.default_tree.DefaultTargetTree
 import com.github.treepat.target_tree.default_tree.DefaultTargetTreeNode
-import java.nio.file.Paths
 import javax.swing.JFrame
 import javax.swing.JPanel
 import javax.swing.JScrollPane
