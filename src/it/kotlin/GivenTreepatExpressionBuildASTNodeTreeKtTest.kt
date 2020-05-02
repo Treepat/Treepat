@@ -1,15 +1,15 @@
-import grammars.antlr.treepat.TreepatVisitorImplementation
+import com.github.treepat.grammars.antlr.treepat.TreepatVisitorImplementation
 import kotlin.test.assertEquals
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTree
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
-import treepat.TreepatLexer
-import treepat.TreepatParser
+import antlr.treepat.TreepatLexer
+import antlr.treepat.TreepatParser
 
 /**
- * Integration tests that verifies the correct creation the ASTNode target_trees based on a Treepat expression.
+ * Integration tests that verifies the correct creation the ASTNode target_trees based on a Treepat com.github.treepat.expression.
  */
 internal class GivenTreepatExpressionBuildASTNodeTreeKtTest {
 

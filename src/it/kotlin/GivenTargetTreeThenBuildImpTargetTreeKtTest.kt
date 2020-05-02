@@ -1,12 +1,12 @@
-import grammars.antlr.tree_format.TreeFormatVisitorImplementation
+import com.github.treepat.grammars.antlr.tree_format.TreeFormatVisitorImplementation
 import kotlin.test.assertEquals
 import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTree
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
-import tree_format.TreeFormatLexer
-import tree_format.TreeFormatParser
+import antlr.tree_format.TreeFormatLexer
+import antlr.tree_format.TreeFormatParser
 
 /**
  * Given target target_trees then build implementation of target target_trees node.
