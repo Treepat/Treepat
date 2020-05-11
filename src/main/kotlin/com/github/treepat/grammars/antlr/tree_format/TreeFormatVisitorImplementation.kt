@@ -38,7 +38,11 @@ class TreeFormatVisitorImplementation : TreeFormatVisitor<TargetTreeNode> {
             return node
         }
         node.children = context.child().accept(this).children
-        node.children.forEach { (it as DefaultTargetTreeNode).parent = node }
+        node.children.forEachIndexed { index, element ->
+            (element as DefaultTargetTreeNode)
+            element.parent = node
+            element.posAsChild = index
+        }
         return node
     }
 

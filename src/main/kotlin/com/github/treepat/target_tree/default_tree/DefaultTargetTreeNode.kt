@@ -11,11 +11,22 @@ class DefaultTargetTreeNode(
     override var children: List<TargetTreeNode> = mutableListOf()
 ) : TargetTreeNode, Comparable<DefaultTargetTreeNode> {
 
-    var parent: TargetTreeNode? = null
+    var posAsChild: Int = -1
+    var parent: DefaultTargetTreeNode? = null
 
-    override fun moveToRightSibling(): TargetTreeNode? = (parent as? DefaultTargetTreeNode)?.getRightSibling(this)
+    override fun moveToRightSibling(): TargetTreeNode? {
+        if (posAsChild != -1 && posAsChild + 1 < parent?.children!!.size) {
+            return this.parent?.children!![posAsChild + 1]
+        }
+        return null
+    }
 
-    override fun moveToLeftSibling(): TargetTreeNode? = (parent as? DefaultTargetTreeNode)?.getLeftSibling(this)
+    override fun moveToLeftSibling(): TargetTreeNode? {
+        if (posAsChild > 0) {
+            return this.parent?.children!![posAsChild - 1]
+        }
+        return null
+    }
 
     override fun moveToParent(): TargetTreeNode? = parent
 
@@ -40,7 +51,7 @@ class DefaultTargetTreeNode(
     }
 
     private fun nextUpwardPreorderNode(): TargetTreeNode? {
-        return (parent as DefaultTargetTreeNode?)?.nextSiblingLeftmostChild()
+        return parent?.nextSiblingLeftmostChild()
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -89,28 +100,6 @@ class DefaultTargetTreeNode(
             )
         }
         return str
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    private fun getRightSibling(son: TargetTreeNode): TargetTreeNode? {
-        if (children.isNotEmpty()) {
-            val index = (children as List<DefaultTargetTreeNode>).binarySearch(son as DefaultTargetTreeNode)
-            if (index >= 0 && index + 1 < children.size) {
-                return children[index + 1]
-            }
-        }
-        return null
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    private fun getLeftSibling(son: TargetTreeNode): TargetTreeNode? {
-        if (children.isNotEmpty()) {
-            val index = (children as List<DefaultTargetTreeNode>).binarySearch(son as DefaultTargetTreeNode)
-            if (index > 0) {
-                return children[index - 1]
-            }
-        }
-        return null
     }
 
     companion object {
