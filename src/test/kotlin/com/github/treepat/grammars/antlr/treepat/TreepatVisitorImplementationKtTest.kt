@@ -8,7 +8,6 @@ import com.github.treepat.grammars.ast.DepthClosure
 import com.github.treepat.grammars.ast.DepthTerm
 import com.github.treepat.grammars.ast.Dot
 import com.github.treepat.grammars.ast.Node
-import com.github.treepat.grammars.ast.Treepat
 import com.github.treepat.grammars.ast.Union
 import io.mockk.Called
 import io.mockk.every
@@ -18,7 +17,6 @@ import io.mockk.verify
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
-import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 import org.antlr.v4.runtime.Token
 import org.antlr.v4.runtime.tree.ErrorNode
@@ -71,9 +69,6 @@ internal class TreepatVisitorImplementationKtTest {
 
     @MockK
     private lateinit var mockNestedContext: TreepatParser.NestedContext
-
-    @MockK
-    private lateinit var mockTreepatContext: TreepatParser.TreepatContext
 
     @MockK
     private lateinit var mockAtomTermWrapperContext: TreepatParser.AtomTermWrapperContext
@@ -196,18 +191,6 @@ internal class TreepatVisitorImplementationKtTest {
         // assert
         verify(exactly = 1) { mockNestedContext.subtree().accept(treepatVisitorImplementation) }
         assertEquals(mockASTNode, result)
-    }
-
-    @Test
-    fun `visitTreepat should return Treepat with subtree visitor response`() {
-        // arrange
-        every { mockTreepatContext.subtree().accept(treepatVisitorImplementation) } returns mockASTNode
-        // act
-        val result = treepatVisitorImplementation.visitTreepat(mockTreepatContext)
-        // assert
-        verify(exactly = 1) { mockTreepatContext.subtree().accept(treepatVisitorImplementation) }
-        assertNotNull(result as? Treepat)
-        assertEquals(mockASTNode, (result as Treepat).subtree)
     }
 
     @Test

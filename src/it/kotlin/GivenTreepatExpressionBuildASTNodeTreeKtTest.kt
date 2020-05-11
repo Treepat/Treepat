@@ -19,7 +19,7 @@ internal class GivenTreepatExpressionBuildASTNodeTreeKtTest {
         val lexer = TreepatLexer(CharStreams.fromString(inputAntlrString))
         val tokenStream = CommonTokenStream(lexer)
         val parser = TreepatParser(tokenStream)
-        return parser.treepat()
+        return parser.subtree()
     }
 
     private val runTest: TestFunction = { inputAntlrString, output, error ->

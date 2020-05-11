@@ -9,7 +9,6 @@ import com.github.treepat.grammars.ast.DepthClosure
 import com.github.treepat.grammars.ast.DepthTerm
 import com.github.treepat.grammars.ast.Dot
 import com.github.treepat.grammars.ast.Node
-import com.github.treepat.grammars.ast.Treepat
 import com.github.treepat.grammars.ast.Union
 import com.github.treepat.grammars.ast.createSiblingNodes
 import java.util.stream.Collectors
@@ -39,8 +38,6 @@ class TreepatVisitorImplementation : TreepatVisitor<ASTNode> {
     override fun visitAtomTerm(ctx: TreepatParser.AtomTermContext): ASTNode = ctx.atomTermWrapper().accept(this)
 
     override fun visitNested(ctx: TreepatParser.NestedContext): ASTNode = ctx.subtree().accept(this)
-
-    override fun visitTreepat(ctx: TreepatParser.TreepatContext): ASTNode = Treepat(ctx.subtree().accept(this))
 
     override fun visitChildren(ruleNode: RuleNode): ASTNode? = throw NotImplementedError(UNSUPPORTED_METHOD_MESSAGE)
 

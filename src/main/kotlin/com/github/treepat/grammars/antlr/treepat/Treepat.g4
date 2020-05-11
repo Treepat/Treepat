@@ -94,10 +94,6 @@ tokens { INDENT, DEDENT }
   }
 }
 
-treepat
-    :   subtree
-    ;
-
 subtree
     :   sibling
     ;
