@@ -3,8 +3,8 @@ package com.github.treepat.target_tree
 import com.github.treepat.expression.TreepatExpression
 import com.github.treepat.expression.operators.VisitorFunctionResponse
 
-interface TargetTree<T : TargetTreeNode> {
-    var root: T?
+interface TargetTree {
+    var root: TargetTreeNode?
 
     fun findMatchesRaw(treepatExpression: TreepatExpression): VisitorFunctionResponse =
         treepatExpression.executeExpression(root)

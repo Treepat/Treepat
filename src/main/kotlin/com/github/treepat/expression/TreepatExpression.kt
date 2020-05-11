@@ -25,6 +25,16 @@ class TreepatExpression(val expression: VisitorFunction) {
             val astRoot: ASTNode = treepatVisitor.visit(tree)
             return TreepatExpression(createVisitorFunction(astRoot))
         }
+
+        fun createFromString(treepatString: String): TreepatExpression {
+            val lexer = TreepatLexer(CharStreams.fromString(treepatString))
+            val tokenStream = CommonTokenStream(lexer)
+            val treepatParser = TreepatParser(tokenStream)
+            val tree: ParseTree = treepatParser.treepat()
+            val treepatVisitor = TreepatVisitorImplementation()
+            val astRoot: ASTNode = treepatVisitor.visit(tree)
+            return TreepatExpression(createVisitorFunction(astRoot))
+        }
     }
 
     fun executeExpression(targetTreeNode: TargetTreeNode?): VisitorFunctionResponse = expression.invoke(targetTreeNode)

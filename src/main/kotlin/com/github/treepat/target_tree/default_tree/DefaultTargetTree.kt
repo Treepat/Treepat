@@ -9,19 +9,26 @@ import org.antlr.v4.runtime.CharStreams
 import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.tree.ParseTree
 
-class DefaultTargetTree<T : TargetTreeNode>(override var root: T? = null) :
-    TargetTree<T> {
+class DefaultTargetTree(override var root: TargetTreeNode? = null) : TargetTree {
 
-    /**
-     * Read tree from grammar.antlr.
-     */
-    constructor(tree_file: String) : this() {
-        val lexer = TreeFormatLexer(CharStreams.fromFileName(tree_file))
-        val tokenStream = CommonTokenStream(lexer)
-        val fileParser = TreeFormatParser(tokenStream)
-        val tree: ParseTree = fileParser.subtree()
-        val treeVisitor = TreeFormatVisitorImplementation()
-        @Suppress("UNCHECKED_CAST")
-        root = treeVisitor.visit(tree) as? T
+    companion object Factory {
+
+        fun createFromFile(treeFilePath: String): DefaultTargetTree {
+            val lexer = TreeFormatLexer(CharStreams.fromFileName(treeFilePath))
+            val tokenStream = CommonTokenStream(lexer)
+            val fileParser = TreeFormatParser(tokenStream)
+            val tree: ParseTree = fileParser.subtree()
+            val treeVisitor = TreeFormatVisitorImplementation()
+            return DefaultTargetTree(treeVisitor.visit(tree))
+        }
+
+        fun createFromString(treeString: String): DefaultTargetTree {
+            val lexer = TreeFormatLexer(CharStreams.fromString(treeString))
+            val tokenStream = CommonTokenStream(lexer)
+            val fileParser = TreeFormatParser(tokenStream)
+            val tree: ParseTree = fileParser.subtree()
+            val treeVisitor = TreeFormatVisitorImplementation()
+            return DefaultTargetTree(treeVisitor.visit(tree))
+        }
     }
 }

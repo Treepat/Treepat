@@ -33,9 +33,9 @@ class DefaultTargetTreeNode(
     override fun moveToFirstChild(): TargetTreeNode? = children.firstOrNull()
 
     override fun matchedNodesString(selectedNodes: List<TargetTreeNode>): String =
-        matchedNodesString(selectedNodes.sortedBy { it.id }, 0, Int.MAX_VALUE).matchedString
+        matchedNodesString(selectedNodes.sortedBy { it.id }, 0, Int.MAX_VALUE).matchedString.trimIndent()
 
-    override fun nextLeftmostPreorderNode(): TargetTreeNode? {
+    override fun nextPreorderNode(): TargetTreeNode? {
         if (children.isNotEmpty()) {
             return children.first()
         }

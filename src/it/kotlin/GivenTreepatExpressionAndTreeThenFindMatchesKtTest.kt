@@ -13,6 +13,9 @@ import antlr.tree_format.TreeFormatLexer
 import antlr.tree_format.TreeFormatParser
 import antlr.treepat.TreepatLexer
 import antlr.treepat.TreepatParser
+import com.github.treepat.expression.TreepatExpression
+import com.github.treepat.match_manager.MatchManager
+import com.github.treepat.target_tree.default_tree.DefaultTargetTree
 import java.io.File
 
 typealias GivenTreepatExpressionAndTreeThenFindMatchesFunction = (String, String, String, String) -> Unit
@@ -24,45 +27,26 @@ internal class GivenTreepatExpressionAndTreeThenFindMatchesKtTest {
 
     private val resourcesLocation = "./src/it/resources/expressions_trees_matches/"
 
-    private fun parseTreeFile(tree: String): TargetTreeNode {
-        val lexer = TreeFormatLexer(CharStreams.fromString(tree))
-        val tokenStream = CommonTokenStream(lexer)
-        val fileParser = TreeFormatParser(tokenStream)
-        val treeFile: ParseTree = fileParser.subtree()
-        val treeVisitor = TreeFormatVisitorImplementation()
-        return treeVisitor.visit(treeFile)
-    }
-
-    private fun parseTreepat(tree: String): ASTNode {
-        val lexer = TreepatLexer(CharStreams.fromString(tree))
-        val tokenStream = CommonTokenStream(lexer)
-        val treepatParser = TreepatParser(tokenStream)
-        val treeTreepat: ParseTree = treepatParser.treepat()
-        val treepatVisitor = TreepatVisitorImplementation()
-        return treepatVisitor.visit(treeTreepat)
-    }
-
     private val runTest: GivenTreepatExpressionAndTreeThenFindMatchesFunction =
         { treepatAntlrString, treeAntlrString, output, error ->
             // Treepat Parsing
-            val astRoot: ASTNode = parseTreepat(treepatAntlrString)
-
+            val treepatExpression = TreepatExpression.createFromString(treepatAntlrString)
             // Tree File Parsing
-            val targetTreeNode: TargetTreeNode = parseTreeFile(treeAntlrString)
+            val targetTree = DefaultTargetTree.createFromString(treeAntlrString)
+            // Match Manager
+            val manager = MatchManager(treepatExpression, targetTree)
+            val matches = manager.getAllMatches()
 
-            val rootFunctionModule = createVisitorFunction(astRoot)
+            val printableMatches: List<String>
 
-            // act
-            val functionResult = rootFunctionModule.invoke(targetTreeNode)
-
-            val solutions: List<String> = if (functionResult.hasMatch) {
-                functionResult.responses.map { targetTreeNode.matchedNodesString(it.matches).trimIndent() }
+            if (matches.isNotEmpty()) {
+                printableMatches = matches.map{manager.matchToString(it)}
             } else {
-                listOf("Match not found")
+                printableMatches = listOf("Match not found")
             }
 
             // assert
-            assertEquals(output, solutions.joinToString("\n-\n"), error)
+            assertEquals(output, printableMatches.joinToString("\n-\n"), error)
         }
 
     @TestFactory
