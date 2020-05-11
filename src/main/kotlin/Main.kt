@@ -22,14 +22,13 @@ object Main {
         val targetTree = DefaultTargetTree.createFromFile(args[1])
         // Match Manager
         val manager = MatchManager(treepatExpression, targetTree)
-        var match = manager.getNextMatch();
-        if(match == null) {
+        var match = manager.getNextMatch()
+        if (match == null) {
             print("Match not found")
-        }
-        else {
+        } else {
             print(manager.matchToString(match))
             match = manager.getNextMatch()
-            while(match != null) {
+            while (match != null) {
                 print("\n-\n" + manager.matchToString(match))
                 match = manager.getNextMatch()
             }

@@ -32,7 +32,6 @@ class MatchManager(private var expression: TreepatExpression, private var tree: 
             foundResponse = response.responses.maxBy { it.matches.size }?.matches
         }
         return foundResponse
-
     }
 
     fun getAllMatches(): List<List<TargetTreeNode>> {
