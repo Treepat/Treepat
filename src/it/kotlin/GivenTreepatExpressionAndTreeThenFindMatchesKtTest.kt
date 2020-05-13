@@ -39,7 +39,7 @@ internal class GivenTreepatExpressionAndTreeThenFindMatchesKtTest {
 
             val printableMatches: List<String>
 
-            if (matches.isNotEmpty()) {
+            if (matches != null) {
                 printableMatches = matches.map{manager.matchToString(it)}
             } else {
                 printableMatches = listOf("Match not found")

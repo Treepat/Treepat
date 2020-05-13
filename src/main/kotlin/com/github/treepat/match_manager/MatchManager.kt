@@ -38,31 +38,17 @@ class MatchManager(private val expression: TreepatExpression, private val tree: 
         return foundResponse
     }
 
-    fun getAllMatches(): List<List<TargetTreeNode>> {
+    fun getAllMatches(): List<List<TargetTreeNode>>? {
+
+        nextNodeToEvaluate = tree.root
+
+        var match: List<TargetTreeNode>? = getNextMatch() ?: return null
 
         val matches = mutableListOf<List<TargetTreeNode>>()
-        nextNodeToEvaluate = tree.root
-
-        while (nextNodeToEvaluate != null) {
-
-            var response = expression.executeExpression(nextNodeToEvaluate)
-            this.nextNodeToEvaluate = nextNodeToEvaluate!!.nextPreorderNode()
-
-            var emptyMatches = response.responses.filter { it.matches.isNotEmpty() }.isEmpty()
-
-            while ((!response.hasMatch || emptyMatches) && nextNodeToEvaluate != null) {
-                response = expression.executeExpression(nextNodeToEvaluate)
-                nextNodeToEvaluate = nextNodeToEvaluate!!.nextPreorderNode()
-
-                emptyMatches = response.responses.filter { it.matches.isNotEmpty() }.isEmpty()
-            }
-
-            if (response.hasMatch && !emptyMatches) {
-                matches.add(response.responses.maxBy { it.matches.size }?.matches!!)
-            }
+        while (match != null) {
+            matches.add(match)
+            match = getNextMatch()
         }
-        nextNodeToEvaluate = tree.root
-
         return matches
     }
 
