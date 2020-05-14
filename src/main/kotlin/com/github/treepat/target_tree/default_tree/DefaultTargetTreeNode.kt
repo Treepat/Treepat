@@ -91,6 +91,12 @@ class DefaultTargetTreeNode(
         return MatchedResponse(str, currentIndex)
     }
 
+    override fun getRoot(): DefaultTargetTreeNode {
+        if (parent == null)
+            return this
+        return parent!!.getRoot()
+    }
+
     override fun toString(): String {
         var str = "$name:$tag"
         if (children.isNotEmpty()) {

@@ -1,6 +1,7 @@
 
 import com.github.treepat.expression.TreepatExpression
-import com.github.treepat.match_manager.MatchManager
+import com.github.treepat.extensions.matchToString
+import com.github.treepat.target_tree.MatchManager
 import com.github.treepat.target_tree.default_tree.DefaultTargetTree
 import javax.swing.JFrame
 import javax.swing.JPanel
@@ -26,10 +27,10 @@ object Main {
         if (match == null) {
             print("Match not found")
         } else {
-            print(manager.matchToString(match))
+            print(match.matchToString())
             match = manager.getNextMatch()
             while (match != null) {
-                print("\n-\n" + manager.matchToString(match))
+                print("\n-\n" + match.matchToString())
                 match = manager.getNextMatch()
             }
         }

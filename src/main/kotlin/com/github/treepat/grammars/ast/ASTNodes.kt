@@ -7,11 +7,6 @@ const val END_LINE_STRING = "\n"
 const val DOT = "."
 
 @Deprecated("This class is not longer used and right now is not needed.")
-data class Treepat(val subtree: ASTNode) : ASTNode {
-    override fun toString(): String = "$subtree"
-}
-
-@Deprecated("This class is not longer used and right now is not needed.")
 data class Check(val expression: ASTNode) : ASTNode {
     override fun toString(): String = "$expression"
 }

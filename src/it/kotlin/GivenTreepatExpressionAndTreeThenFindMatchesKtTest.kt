@@ -1,20 +1,9 @@
-import com.github.treepat.grammars.antlr.tree_format.TreeFormatVisitorImplementation
-import com.github.treepat.grammars.antlr.treepat.TreepatVisitorImplementation
-import com.github.treepat.grammars.ast.ASTNode
 import kotlin.test.assertEquals
-import com.github.treepat.expression.operators.createVisitorFunction
 import org.antlr.v4.runtime.CharStreams
-import org.antlr.v4.runtime.CommonTokenStream
-import org.antlr.v4.runtime.tree.ParseTree
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.TestFactory
-import com.github.treepat.target_tree.TargetTreeNode
-import antlr.tree_format.TreeFormatLexer
-import antlr.tree_format.TreeFormatParser
-import antlr.treepat.TreepatLexer
-import antlr.treepat.TreepatParser
+import com.github.treepat.extensions.matchToString
 import com.github.treepat.expression.TreepatExpression
-import com.github.treepat.match_manager.MatchManager
 import com.github.treepat.target_tree.default_tree.DefaultTargetTree
 import java.io.File
 
@@ -33,14 +22,13 @@ internal class GivenTreepatExpressionAndTreeThenFindMatchesKtTest {
             val treepatExpression = TreepatExpression.createFromString(treepatAntlrString)
             // Tree File Parsing
             val targetTree = DefaultTargetTree.createFromString(treeAntlrString)
-            // Match Manager
-            val manager = MatchManager(treepatExpression, targetTree)
-            val matches = manager.getAllMatches()
+
+            val matches = targetTree.findMatches(treepatExpression)
 
             val printableMatches: List<String>
 
             if (matches != null) {
-                printableMatches = matches.map{manager.matchToString(it)}
+                printableMatches = matches.map{ it.matchToString() }
             } else {
                 printableMatches = listOf("Match not found")
             }

@@ -1,8 +1,6 @@
-package com.github.treepat.match_manager
+package com.github.treepat.target_tree
 
 import com.github.treepat.expression.TreepatExpression
-import com.github.treepat.target_tree.TargetTree
-import com.github.treepat.target_tree.TargetTreeNode
 
 class MatchManager(private val expression: TreepatExpression, private val tree: TargetTree) {
 
@@ -21,13 +19,13 @@ class MatchManager(private val expression: TreepatExpression, private val tree: 
         var response = expression.executeExpression(nextNodeToEvaluate)
 
         this.nextNodeToEvaluate = nextNodeToEvaluate!!.nextPreorderNode()
-        var emptyMatches = response.responses.filter { it.matches.isNotEmpty() }.isEmpty()
+        var emptyMatches = response.responses.none { it.matches.isNotEmpty() }
 
         while ((!response.hasMatch || emptyMatches) && nextNodeToEvaluate != null) {
             response = expression.executeExpression(nextNodeToEvaluate)
             nextNodeToEvaluate = nextNodeToEvaluate!!.nextPreorderNode()
 
-            emptyMatches = response.responses.filter { it.matches.isNotEmpty() }.isEmpty()
+            emptyMatches = response.responses.none { it.matches.isNotEmpty() }
         }
 
         var foundResponse: List<TargetTreeNode>? = null
@@ -50,9 +48,5 @@ class MatchManager(private val expression: TreepatExpression, private val tree: 
             match = getNextMatch()
         }
         return matches
-    }
-
-    fun matchToString(match: List<TargetTreeNode>): String {
-        return tree.root!!.matchedNodesString(match)
     }
 }
