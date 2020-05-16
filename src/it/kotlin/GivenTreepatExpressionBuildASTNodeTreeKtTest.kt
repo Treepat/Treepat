@@ -13,13 +13,13 @@ import antlr.treepat.TreepatParser
  */
 internal class GivenTreepatExpressionBuildASTNodeTreeKtTest {
 
-    private val resourcesLocation = "./src/it/resources/grammar.ast/"
+    private val resourcesLocation = "./src/it/resources/ast/"
 
     private fun createParserTree(inputAntlrString: String): ParseTree {
         val lexer = TreepatLexer(CharStreams.fromString(inputAntlrString))
         val tokenStream = CommonTokenStream(lexer)
         val parser = TreepatParser(tokenStream)
-        return parser.treepat()
+        return parser.subtree()
     }
 
     private val runTest: TestFunction = { inputAntlrString, output, error ->

@@ -8,14 +8,12 @@ import com.github.treepat.grammars.ast.DepthTerm
 import com.github.treepat.grammars.ast.Dot
 import com.github.treepat.grammars.ast.Node
 import com.github.treepat.grammars.ast.Sibling
-import com.github.treepat.grammars.ast.Treepat
 import com.github.treepat.grammars.ast.Union
 import com.github.treepat.target_tree.TargetTreeNode
 
 typealias VisitorFunction = (TargetTreeNode?) -> VisitorFunctionResponse
 
 fun createVisitorFunction(node: ASTNode): VisitorFunction = when (node) {
-    is Treepat -> treepatFunction(createVisitorFunction(node.subtree))
     is Child -> childFunction(createVisitorFunction(node.father), createVisitorFunction(node.child))
     is Node -> nodeFunction(node.name)
     is Sibling -> siblingFunction(createVisitorFunction(node.firstSiblings), createVisitorFunction(node.secondSibling))

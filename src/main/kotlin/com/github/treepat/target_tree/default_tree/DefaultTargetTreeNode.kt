@@ -11,20 +11,31 @@ class DefaultTargetTreeNode(
     override var children: List<TargetTreeNode> = mutableListOf()
 ) : TargetTreeNode, Comparable<DefaultTargetTreeNode> {
 
-    var parent: TargetTreeNode? = null
+    var posAsChild: Int = -1
+    var parent: DefaultTargetTreeNode? = null
 
-    override fun moveToRightSibling(): TargetTreeNode? = (parent as? DefaultTargetTreeNode)?.getRightSibling(this)
+    override fun moveToRightSibling(): TargetTreeNode? {
+        if (posAsChild != -1 && posAsChild + 1 < parent?.children!!.size) {
+            return this.parent?.children!![posAsChild + 1]
+        }
+        return null
+    }
 
-    override fun moveToLeftSibling(): TargetTreeNode? = (parent as? DefaultTargetTreeNode)?.getLeftSibling(this)
+    override fun moveToLeftSibling(): TargetTreeNode? {
+        if (posAsChild > 0) {
+            return this.parent?.children!![posAsChild - 1]
+        }
+        return null
+    }
 
     override fun moveToParent(): TargetTreeNode? = parent
 
     override fun moveToFirstChild(): TargetTreeNode? = children.firstOrNull()
 
     override fun matchedNodesString(selectedNodes: List<TargetTreeNode>): String =
-        matchedNodesString(selectedNodes.sortedBy { it.id }, 0, Int.MAX_VALUE).matchedString
+        matchedNodesString(selectedNodes.sortedBy { it.id }, 0, Int.MAX_VALUE).matchedString.trimIndent()
 
-    override fun nextLeftmostPreorderNode(): TargetTreeNode? {
+    override fun nextPreorderNode(): TargetTreeNode? {
         if (children.isNotEmpty()) {
             return children.first()
         }
@@ -40,7 +51,7 @@ class DefaultTargetTreeNode(
     }
 
     private fun nextUpwardPreorderNode(): TargetTreeNode? {
-        return (parent as DefaultTargetTreeNode?)?.nextSiblingLeftmostChild()
+        return parent?.nextSiblingLeftmostChild()
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -80,6 +91,12 @@ class DefaultTargetTreeNode(
         return MatchedResponse(str, currentIndex)
     }
 
+    override fun getRoot(): DefaultTargetTreeNode {
+        if (parent == null)
+            return this
+        return parent!!.getRoot()
+    }
+
     override fun toString(): String {
         var str = "$name:$tag"
         if (children.isNotEmpty()) {
@@ -89,28 +106,6 @@ class DefaultTargetTreeNode(
             )
         }
         return str
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    private fun getRightSibling(son: TargetTreeNode): TargetTreeNode? {
-        if (children.isNotEmpty()) {
-            val index = (children as List<DefaultTargetTreeNode>).binarySearch(son as DefaultTargetTreeNode)
-            if (index >= 0 && index + 1 < children.size) {
-                return children[index + 1]
-            }
-        }
-        return null
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    private fun getLeftSibling(son: TargetTreeNode): TargetTreeNode? {
-        if (children.isNotEmpty()) {
-            val index = (children as List<DefaultTargetTreeNode>).binarySearch(son as DefaultTargetTreeNode)
-            if (index > 0) {
-                return children[index - 1]
-            }
-        }
-        return null
     }
 
     companion object {

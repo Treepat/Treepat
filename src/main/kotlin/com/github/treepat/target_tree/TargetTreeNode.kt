@@ -11,7 +11,8 @@ interface TargetTreeNode {
     fun moveToParent(): TargetTreeNode?
     fun moveToFirstChild(): TargetTreeNode?
     fun matchedNodesString(selectedNodes: List<TargetTreeNode>): String
-    fun nextLeftmostPreorderNode(): TargetTreeNode?
+    fun nextPreorderNode(): TargetTreeNode?
+    fun getRoot(): TargetTreeNode
 
     override fun toString(): String
 }

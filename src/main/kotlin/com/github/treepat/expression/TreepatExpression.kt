@@ -20,7 +20,17 @@ class TreepatExpression(val expression: VisitorFunction) {
             val lexer = TreepatLexer(CharStreams.fromFileName(treepatFilePath))
             val tokenStream = CommonTokenStream(lexer)
             val treepatParser = TreepatParser(tokenStream)
-            val tree: ParseTree = treepatParser.treepat()
+            val tree: ParseTree = treepatParser.subtree()
+            val treepatVisitor = TreepatVisitorImplementation()
+            val astRoot: ASTNode = treepatVisitor.visit(tree)
+            return TreepatExpression(createVisitorFunction(astRoot))
+        }
+
+        fun createFromString(treepatString: String): TreepatExpression {
+            val lexer = TreepatLexer(CharStreams.fromString(treepatString))
+            val tokenStream = CommonTokenStream(lexer)
+            val treepatParser = TreepatParser(tokenStream)
+            val tree: ParseTree = treepatParser.subtree()
             val treepatVisitor = TreepatVisitorImplementation()
             val astRoot: ASTNode = treepatVisitor.visit(tree)
             return TreepatExpression(createVisitorFunction(astRoot))
