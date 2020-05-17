@@ -67,7 +67,7 @@ You can use this project as a part of another project, for this you need to add 
     <groupId>com.github.treepat</groupId>
     <artifactId>Treepat</artifactId>
     <!-- Check the last version in Maven central repository -->
-    <version>1.2.7</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 In this example all the code will be in Kotlin.
@@ -84,7 +84,7 @@ in this case the `args[1]` contain the name of the file that contains
 the tree, for more information of this file read the [wiki](https://github.com/Treepat/Treepat/wiki/Target-Tree-File):
 
 ```kotlin
-val targetTree = DefaultTargetTree<DefaultTargetTreeNode>(args[1])
+val targetTree = DefaultTargetTree.createFromFile(args[1])
 ```
 
 To find the patterns you have to code the method `findMatches` in `TargetTree`, this will return a 
