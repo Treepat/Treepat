@@ -1,23 +1,14 @@
-import expression.TreepatExpression
-import grammars.antlr.tree_format.TreeFormatVisitorImplementation
-import grammars.antlr.treepat.TreepatVisitorImplementation
-import grammars.ast.ASTNode
-import java.nio.file.Paths
+
+import com.github.treepat.expression.TreepatExpression
+import com.github.treepat.extensions.matchToString
+import com.github.treepat.target_tree.MatchManager
+import com.github.treepat.target_tree.default_tree.DefaultTargetTree
 import javax.swing.JFrame
 import javax.swing.JPanel
 import javax.swing.JScrollPane
 import org.antlr.v4.gui.TreeViewer
-import org.antlr.v4.runtime.CharStreams
-import org.antlr.v4.runtime.CommonTokenStream
 import org.antlr.v4.runtime.Parser
 import org.antlr.v4.runtime.tree.ParseTree
-import target_tree.TargetTreeNode
-import target_tree.default_tree.DefaultTargetTree
-import target_tree.default_tree.DefaultTargetTreeNode
-import tree_format.TreeFormatLexer
-import tree_format.TreeFormatParser
-import treepat.TreepatLexer
-import treepat.TreepatParser
 
 object Main {
 
@@ -27,20 +18,22 @@ object Main {
     @JvmStatic
     fun main(args: Array<String>) {
         // Treepat Parsing
-        val treepatExpression = TreepatExpression.createFromFile(Paths.get(args[0]))
+        val treepatExpression = TreepatExpression.createFromFile(args[0])
         // Tree File Parsing
-        val targetTree =
-            DefaultTargetTree<DefaultTargetTreeNode>(Paths.get(args[1]))
-
-        val functionResult = targetTree.findMatchesRaw(treepatExpression)
-
-        val solutions: List<String>
-        solutions = if (functionResult.hasMatch) {
-            functionResult.responses.map { targetTree.root?.matchedNodesString(it.matches)?.trimIndent() ?: "" }
+        val targetTree = DefaultTargetTree.createFromFile(args[1])
+        // Match Manager
+        val manager = MatchManager(treepatExpression, targetTree)
+        var match = manager.getNextMatch()
+        if (match == null) {
+            print("Match not found")
         } else {
-            listOf("Match not found")
+            print(match.matchToString())
+            match = manager.getNextMatch()
+            while (match != null) {
+                print("\n-\n" + match.matchToString())
+                match = manager.getNextMatch()
+            }
         }
-        print(solutions.joinToString("\n-\n"))
     }
 
     private fun showASTNodeFrame(parser: Parser, tree: ParseTree) {
@@ -57,29 +50,5 @@ object Main {
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         frame.pack()
         frame.isVisible = true
-    }
-
-    private fun parseTreeFile(fileName: String): TargetTreeNode {
-        val lexer = TreeFormatLexer(CharStreams.fromFileName(fileName))
-        val tokenStream = CommonTokenStream(lexer)
-        val fileParser = TreeFormatParser(tokenStream)
-        val tree: ParseTree = fileParser.subtree()
-        val treeVisitor = TreeFormatVisitorImplementation()
-
-        showASTNodeFrame(fileParser, tree)
-
-        return treeVisitor.visit(tree)
-    }
-
-    private fun parseTreepat(fileName: String): ASTNode {
-        val lexer = TreepatLexer(CharStreams.fromFileName(fileName))
-        val tokenStream = CommonTokenStream(lexer)
-        val treepatParser = TreepatParser(tokenStream)
-        val tree: ParseTree = treepatParser.treepat()
-        val treepatVisitor = TreepatVisitorImplementation()
-
-        showASTNodeFrame(treepatParser, tree)
-
-        return treepatVisitor.visit(tree)
     }
 }
